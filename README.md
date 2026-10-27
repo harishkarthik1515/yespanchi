@@ -47,3 +47,5 @@ Copy `.env.example` → `.env.local` and set `NEXT_PUBLIC_SITE_URL` (used for ca
 ## Deploy
 
 Works on Vercel out of the box, or any Node host (`npm run build && npm start`).
+
+On Vercel, set `NEXT_PUBLIC_SITE_URL` to the production domain under Project → Settings → Environment Variables. Every push to `main` redeploys.
