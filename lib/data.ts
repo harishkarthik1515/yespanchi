@@ -14,17 +14,20 @@ export type Product = {
   description: string;
   icon: IconName;
   builtFor: string[];
-  coreTechnologies: string[];
-  overview: string[];
-  challenge: { title: string; lead: string; body: string };
-  pillars: { title: string; text: string }[];
+  /** External product — links out to its own site instead of an in-site detail page (e.g. QSecura PQ-SSL at qsecura.com). */
+  externalUrl?: string;
+  logo?: string;
+  coreTechnologies?: string[];
+  overview?: string[];
+  challenge?: { title: string; lead: string; body: string };
+  pillars?: { title: string; text: string }[];
   workflow?: { title: string; text: string }[];
-  keyFeatures: { title: string; text: string }[];
-  businessValue: { title: string; text: string }[];
-  useCases: { industry: string; text: string }[];
-  techStack: string;
+  keyFeatures?: { title: string; text: string }[];
+  businessValue?: { title: string; text: string }[];
+  useCases?: { industry: string; text: string }[];
+  techStack?: string;
   comparisonTable?: { headers: [string, string, string]; rows: [string, string, string][] };
-  ctaLine: string;
+  ctaLine?: string;
 };
 
 export const products: Product[] = [
@@ -164,71 +167,16 @@ export const products: Product[] = [
     ctaLine: 'Bring AI models, agents, tools, and workflows into one governed operating environment with YP-RAKSHA.'
   },
   {
-    slug: 'ai-guardrails',
-    name: 'AI Guardrails',
-    tag: 'AI Security & Governance',
-    short: 'Runtime security & governance for autonomous AI agents',
+    slug: 'qsecura-pq-ssl',
+    name: 'QSecura PQ-SSL',
+    tag: 'Post-Quantum Security',
+    short: 'Quantum-safe security for digital infrastructure',
     description:
-      'AI Guardrails secures autonomous multi-agent systems with runtime governance, verified delegation, privileged tool controls, dynamic risk enforcement, and end-to-end auditability.',
-    icon: 'rail',
-    builtFor: ['AI platform & security teams', 'Risk & compliance teams', 'Enterprises running autonomous multi-agent systems'],
-    coreTechnologies: [
-      'AI Identity & Access Management (AI IAM)',
-      'Agent-to-Agent Trust Verification',
-      'Runtime Risk Assessment Engine',
-      'Tool Execution Security Firewall',
-      'Decision Causality & Audit Graphs',
-      'Model Context Protocol (MCP)',
-      'Python, Rust, and C++',
-      'OpenTelemetry (OTLP) Audit Tracing'
-    ],
-    overview: [
-      'AI Guardrails is an AI security and governance platform designed to control how autonomous agents communicate, delegate tasks, access tools, and execute sensitive actions.',
-      'Unlike traditional AI safeguards focused primarily on prompts and generated content, AI Guardrails extends security controls into runtime execution. It evaluates agent identities, delegation permissions, action sensitivity, and applicable policies to help ensure autonomous systems operate within defined boundaries.'
-    ],
-    challenge: {
-      title: 'The Security Challenge',
-      lead: 'Governing AI That Can Act',
-      body: 'Enterprise AI agents increasingly interact with financial systems, databases, customer records, and business-critical applications. Without appropriate runtime controls, compromised agents, manipulated context, or excessive permissions can lead to unauthorized actions, data exposure, and operational disruption. AI Guardrails addresses these risks with centralized agent governance, contextual risk evaluation, controlled tool execution, and traceable decision-making.'
-    },
-    pillars: [
-      { title: 'Agent-to-Agent Trust', text: 'Validate agent identities, delegation requests, authorization scopes, and permissions to help prevent unauthorized task transfers and privilege escalation.' },
-      { title: 'Tool Execution Control', text: 'Intercept sensitive tool calls involving payments, refunds, payroll, database changes, and account privileges. Apply policy-based approvals before authorized actions proceed.' },
-      { title: 'Dynamic Runtime Risk Engine', text: 'Evaluate context, action sensitivity, agent trust, and security policies to determine an appropriate response: Allow, Restrict, Escalate, or Block.' },
-      { title: 'Decision Causality & Replay', text: 'Create traceable execution graphs linking user requests, agent interactions, policy evaluations, tool calls, and outcomes to support security investigations and compliance reviews.' }
-    ],
-    workflow: [
-      { title: 'Verify Agent Identity', text: 'Validate the initiating agent’s identity, trust attributes, permissions, and delegation rights.' },
-      { title: 'Validate Delegation', text: 'Confirm that the receiving agent is authorized to perform the delegated task within the permitted scope.' },
-      { title: 'Enforce Scope Boundaries', text: 'Restrict access to approved data, tools, and operations to help prevent unauthorized privilege expansion.' },
-      { title: 'Assess Runtime Risk', text: 'Evaluate action sensitivity, context, identity, and applicable policies before execution.' },
-      { title: 'Enforce and Record Decisions', text: 'Apply an Allow, Restrict, Escalate, or Block decision and record relevant evidence for traceability and review.' }
-    ],
-    keyFeatures: [
-      { title: 'Agent Identity & Access Management', text: 'Assign identities, permissions, and execution scopes to autonomous agents.' },
-      { title: 'Inter-Agent Trust Verification', text: 'Validate delegation and authorization across multi-agent workflows.' },
-      { title: 'Tool Execution Firewall', text: 'Apply security policies to sensitive actions before execution.' },
-      { title: 'Dynamic Risk Assessment', text: 'Evaluate runtime context and action risk to support adaptive enforcement.' },
-      { title: 'Decision Causality Graphs', text: 'Trace interactions from initial requests through agent decisions and final outcomes.' },
-      { title: 'Continuous AI Governance', text: 'Monitor agent activity, evaluate policy compliance, and enforce configured controls throughout execution.' },
-      { title: 'MCP Security Integration', text: 'Support governance controls for compatible Model Context Protocol tools and services.' },
-      { title: 'Audit Tracing', text: 'Capture structured execution and policy events to support investigation, oversight, and compliance workflows.' }
-    ],
-    businessValue: [
-      { title: 'Safer Autonomous Operations', text: 'Reduce exposure to unauthorized agent actions through identity validation, runtime controls, and policy enforcement.' },
-      { title: 'Zero-Trust AI Architecture', text: 'Apply least-privilege principles and explicit authorization across agent interactions and tool execution.' },
-      { title: 'Greater Audit Transparency', text: 'Improve traceability of AI-driven decisions with structured evidence linking requests, policies, actions, and outcomes.' },
-      { title: 'Scalable AI Governance', text: 'Standardize runtime security controls across enterprise AI agents and workflows while reducing dependence on manual reviews.' }
-    ],
-    useCases: [
-      { industry: 'Banking & Financial Services', text: 'Govern payment workflows, refund approvals, payroll changes, and financial transaction agents.' },
-      { industry: 'Enterprise AI Copilots', text: 'Control CRM updates, customer support actions, ticket resolution, and workflow automation.' },
-      { industry: 'Database & IT Administration', text: 'Govern access provisioning, database modifications, configuration changes, and record deletion.' },
-      { industry: 'Healthcare & Clinical Systems', text: 'Apply access and execution controls to patient data workflows, clinical documentation, and healthcare automation.' },
-      { industry: 'Cybersecurity & Security Operations', text: 'Govern AI-assisted incident response, threat containment, endpoint isolation, and firewall changes.' }
-    ],
-    techStack: 'Agent Identity & Access Management · Runtime Risk Assessment · Tool Execution Security · Decision Causality Graphs · Model Context Protocol (MCP) · Python · Rust · C++ · OpenTelemetry (OTLP)',
-    ctaLine: 'Bring accountability, runtime protection, and trusted execution to autonomous AI systems with AI Guardrails.'
+      'Quantum-safe security readiness for websites, web applications and mobile platforms — built on post-quantum cryptography to keep digital infrastructure protected against emerging quantum computing threats.',
+    icon: 'shield',
+    logo: '/qsecura-shield.png',
+    externalUrl: 'https://qsecura.com',
+    builtFor: ['Websites & web applications', 'Mobile platforms', 'Enterprises preparing for quantum-era threats']
   }
 ];
 
@@ -330,7 +278,7 @@ export const heroStats = [
 export const stats = [
   { value: '5+', label: 'Years of excellence', note: 'Founded in 2021, Chennai' },
   { value: '10', label: 'Core service offerings', note: 'VAPT, ISO 27001, PCI-DSS, cloud security & more' },
-  { value: '3', label: 'Proprietary products', note: 'YP-PRAKAAR, YP-RAKSHA, AI Guardrails' },
+  { value: '3', label: 'Proprietary products', note: 'YP-PRAKAAR, YP-RAKSHA, QSecura PQ-SSL' },
   { value: '12', label: 'Industries served', note: 'Government, enterprise & startups' }
 ];
 
@@ -375,7 +323,7 @@ export const trainingTopics = ['Artificial Intelligence', 'Cyber Security', 'Qua
 
 /* ---------------- Navigation ---------------- */
 export const nav = {
-  products: products.map((p) => ({ name: p.name, sub: p.short, href: `/products/${p.slug}`, icon: p.icon })),
+  products: products.map((p) => ({ name: p.name, sub: p.short, href: p.externalUrl ?? `/products/${p.slug}`, icon: p.icon, external: !!p.externalUrl })),
   services: (['General services', 'Audit services'] as const).map((division) => ({
     title: division,
     items: services.filter((s) => s.division === division).map((s) => ({ name: s.name, href: `/services/${s.slug}`, icon: s.icon }))

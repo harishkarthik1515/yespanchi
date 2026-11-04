@@ -73,7 +73,7 @@ export function ProductShowcase() {
           <span className="self-start rounded-full bg-bronze px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-ink">{p.tag}</span>
           <h3 className="text-[clamp(2.2rem,4vw,3.25rem)] font-extrabold leading-none tracking-[-0.035em]">{p.name}</h3>
           <p className="max-w-xl text-lg font-light text-muted">{p.description}</p>
-          <Link href={`/products/${p.slug}`} className="mt-2 inline-flex self-start rounded-full bg-bronze px-6 py-3.5 font-semibold text-ink hover:bg-bronze-light hover:text-ink">Explore {p.name} →</Link>
+          <Link href={p.externalUrl ?? `/products/${p.slug}`} target={p.externalUrl ? '_blank' : undefined} rel={p.externalUrl ? 'noopener noreferrer' : undefined} className="mt-2 inline-flex self-start rounded-full bg-bronze px-6 py-3.5 font-semibold text-ink hover:bg-bronze-light hover:text-ink">{p.externalUrl ? 'Visit' : 'Explore'} {p.name} →</Link>
         </div>
         <div className="flex min-w-0 flex-1 basis-[300px] flex-col gap-1 rounded-2xl border border-line bg-surface p-6">
           <span className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-dim">Built for</span>

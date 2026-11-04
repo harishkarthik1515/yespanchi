@@ -137,7 +137,7 @@ export default function Header() {
             <ul className="grid gap-1 p-3 sm:grid-cols-2">
               {nav.products.map((p) => (
                 <li key={p.href}>
-                  <Link href={p.href} className="flex items-center gap-3.5 rounded-2xl p-3 hover:bg-raised">
+                  <Link href={p.href} target={p.external ? '_blank' : undefined} rel={p.external ? 'noopener noreferrer' : undefined} className="flex items-center gap-3.5 rounded-2xl p-3 hover:bg-raised">
                     <IconTile name={p.icon} />
                     <span className="flex min-w-0 flex-col">
                       <span className="font-semibold text-cream">{p.name}</span>

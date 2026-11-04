@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { products } from '@/lib/data';
+import { products, type Product } from '@/lib/data';
 import { absoluteUrl } from '@/lib/site';
 import { Button, Container, CtaBand, JsonLd, PageHero, SectionHeading } from '@/components/ui';
 import { IconTile } from '@/components/Icon';
@@ -9,11 +9,11 @@ import { IconTile } from '@/components/Icon';
 type Props = { params: { slug: string } };
 
 export function generateStaticParams() {
-  return products.map((p) => ({ slug: p.slug }));
+  return products.filter((p) => !p.externalUrl).map((p) => ({ slug: p.slug }));
 }
 
 export function generateMetadata({ params }: Props): Metadata {
-  const p = products.find((x) => x.slug === params.slug);
+  const p = products.find((x) => x.slug === params.slug && !x.externalUrl);
   if (!p) return {};
   return {
     title: `${p.name} — ${p.tag}`,
@@ -23,9 +23,12 @@ export function generateMetadata({ params }: Props): Metadata {
   };
 }
 
+type FullProduct = Product & Required<Pick<Product, 'coreTechnologies' | 'overview' | 'challenge' | 'pillars' | 'keyFeatures' | 'businessValue' | 'useCases' | 'techStack' | 'ctaLine'>>;
+
 export default function ProductPage({ params }: Props) {
-  const p = products.find((x) => x.slug === params.slug);
-  if (!p) notFound();
+  const found = products.find((x) => x.slug === params.slug);
+  if (!found || found.externalUrl) notFound();
+  const p = found as FullProduct;
   const related = products.filter((x) => x.slug !== p.slug).slice(0, 2);
   const demo = `/contact?topic=product&item=${encodeURIComponent(p.name)}`;
 

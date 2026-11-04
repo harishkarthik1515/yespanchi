@@ -43,7 +43,7 @@ export function HeroEcosystem() {
             Three products.<br />One mission: <span className="sheen">digital trust.</span>
           </h1>
           <p className="mt-6 max-w-[500px] text-lg text-muted">
-            Quantum-safe cryptography, unified enterprise AI and AI runtime governance — built in-house at IITM Research Park, Chennai.
+            Quantum-safe payment security, unified enterprise AI and quantum-secure SSL — built in-house at IITM Research Park, Chennai.
           </p>
 
           <Link href={`/events/${next.slug}`} className="spotlight group mt-10 block rounded-3xl border border-bronze/40 bg-gradient-to-br from-bronze/15 to-transparent p-6 hover:border-bronze hover:text-cream">
@@ -67,7 +67,8 @@ export function HeroEcosystem() {
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
             {products.map((x, k) => (
               <Link
-                key={x.slug} href={`/products/${x.slug}`}
+                key={x.slug} href={x.externalUrl ?? `/products/${x.slug}`}
+                target={x.externalUrl ? '_blank' : undefined} rel={x.externalUrl ? 'noopener noreferrer' : undefined}
                 onMouseEnter={() => setHover(k)} onFocus={() => setHover(k)}
                 className={`spotlight relative flex aspect-square flex-col justify-between rounded-2xl border p-4 transition-all duration-300 hover:-translate-y-1 hover:text-cream ${k === hover ? 'border-bronze bg-bronze/10 shadow-[0_20px_50px_-20px_rgba(200,30,58,0.3)]' : 'border-line bg-surface/60'}`}
               >

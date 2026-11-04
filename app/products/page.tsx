@@ -5,7 +5,7 @@ import { ProductExplorer } from '@/components/products/ProductExplorer';
 
 export const metadata: Metadata = {
   title: 'Products — Post-Quantum Security, Enterprise AI & AI Governance',
-  description: 'YP-PRAKAAR, YP-RAKSHA and AI Guardrails — purpose-built enterprise platforms advancing quantum-safe security, AI-powered governance and intelligent automation from YesPanchi.',
+  description: 'YP-PRAKAAR, YP-RAKSHA and QSecura PQ-SSL — purpose-built enterprise platforms advancing quantum-safe security, unified enterprise AI and intelligent automation from YesPanchi.',
   alternates: { canonical: '/products' }
 };
 

@@ -40,7 +40,7 @@ const personas: {
     fixes: [
       { name: 'ISO 27001', href: '/services/iso-27001', icon: 'lock' },
       { name: 'YP-RAKSHA', href: '/products/yp-raksha', icon: 'ai' },
-      { name: 'AI Guardrails', href: '/products/ai-guardrails', icon: 'rail' }
+      { name: 'QSecura PQ-SSL', href: 'https://qsecura.com', icon: 'shield' }
     ],
     cta: 'Book a compliance gap assessment', topic: 'iso-27001'
   },
