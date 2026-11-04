@@ -62,11 +62,11 @@ export function AddToCalendar({ title, date, endDate, start, end, location, desc
 type Tile = { caption: string; event: string; date: string; tall?: boolean };
 
 const PATTERNS = [
-  'radial-gradient(circle at 20% 20%, rgba(226,201,163,.35), transparent 55%), linear-gradient(135deg,#3a2c1e,#14110e)',
-  'repeating-linear-gradient(45deg, rgba(176,141,99,.16) 0 2px, transparent 2px 14px), linear-gradient(160deg,#2a231c,#0f0d0b)',
-  'radial-gradient(circle at 80% 30%, rgba(176,141,99,.45), transparent 50%), radial-gradient(circle at 10% 90%, rgba(90,110,120,.35), transparent 50%), #17140f',
+  'radial-gradient(circle at 20% 20%, rgba(230,57,80,.35), transparent 55%), linear-gradient(135deg,#3a2c1e,#14110e)',
+  'repeating-linear-gradient(45deg, rgba(200,30,58,.16) 0 2px, transparent 2px 14px), linear-gradient(160deg,#2a231c,#0f0d0b)',
+  'radial-gradient(circle at 80% 30%, rgba(200,30,58,.45), transparent 50%), radial-gradient(circle at 10% 90%, rgba(90,110,120,.35), transparent 50%), #17140f',
   'linear-gradient(120deg,#6b4f31 0%,#2b2119 45%,#121010 100%)',
-  'radial-gradient(rgba(226,201,163,.22) 1.2px, transparent 1.3px) 0 0/16px 16px, linear-gradient(200deg,#2e2a26,#121110)',
+  'radial-gradient(rgba(230,57,80,.22) 1.2px, transparent 1.3px) 0 0/16px 16px, linear-gradient(200deg,#2e2a26,#121110)',
   'conic-gradient(from 210deg at 70% 40%, #4a3a28, #1b1714, #3b3024, #1b1714)'
 ];
 
@@ -92,9 +92,9 @@ export function MasonryGallery({ items }: { items: Tile[] }) {
           <li key={t.caption} className="mb-4 break-inside-avoid">
             <button onClick={() => setOpen(i)} aria-label={`Open: ${t.caption}`} className={`group relative block w-full overflow-hidden rounded-3xl border border-line text-left ${t.tall ? 'aspect-[3/4]' : 'aspect-[4/3]'}`}>
               <span aria-hidden="true" className="absolute inset-0 transition-transform duration-500 group-hover:scale-105" style={{ background: PATTERNS[i % PATTERNS.length] }} />
-              <span aria-hidden="true" className="absolute right-4 top-4 rounded-full bg-black/40 px-2.5 py-1 font-mono text-[11px] text-[#e2c9a3] backdrop-blur">{String(i + 1).padStart(2, '0')}</span>
+              <span aria-hidden="true" className="absolute right-4 top-4 rounded-full bg-black/40 px-2.5 py-1 font-mono text-[11px] text-[#FF6B81] backdrop-blur">{String(i + 1).padStart(2, '0')}</span>
               <span className="absolute inset-x-0 bottom-0 flex flex-col gap-0.5 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-5 pt-12">
-                <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#e2c9a3]">{t.event}</span>
+                <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#FF6B81]">{t.event}</span>
                 <span className="font-semibold leading-snug text-[#f2ede4]">{t.caption}</span>
                 <span className="text-xs text-[#b5ada2]">{fmt(t.date)}</span>
               </span>

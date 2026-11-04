@@ -92,12 +92,12 @@ export function PageHero({
 export function NetworkBg() {
   return (
     <svg aria-hidden="true" className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.16]" viewBox="0 0 1440 760" preserveAspectRatio="xMidYMid slice">
-      <g stroke="#B5ADA2" strokeWidth="0.8" fill="none">
+      <g stroke="#6E6265" strokeWidth="0.8" fill="none">
         <path d="M40 120 L220 60 L380 180 L560 90 L720 210 L900 120 L1080 230 L1260 110 L1420 200" />
         <path d="M80 360 L220 60 M220 60 L300 420 L380 180 L520 380 L560 90 M720 210 L640 460 L520 380 M900 120 L860 420 L720 210 M1080 230 L1000 480 L860 420 M1260 110 L1180 400 L1080 230 M1420 200 L1340 460 L1180 400" />
         <path d="M80 360 L300 420 L520 380 L640 460 L860 420 L1000 480 L1180 400 L1340 460 M120 680 L300 420 M300 420 L420 640 L640 460 L760 700 L1000 480 L1120 690 L1340 460" />
       </g>
-      <g fill="#E2C9A3">
+      <g fill="#C81E3A">
         {[[220, 60], [380, 180], [560, 90], [720, 210], [900, 120], [1080, 230], [1260, 110], [300, 420], [640, 460], [1000, 480], [1340, 460]].map(([x, y]) => (
           <circle key={`${x}-${y}`} cx={x} cy={y} r="2.5" />
         ))}
@@ -112,12 +112,12 @@ export function CtaBand() {
       <Container>
         <div className="flex flex-wrap items-end justify-between gap-8 rounded-[32px] bg-bronze p-8 text-ink md:p-16">
           <div className="flex max-w-2xl flex-col gap-4">
-            <h2 id="cta-band" className="text-[clamp(2rem,4.2vw,3.5rem)] font-extrabold leading-none tracking-[-0.04em]">Ready to secure your digital future?</h2>
-            <p className="text-lg">Talk to our team about an assessment, a product demo or a training programme.</p>
+            <h2 id="cta-band" className="text-[clamp(2rem,4.2vw,3.5rem)] font-extrabold leading-none tracking-[-0.04em]">Ready to Secure Your Digital Future?</h2>
+            <p className="text-lg">Partner with YesPanchi to strengthen cybersecurity, streamline compliance, and accelerate innovation with AI security, quantum-ready solutions, and enterprise resilience.</p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Button href="/contact" variant="dark">Book a Free Assessment</Button>
-            <Button href="/about" variant="ghost">Learn About Us</Button>
+            <Button href="/contact?topic=assessment" variant="dark">Schedule a Free Security Assessment</Button>
+            <Button href="/about" variant="ghost">Discover YesPanchi</Button>
           </div>
         </div>
       </Container>

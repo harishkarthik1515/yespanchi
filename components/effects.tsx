@@ -44,18 +44,18 @@ export function Plexus({ density = 0.00009, className = '' }: { density?: number
           const b = pts[j];
           const dx = a.x - b.x, dy = a.y - b.y, d = Math.hypot(dx, dy);
           if (d < LINK) {
-            ctx.strokeStyle = `rgba(181,173,162,${(1 - d / LINK) * 0.22})`;
+            ctx.strokeStyle = `rgba(107,95,98,${(1 - d / LINK) * 0.22})`;
             ctx.lineWidth = 0.6;
             ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
           }
         }
         const md = Math.hypot(a.x - mouse.x, a.y - mouse.y);
         if (md < 200) {
-          ctx.strokeStyle = `rgba(226,201,163,${(1 - md / 200) * 0.55})`;
+          ctx.strokeStyle = `rgba(200,30,58,${(1 - md / 200) * 0.45})`;
           ctx.lineWidth = 0.8;
           ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
         }
-        ctx.fillStyle = md < 200 ? '#E2C9A3' : 'rgba(176,141,99,0.75)';
+        ctx.fillStyle = md < 200 ? '#C81E3A' : 'rgba(107,95,98,0.55)';
         ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2); ctx.fill();
       }
     };
@@ -123,7 +123,7 @@ export function TiltBanner({ src, alt, href }: { src: string; alt: string; href:
         rel="noopener noreferrer"
         onPointerMove={onMove}
         onPointerLeave={() => setT({ rx: 0, ry: 0, gx: 50, gy: 50, on: false })}
-        className="group relative block overflow-hidden rounded-[22px] border border-bronze/50 shadow-[0_30px_80px_-20px_rgba(176,141,99,0.35)] transition-transform duration-200 ease-out will-change-transform"
+        className="group relative block overflow-hidden rounded-[22px] border border-bronze/50 shadow-[0_30px_80px_-20px_rgba(200,30,58,0.18)] transition-transform duration-200 ease-out will-change-transform"
         style={{ transform: `rotateX(${t.rx}deg) rotateY(${t.ry}deg)` }}
         aria-label="QSecura PQ-SSL — launching our new product. Visit qsecura.com"
       >
@@ -131,7 +131,7 @@ export function TiltBanner({ src, alt, href }: { src: string; alt: string; href:
         <span
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 transition-opacity duration-300"
-          style={{ opacity: t.on ? 1 : 0, background: `radial-gradient(420px circle at ${t.gx}% ${t.gy}%, rgba(255,236,200,0.18), transparent 45%)` }}
+          style={{ opacity: t.on ? 1 : 0, background: `radial-gradient(420px circle at ${t.gx}% ${t.gy}%, rgba(255,255,255,0.22), transparent 45%)` }}
         />
       </a>
     </div>
@@ -244,7 +244,7 @@ export function CookieConsent() {
   };
   if (!show) return null;
   return (
-    <div role="dialog" aria-label="Cookie preferences" className="fixed bottom-24 right-4 z-[65] w-[min(420px,calc(100vw-32px))] rounded-2xl border border-line2 bg-surface/95 p-5 shadow-[0_20px_60px_rgba(0,0,0,0.6)] backdrop-blur">
+    <div role="dialog" aria-label="Cookie preferences" className="fixed bottom-24 right-4 z-[65] w-[min(420px,calc(100vw-32px))] rounded-2xl border border-line2 bg-surface/95 p-5 shadow-[0_20px_60px_rgba(26,21,23,0.16)] backdrop-blur">
       <p className="text-sm text-muted">We use essential cookies to run this site and optional analytics to improve it. See our <a href="/privacy" className="!text-bronze-light underline">privacy policy</a>.</p>
       <div className="mt-4 flex gap-2">
         <button onClick={() => choose('all')} className="min-h-[44px] flex-1 rounded-full bg-bronze px-4 text-sm font-semibold text-ink">Accept all</button>

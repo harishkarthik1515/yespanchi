@@ -6,7 +6,7 @@ import { Faq } from '@/components/interactive';
 import { Icon } from '@/components/Icon';
 import { OpenNow } from '@/components/contact/OpenNow';
 import { SITE } from '@/lib/site';
-import { contactFaqs, departments, nextSteps } from '@/lib/mock/contact';
+import { contactFaqs, contactInfo, nextSteps } from '@/lib/mock/contact';
 
 export const metadata: Metadata = {
   title: 'Contact Us — Book a Free Security Assessment',
@@ -52,7 +52,7 @@ export default function ContactPage() {
             </Suspense>
           </div>
           <aside className="flex min-w-0 flex-col gap-6">
-            <div className="rounded-3xl border border-line bg-surface p-7 shadow-[0_20px_60px_-30px_rgba(60,40,20,0.25)]">
+            <div className="rounded-3xl border border-line bg-surface p-7 shadow-[0_20px_60px_-30px_rgba(26,21,23,0.1)]">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <p className="text-sm font-semibold uppercase tracking-[0.15em] text-dim">Office hours</p>
                 <OpenNow />
@@ -85,25 +85,21 @@ export default function ContactPage() {
         </Container>
       </section>
 
-      {/* Departments */}
+      {/* Contact information */}
       <section aria-labelledby="teams" className="py-20">
         <Container className="flex flex-col gap-10">
-          <SectionHeading id="teams" eyebrow="Direct lines" title="Talk to the" accent="right team." lead="Skip the queue — reach the people who will actually do the work." />
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {departments.map((d) => (
-              <div key={d.team} className={`spotlight flex flex-col gap-4 rounded-3xl border p-6 ${'urgent' in d && d.urgent ? 'border-red-400/50 bg-red-500/[0.06]' : 'border-line bg-surface'}`}>
-                <div className="flex items-center justify-between">
-                  <span className={`grid h-11 w-11 place-items-center rounded-xl ${'urgent' in d && d.urgent ? 'bg-red-500/15 text-red-400' : 'bg-bronze/15 text-bronze'}`}><Icon name={d.icon} size={20} /></span>
-                  <span className="text-xs text-dim">{d.sla}</span>
-                </div>
+          <SectionHeading id="teams" eyebrow="Get In Touch" title="Contact" accent="Information." lead="Reach us anytime and get the support you need." />
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {contactInfo.map((d) => (
+              <div key={d.title} className="spotlight flex flex-col gap-4 rounded-3xl border border-line bg-surface p-6">
+                <span className="grid h-11 w-11 place-items-center rounded-xl bg-bronze/15 text-bronze"><Icon name={d.icon as 'phone'} size={20} /></span>
                 <div>
-                  <h3 className="text-lg font-bold">{d.team}</h3>
-                  <p className="text-sm text-muted">{d.person} · {d.role}</p>
+                  <h3 className="text-lg font-bold">{d.title}</h3>
+                  {d.lines.map((l) => <p key={l} className="text-sm text-muted">{l}</p>)}
                 </div>
-                <div className="mt-auto flex flex-col gap-1.5 border-t border-line pt-4 text-sm">
-                  <a href={`mailto:${d.email}`} className="inline-flex items-center gap-2"><Icon name="mail" size={14} className="text-bronze" />{d.email}</a>
-                  {d.phone && <a href={`tel:${d.phone.replace(/\s/g, '')}`} className="inline-flex items-center gap-2"><Icon name="phone" size={14} className="text-bronze" />{d.phone}</a>}
-                </div>
+                <a href={d.action.href} {...(d.action.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})} className="mt-auto inline-flex items-center gap-2 border-t border-line pt-4 text-sm font-semibold text-bronze hover:underline">
+                  {d.action.label} <Icon name="arrow" size={14} />
+                </a>
               </div>
             ))}
           </div>

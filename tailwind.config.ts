@@ -15,9 +15,9 @@ const config: Config = {
         muted: 'rgb(var(--c-muted) / <alpha-value>)',
         dim: 'rgb(var(--c-dim) / <alpha-value>)',
         bronze: { DEFAULT: 'rgb(var(--c-bronze) / <alpha-value>)', light: 'rgb(var(--c-bronze-light) / <alpha-value>)', dark: 'rgb(var(--c-bronze-dark) / <alpha-value>)' },
-        paper: '#F7F4EF',
-        sand: '#E6DED2',
-        taupe: '#5A5047'
+        paper: '#FFFFFF',
+        sand: '#F0E8E9',
+        taupe: '#6B5F62'
       },
       fontFamily: {
         sans: ['"Outfit Variable"', 'Outfit', 'system-ui', 'sans-serif'],

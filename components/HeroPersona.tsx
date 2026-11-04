@@ -17,7 +17,7 @@ const personas: {
     risk: 'Card data, payment APIs and RBI audits — and encrypted traffic that can be harvested today and decrypted by quantum computers tomorrow.',
     fixes: [
       { name: 'PCI DSS compliance', href: '/services/pci-dss', icon: 'card' },
-      { name: 'QSecura PQ-SSL', href: '/products/qsecura-pq-ssl', icon: 'shield' },
+      { name: 'YP-PRAKAAR', href: '/products/yp-prakaar', icon: 'shield' },
       { name: 'VAPT for apps & APIs', href: '/services/vapt', icon: 'target' }
     ],
     cta: 'Get a PCI & PQ readiness review', topic: 'pci-dss'
@@ -39,8 +39,8 @@ const personas: {
     risk: 'ISO 27001 evidence, cloud misconfigurations and board-level questions about AI risk — handled by a stretched security team.',
     fixes: [
       { name: 'ISO 27001', href: '/services/iso-27001', icon: 'lock' },
-      { name: 'BoardMind', href: '/products/boardmind', icon: 'board' },
-      { name: 'AI Guardrails', href: '/products/ai-guardrails', icon: 'ai' }
+      { name: 'YP-RAKSHA', href: '/products/yp-raksha', icon: 'ai' },
+      { name: 'AI Guardrails', href: '/products/ai-guardrails', icon: 'rail' }
     ],
     cta: 'Book a compliance gap assessment', topic: 'iso-27001'
   },

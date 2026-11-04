@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { awards, stats, values } from '@/lib/data';
-import { certifications, culture, leadership, milestones, testimonials } from '@/lib/mock/about';
+import { certifications, coreExpertise, culture, differentiators, industries, leadership, milestones, testimonials } from '@/lib/mock/about';
 import { Container, CtaBand, PageHero, SectionHeading } from '@/components/ui';
 import { SectionNav } from '@/components/SectionNav';
 import { Icon } from '@/components/Icon';
@@ -14,8 +14,10 @@ export const metadata: Metadata = {
 
 const subnav = [
   { id: 'mission', label: 'Mission' },
+  { id: 'expertise', label: 'Expertise' },
   { id: 'journey', label: 'Journey' },
   { id: 'team', label: 'Leadership' },
+  { id: 'industries', label: 'Industries' },
   { id: 'values', label: 'Values' },
   { id: 'voices', label: 'Clients' },
   { id: 'awards', label: 'Recognition' }
@@ -29,7 +31,7 @@ export default function AboutPage() {
         eyebrow="Innovation & digital trust"
         title="Architecting the future of enterprise AI,"
         accent="quantum security & digital trust."
-        lead="YesPanchi Tech Services Pvt. Ltd. is an innovation-driven technology enterprise headquartered at IIT Madras Research Park, Chennai — specialising in AI platforms, cybersecurity, post-quantum cryptography and corporate governance."
+        lead="YesPanchi Tech Services Pvt. Ltd. is an innovation-driven technology company headquartered in Chennai, India, specializing in Artificial Intelligence, Enterprise AI Platforms, Cybersecurity, Post-Quantum Cryptography, FinTech Innovation, Digital Transformation, and Corporate Governance."
       >
         <dl className="mt-4 grid max-w-3xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-4">
           {stats.map((s) => (
@@ -46,11 +48,11 @@ export default function AboutPage() {
       {/* Mission — light band, bento */}
       <section aria-labelledby="mission" className="theme-light scroll-mt-16 bg-ink py-24 text-cream">
         <Container className="flex flex-col gap-12">
-          <SectionHeading id="mission" eyebrow="Why we exist" title="Trust is infrastructure." accent="We build it." />
+          <SectionHeading id="mission" eyebrow="Why we exist" title="Founded in 2021," accent="grounded in trust." lead="By integrating intelligent security, automated compliance, robust governance, operational endurance, and business continuity into enterprise ecosystems, we enable businesses to innovate responsibly, manage evolving risks, and build a secure foundation for sustainable growth. We believe the future of technology must be built on more than innovation alone — it must be grounded in security, accountability, and trust." light />
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-12">
             {[
-              { icon: 'eye' as const, title: 'Our Vision', text: 'To become a global leader in intelligent, secure and trusted digital technologies — empowering enterprises with cutting-edge AI, robust cybersecurity and post-quantum innovation.', span: 'sm:col-span-2 lg:col-span-6' },
-              { icon: 'target' as const, title: 'Our Mission', text: 'To build intelligent, secure and future-ready digital ecosystems that let enterprises innovate confidently on secure AI and quantum-safe infrastructure.', span: 'sm:col-span-2 lg:col-span-6' }
+              { icon: 'eye' as const, title: 'Our Vision', text: 'To become a global leader in intelligent, secure, and trusted digital technologies by empowering enterprise organizations with cutting-edge AI, robust cybersecurity, post-quantum innovation, and transparent corporate governance.', span: 'sm:col-span-2 lg:col-span-6' },
+              { icon: 'target' as const, title: 'Our Mission', text: 'To build intelligent, secure, and future-ready digital ecosystems by developing world-class technology platforms that enable enterprises to innovate confidently through secure AI, quantum-safe infrastructure, intelligent automation, and responsible digital transformation.', span: 'sm:col-span-2 lg:col-span-6' }
             ].map((c) => (
               <article key={c.title} className={`flex flex-col gap-5 rounded-3xl border border-line bg-surface p-8 shadow-sm md:p-10 ${c.span}`}>
                 <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-bronze/15 text-bronze"><Icon name={c.icon} size={26} /></span>
@@ -67,6 +69,21 @@ export default function AboutPage() {
             ))}
           </div>
           <p className="text-sm text-dim">Team and retention figures are sample content.</p>
+        </Container>
+      </section>
+
+      {/* Core expertise — dark */}
+      <section aria-labelledby="expertise" className="scroll-mt-16 py-24">
+        <Container className="flex flex-col gap-12">
+          <SectionHeading id="expertise" eyebrow="What we do" title="Our Core" accent="Expertise." lead="Delivering integrated capabilities across Enterprise AI, AI Security, Quantum-Ready Cryptography, Cybersecurity, Automated Compliance, and FinTech Innovation to help organizations operate securely, transform intelligently, and build lasting digital trust." />
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {coreExpertise.map((c) => (
+              <li key={c.title} className="flex flex-col gap-2 rounded-2xl border border-line bg-surface p-6">
+                <h3 className="font-bold">{c.title}</h3>
+                <p className="text-sm text-muted">{c.text}</p>
+              </li>
+            ))}
+          </ul>
         </Container>
       </section>
 
@@ -94,23 +111,46 @@ export default function AboutPage() {
       {/* Leadership — light */}
       <section aria-labelledby="team" className="theme-light scroll-mt-16 bg-ink py-24 text-cream">
         <Container className="flex flex-col gap-12">
-          <SectionHeading id="team" eyebrow="Leadership" title="The people behind" accent="the platform." lead="Practitioners first — auditors, red-teamers, cryptographers and educators." />
+          <SectionHeading id="team" eyebrow="Leadership" title="Our" accent="Leadership." />
           <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {leadership.map((p) => (
-              <li key={p.name} className="flex flex-col gap-5 rounded-3xl border border-line bg-surface p-7 shadow-sm">
-                <div className="flex items-center gap-4">
-                  <Avatar initials={p.initials} />
-                  <div className="min-w-0">
-                    <h3 className="text-lg font-bold">{p.name}</h3>
-                    <p className="text-sm font-semibold text-bronze">{p.role}</p>
-                  </div>
+              <li key={p.name} className="flex items-center gap-4 rounded-3xl border border-line bg-surface p-7 shadow-sm">
+                <Avatar initials={p.initials} />
+                <div className="min-w-0">
+                  <h3 className="text-lg font-bold">{p.name}</h3>
+                  <p className="text-sm font-semibold text-bronze">{p.role}</p>
                 </div>
-                <p className="text-muted">{p.focus}</p>
-                <p className="mt-auto border-t border-line pt-4 text-xs uppercase tracking-[0.14em] text-dim">With YesPanchi since {p.since}</p>
               </li>
             ))}
           </ul>
-          <p className="text-sm text-dim">Team profiles are sample content.</p>
+        </Container>
+      </section>
+
+      {/* Industries — dark */}
+      <section aria-labelledby="industries" className="scroll-mt-16 py-24">
+        <Container className="flex flex-col gap-12">
+          <SectionHeading id="industries" eyebrow="Industry expertise" title="Industries We" accent="Empower." lead="Delivering secure, intelligent, and future-ready technology solutions for regulated industries, critical infrastructure, and enterprises navigating digital transformation." />
+          <ul className="flex flex-wrap gap-2.5">
+            {industries.map((i) => (
+              <li key={i} className="rounded-full border border-line2 bg-raised px-4 py-2 text-sm font-medium">{i}</li>
+            ))}
+          </ul>
+        </Container>
+      </section>
+
+      {/* Differentiators — light */}
+      <section aria-labelledby="differentiators" className="theme-light scroll-mt-16 bg-ink py-24 text-cream">
+        <Container className="flex flex-col gap-12">
+          <SectionHeading id="differentiators" eyebrow="Why YesPanchi?" title="What Sets Our Innovation" accent="and Engineering Apart." light />
+          <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {differentiators.map((d, i) => (
+              <li key={d.title} className="flex flex-col gap-3 rounded-3xl border border-line bg-surface p-7">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-bronze font-bold text-ink">{i + 1}</span>
+                <h3 className="text-lg font-bold">{d.title}</h3>
+                <p className="text-sm text-muted">{d.text}</p>
+              </li>
+            ))}
+          </ol>
         </Container>
       </section>
 
@@ -118,7 +158,7 @@ export default function AboutPage() {
       <section aria-labelledby="values" className="scroll-mt-16 py-24">
         <Container className="grid gap-12 lg:grid-cols-[1fr_1.4fr]">
           <div className="lg:sticky lg:top-24 lg:self-start">
-            <SectionHeading id="values" eyebrow="What drives us" title="Core values" lead="Four principles that shape every engagement, product and classroom." />
+            <SectionHeading id="values" eyebrow="What guides us" title="Our Core Values" lead="The principles that guide our every decision and action." />
           </div>
           <ol className="grid gap-4 sm:grid-cols-2">
             {values.map((v, i) => (

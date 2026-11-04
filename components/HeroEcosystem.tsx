@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { Icon } from '@/components/Icon';
@@ -41,10 +40,10 @@ export function HeroEcosystem() {
         <div className="flex min-w-0 flex-col">
           <p className="font-mono text-xs uppercase tracking-[0.25em] text-bronze">YesPanchi Group of Companies</p>
           <h1 id="hero3-title" className="mt-6 text-[clamp(2.6rem,5.4vw,4.8rem)] font-extrabold leading-[0.95] tracking-[-0.045em]">
-            Six products.<br />One mission: <span className="sheen">digital trust.</span>
+            Three products.<br />One mission: <span className="sheen">digital trust.</span>
           </h1>
           <p className="mt-6 max-w-[500px] text-lg text-muted">
-            Quantum-safe encryption, AI governance, voice AI and unified security — built in-house at IITM Research Park, Chennai.
+            Quantum-safe cryptography, unified enterprise AI and AI runtime governance — built in-house at IITM Research Park, Chennai.
           </p>
 
           <Link href={`/events/${next.slug}`} className="spotlight group mt-10 block rounded-3xl border border-bronze/40 bg-gradient-to-br from-bronze/15 to-transparent p-6 hover:border-bronze hover:text-cream">
@@ -70,13 +69,10 @@ export function HeroEcosystem() {
               <Link
                 key={x.slug} href={`/products/${x.slug}`}
                 onMouseEnter={() => setHover(k)} onFocus={() => setHover(k)}
-                className={`spotlight relative flex aspect-square flex-col justify-between rounded-2xl border p-4 transition-all duration-300 hover:-translate-y-1 hover:text-cream ${k === hover ? 'border-bronze bg-bronze/10 shadow-[0_20px_50px_-20px_rgba(176,141,99,0.6)]' : 'border-line bg-surface/60'}`}
+                className={`spotlight relative flex aspect-square flex-col justify-between rounded-2xl border p-4 transition-all duration-300 hover:-translate-y-1 hover:text-cream ${k === hover ? 'border-bronze bg-bronze/10 shadow-[0_20px_50px_-20px_rgba(200,30,58,0.3)]' : 'border-line bg-surface/60'}`}
               >
                 <span className="flex items-start justify-between">
-                  {x.logo
-                    ? <Image src={x.logo} alt="" width={40} height={40} className="h-10 w-10 object-contain" />
-                    : <span className="grid h-10 w-10 place-items-center rounded-xl bg-bronze/15 text-bronze"><Icon name={x.icon} size={20} /></span>}
-                  {x.isNew && <span className="rounded-full bg-bronze px-2 py-0.5 text-[10px] font-bold uppercase text-ink">New</span>}
+                  <span className="grid h-10 w-10 place-items-center rounded-xl bg-bronze/15 text-bronze"><Icon name={x.icon} size={20} /></span>
                 </span>
                 <span>
                   <span className="block font-bold leading-tight">{x.name}</span>

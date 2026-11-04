@@ -14,7 +14,7 @@ export function CaseStudies() {
         </div>
         <ul className="grid gap-5 lg:grid-cols-3">
           {caseStudies.map((c, i) => (
-            <li key={c.title} data-reveal style={{ ['--d' as string]: `${i * 100}ms` }} className="flex flex-col gap-5 rounded-3xl border border-line bg-surface p-7 shadow-[0_24px_60px_-40px_rgba(60,40,20,.45)]">
+            <li key={c.title} data-reveal style={{ ['--d' as string]: `${i * 100}ms` }} className="flex flex-col gap-5 rounded-3xl border border-line bg-surface p-7 shadow-[0_24px_60px_-40px_rgba(26,21,23,.18)]">
               <span className="w-fit rounded-full bg-raised px-3 py-1 text-xs font-semibold uppercase tracking-wider text-bronze">{c.sector}</span>
               <h3 className="text-[22px] font-bold leading-snug">{c.title}</h3>
               <p className="text-muted">{c.summary}</p>
@@ -76,9 +76,9 @@ function Person({ t, small }: { t: (typeof testimonials)[number]; small?: boolea
 }
 
 const TILE = [
-  'radial-gradient(circle at 80% 20%, rgba(176,141,99,.55), transparent 55%), linear-gradient(135deg,#2a231c,#121010)',
-  'repeating-linear-gradient(135deg, rgba(176,141,99,.22) 0 2px, transparent 2px 12px), linear-gradient(160deg,#3a2c1e,#14110e)',
-  'radial-gradient(rgba(226,201,163,.3) 1.2px, transparent 1.3px) 0 0/14px 14px, linear-gradient(200deg,#4a3a28,#171410)'
+  'radial-gradient(circle at 80% 20%, rgba(200,30,58,.55), transparent 55%), linear-gradient(135deg,#2a231c,#121010)',
+  'repeating-linear-gradient(135deg, rgba(200,30,58,.22) 0 2px, transparent 2px 12px), linear-gradient(160deg,#3a2c1e,#14110e)',
+  'radial-gradient(rgba(230,57,80,.3) 1.2px, transparent 1.3px) 0 0/14px 14px, linear-gradient(200deg,#4a3a28,#171410)'
 ];
 
 export function Insights() {
@@ -92,9 +92,9 @@ export function Insights() {
         <ul className="grid gap-6 md:grid-cols-3">
           {insights.map((a, i) => (
             <li key={a.slug} data-reveal style={{ ['--d' as string]: `${i * 100}ms` }}>
-              <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-surface transition-shadow hover:shadow-[0_24px_60px_-35px_rgba(60,40,20,.5)]">
+              <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-surface transition-shadow hover:shadow-[0_24px_60px_-35px_rgba(26,21,23,.22)]">
                 <div aria-hidden="true" className="relative aspect-[16/9]" style={{ background: TILE[i % TILE.length] }}>
-                  <span className="absolute left-5 top-5 rounded-full bg-black/40 px-3 py-1 text-xs font-semibold text-[#e2c9a3] backdrop-blur">{a.tag}</span>
+                  <span className="absolute left-5 top-5 rounded-full bg-black/40 px-3 py-1 text-xs font-semibold text-[#FF6B81] backdrop-blur">{a.tag}</span>
                 </div>
                 <div className="flex flex-1 flex-col gap-3 p-6">
                   <p className="flex items-center gap-2 text-sm text-dim"><time dateTime={a.date}>{formatDate(a.date)}</time><span aria-hidden="true">·</span>{a.read} min read</p>

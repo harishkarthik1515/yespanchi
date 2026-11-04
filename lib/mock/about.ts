@@ -1,13 +1,41 @@
-// SAMPLE — fictional placeholder content for the About page. Replace with verified data before launch.
-export type Leader = { name: string; role: string; focus: string; initials: string; since: string };
+export type Leader = { name: string; role: string; initials: string };
 
-export const leadership: Leader[] = [ // SAMPLE
-  { name: 'Meenakshi Raghavan', role: 'Founder & CEO', focus: 'Cyber governance, board advisory', initials: 'MR', since: '2021' },
-  { name: 'Arvind Subramanian', role: 'Chief Technology Officer', focus: 'Post-quantum cryptography, PKI', initials: 'AS', since: '2021' },
-  { name: 'Priya Venkatesh', role: 'Head of Audit & Compliance', focus: 'ISO 27001 Lead Auditor, PCI DSS', initials: 'PV', since: '2022' },
-  { name: 'Karthik Narayanan', role: 'Lead, Offensive Security', focus: 'OSCP, red teaming, cloud VAPT', initials: 'KN', since: '2022' },
-  { name: 'Divya Krishnamurthy', role: 'Head of AI Products', focus: 'LLM guardrails, voice AI', initials: 'DK', since: '2023' },
-  { name: 'Rahul Iyer', role: 'Director, Training & Partnerships', focus: 'Academic MoUs, corporate L&D', initials: 'RI', since: '2023' }
+/* Real leadership — the source document lists only two names and two roles
+   ("Panchi S | Paraman Pachaimuthu | CTO | CBO") with no further detail, so
+   no focus area, tenure or bio is included here. Paired in the order given. */
+export const leadership: Leader[] = [
+  { name: 'Panchi S', role: 'CTO', initials: 'PS' },
+  { name: 'Paraman Pachaimuthu', role: 'CBO', initials: 'PP' }
+];
+
+/* "Our Core Expertise" — About page */
+export const coreExpertise = [
+  { title: 'Artificial Intelligence & Agentic AI', text: 'Designing autonomous AI agents, multi-agent LLM systems, intelligent workflow orchestration, and generative AI solutions that streamline complex enterprise operations.' },
+  { title: 'Enterprise AI Platforms', text: 'Building production-ready enterprise AI infrastructure with private LLM integration, retrieval-augmented generation (RAG), vector search, and scalable AI deployment.' },
+  { title: 'AI Governance & Responsible AI', text: 'Enabling responsible AI adoption through auditable governance frameworks, model risk management, bias monitoring, data privacy controls, and regulatory compliance.' },
+  { title: 'Quantum Computing & Post-Quantum Security', text: 'Preparing enterprises for the quantum era with post-quantum cryptography (PQC), NIST-standard ML-KEM and ML-DSA implementations, and cryptographic migration strategies designed to mitigate future quantum threats.' },
+  { title: 'Cybersecurity & Digital Trust', text: 'Strengthening enterprise security through threat intelligence, Zero Trust architecture, vulnerability assessment and penetration testing (VAPT), security operations, and incident response.' },
+  { title: 'Banking & FinTech Solutions', text: 'Modernizing financial technology with secure payment processing, ISO 20022 integration, fraud detection, payment security, and core banking transformation.' },
+  { title: 'Enterprise Digital Transformation', text: 'Accelerating business modernization through cloud migration, microservices architecture, legacy system modernization, and intelligent business process automation.' },
+  { title: 'Corporate Governance Platforms', text: 'Streamlining corporate governance with board meeting automation, regulatory compliance tracking, audit management, and centralized governance workflows.' },
+  { title: 'Technology Consulting & Training', text: 'Empowering organizations through strategic technology advisory, executive cybersecurity programs, AI upskilling, and specialized engineering training across emerging technologies.' }
+];
+
+/* "Industries We Empower" — About page */
+export const industries = [
+  'Banking & Financial Services', 'FinTech & Digital Payments', 'Government & Public Sector',
+  'Healthcare & Medical Technology', 'Manufacturing & Industry 4.0', 'Insurance & InsurTech',
+  'Telecommunications & Connectivity', 'Retail & E-Commerce', 'Logistics & Supply Chain',
+  'Enterprise IT & AIOps', 'Energy & Utilities', 'Education & Research'
+];
+
+/* "What Sets Our Innovation and Engineering Apart" — About page */
+export const differentiators = [
+  { title: 'Integrated Technology Expertise', text: 'A comprehensive portfolio spanning Enterprise AI, Agentic AI, Post-Quantum Cryptography, Cybersecurity, and Digital Transformation.' },
+  { title: 'Security-First Engineering', text: 'Enterprise-grade platforms built with security, governance, regulatory compliance, and operational resilience embedded by design.' },
+  { title: 'Deep Industry Understanding', text: 'Specialized technology capabilities aligned with the complex security, compliance, and operational demands of banking, financial services, and regulated industries.' },
+  { title: 'End-to-End Technology Partnership', text: 'Full-lifecycle capabilities spanning strategic consulting, product engineering, implementation, managed services, and executive technology training.' },
+  { title: 'Collaborative Innovation', text: 'A commitment to advancing technology through strategic collaborations, research partnerships, and engagement with academia, technology innovators, and industry ecosystems.' }
 ];
 
 export const milestones = [ // SAMPLE

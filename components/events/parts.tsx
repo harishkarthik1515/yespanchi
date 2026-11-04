@@ -32,10 +32,10 @@ export function DateBadge({ iso, size = 'md' }: { iso: string; size?: 'md' | 'lg
 }
 
 export function Avatar({ name, size = 48 }: { name: string; size?: number }) {
-  // deterministic warm hue per name
-  const h = [...name].reduce((a, c) => a + c.charCodeAt(0), 0) % 40;
+  // deterministic crimson hue per name
+  const h = [...name].reduce((a, c) => a + c.charCodeAt(0), 0) % 20;
   return (
-    <span aria-hidden="true" className="flex flex-none items-center justify-center rounded-full font-bold text-[#1a140e]" style={{ width: size, height: size, fontSize: size * 0.36, background: `linear-gradient(135deg, hsl(${20 + h} 45% 72%), hsl(${28 + h} 38% 52%))` }}>
+    <span aria-hidden="true" className="flex flex-none items-center justify-center rounded-full font-bold text-white" style={{ width: size, height: size, fontSize: size * 0.36, background: `linear-gradient(135deg, hsl(${345 + h} 68% 62%), hsl(${340 + h} 60% 42%))` }}>
       {initials(name)}
     </span>
   );

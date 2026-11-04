@@ -85,7 +85,7 @@ export function DotField({ gap = 26 }: { gap?: number }) {
           const push = Math.min(1, Math.hypot(d.x - d.ox, d.y - d.oy) / 18);
           const near = dist < R * 1.4 ? 1 - dist / (R * 1.4) : 0;
           const a = 0.12 + wave * 0.18 + near * 0.6;
-          ctx.fillStyle = near > 0.05 || push > 0.1 ? `rgba(226,201,163,${Math.min(1, a + push * 0.3)})` : `rgba(181,173,162,${a})`;
+          ctx.fillStyle = near > 0.05 || push > 0.1 ? `rgba(200,30,58,${Math.min(1, a + push * 0.3)})` : `rgba(107,95,98,${a})`;
           ctx.beginPath(); ctx.arc(d.x, d.y, 1 + wave * 0.5 + near * 1.3, 0, Math.PI * 2); ctx.fill();
         }
       }
@@ -125,7 +125,7 @@ export function CipherField({ cell = 22 }: { cell?: number }) {
             else if (Math.random() < 0.0015) chars[i] = rand();
             const drift = (Math.sin(c * 0.35 + r * 0.22 - t * 0.0008) + 1) / 2;
             const a = 0.05 + drift * 0.05 + h * 0.85;
-            ctx.fillStyle = h > 0.08 ? `rgba(226,201,163,${a})` : `rgba(181,173,162,${a})`;
+            ctx.fillStyle = h > 0.08 ? `rgba(200,30,58,${a})` : `rgba(107,95,98,${a})`;
             ctx.fillText(chars[i], x, y);
           }
         }

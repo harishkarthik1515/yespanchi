@@ -64,8 +64,8 @@ export default function Header() {
         onKeyDown={(e) => e.key === 'Escape' && setMenu(null)}
         className={`relative mx-auto flex items-center justify-between gap-3 backdrop-blur-xl transition-all duration-300 ${
           tube
-            ? 'max-w-[1120px] rounded-full border border-line2 bg-surface/80 py-2 pl-5 pr-2.5 shadow-[0_12px_40px_rgba(0,0,0,0.5)]'
-            : 'max-w-full border-b border-raised bg-ink px-6 py-3.5 xl:px-[max(24px,calc((100%-1232px)/2))]'
+            ? 'max-w-[1120px] rounded-full border border-line2 bg-surface/95 py-2 pl-5 pr-2.5 shadow-[0_16px_44px_rgba(26,21,23,0.16)]'
+            : 'max-w-full border-b border-transparent bg-ink px-6 py-3.5 xl:px-[max(24px,calc((100%-1232px)/2))]'
         }`}
       >
         <Link href="/" aria-label="YesPanchi — Group of Companies, home" className="flex items-center">
@@ -138,16 +138,9 @@ export default function Header() {
               {nav.products.map((p) => (
                 <li key={p.href}>
                   <Link href={p.href} className="flex items-center gap-3.5 rounded-2xl p-3 hover:bg-raised">
-                    {p.logo ? (
-                      <Image src={p.logo} alt="" width={44} height={44} className="h-11 w-11 flex-none rounded-xl border border-bronze/50 object-cover" />
-                    ) : (
-                      <IconTile name={p.icon} />
-                    )}
+                    <IconTile name={p.icon} />
                     <span className="flex min-w-0 flex-col">
-                      <span className="font-semibold text-cream">
-                        {p.name}
-                        {p.isNew && <span className="ml-2 rounded-full bg-bronze px-2 py-0.5 align-[2px] text-[10px] font-bold uppercase tracking-wider text-ink">New</span>}
-                      </span>
+                      <span className="font-semibold text-cream">{p.name}</span>
                       <span className="text-[13px] text-dim">{p.sub}</span>
                     </span>
                   </Link>
@@ -236,7 +229,7 @@ export default function Header() {
 
 function Panel({ id, width, title, sub, allHref, allLabel, children }: { id: string; width: string; title: string; sub: string; allHref?: string; allLabel?: string; children: React.ReactNode }) {
   return (
-    <div id={id} className={`absolute left-1/2 top-[calc(100%+10px)] -translate-x-1/2 animate-fadeDown rounded-[22px] border border-line bg-surface shadow-[0_24px_60px_rgba(0,0,0,0.55)] ${width}`}>
+    <div id={id} className={`absolute left-1/2 top-[calc(100%+10px)] -translate-x-1/2 animate-fadeDown rounded-[22px] border border-line bg-surface shadow-[0_24px_60px_rgba(26,21,23,0.16)] ${width}`}>
       {/* invisible bridge over the gap so the pointer doesn't "leave" the nav on the way down */}
       <span aria-hidden="true" className="absolute inset-x-0 -top-[14px] h-[14px]" />
       <div className="flex items-center justify-between gap-4 border-b border-line px-6 py-4">

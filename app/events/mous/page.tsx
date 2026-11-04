@@ -26,7 +26,7 @@ export default function MousPage() {
         <Container>
           <ul className="grid gap-5 md:grid-cols-2">
             {mockMous.map((m) => (
-              <li key={m.partner} className="flex flex-col gap-5 rounded-3xl border border-line bg-surface p-6 shadow-[0_20px_50px_-35px_rgba(60,40,20,.4)] md:p-7">
+              <li key={m.partner} className="flex flex-col gap-5 rounded-3xl border border-line bg-surface p-6 shadow-[0_20px_50px_-35px_rgba(26,21,23,0.16)] md:p-7">
                 <div className="flex items-start gap-4">
                   <span aria-hidden="true" className="flex h-14 w-14 flex-none items-center justify-center rounded-2xl bg-raised font-mono text-sm font-bold text-bronze">{m.short}</span>
                   <div className="flex min-w-0 flex-col gap-1">

@@ -82,9 +82,9 @@ function Palette({ onClose }: { onClose: () => void }) {
 
   let lastGroup = '';
   return (
-    <div className="fixed inset-0 z-[80] flex items-start justify-center bg-ink/70 px-4 pt-[12vh] backdrop-blur-sm" onMouseDown={onClose}>
+    <div className="fixed inset-0 z-[80] flex items-start justify-center bg-black/60 px-4 pt-[12vh] backdrop-blur-sm" onMouseDown={onClose}>
       <div role="dialog" aria-modal="true" aria-label="Search the site" onMouseDown={(e) => e.stopPropagation()} onKeyDown={onKey}
-        className="w-full max-w-xl overflow-hidden rounded-2xl border border-line2 bg-surface shadow-[0_40px_120px_rgba(0,0,0,0.7)] animate-[fadeIn_.15s_ease-out]">
+        className="w-full max-w-xl overflow-hidden rounded-2xl border border-line2 bg-surface shadow-[0_40px_120px_rgba(26,21,23,0.3)] animate-[fadeIn_.15s_ease-out]">
         <div className="flex items-center gap-3 border-b border-line px-5">
           <Icon name="search" className="text-bronze" />
           <input

@@ -80,7 +80,7 @@ export default function ContactForm() {
 
   const field = 'w-full rounded-2xl border border-line2 bg-ink px-4 py-3.5 text-cream placeholder:text-dim transition-colors focus:border-bronze focus:outline-none focus:ring-4 focus:ring-bronze/15';
   return (
-    <form onSubmit={submit} noValidate className="flex flex-col gap-6 rounded-3xl border border-line bg-surface p-6 shadow-[0_30px_80px_-40px_rgba(60,40,20,0.35)] md:p-10">
+    <form onSubmit={submit} noValidate className="flex flex-col gap-6 rounded-3xl border border-line bg-surface p-6 shadow-[0_30px_80px_-40px_rgba(26,21,23,0.14)] md:p-10">
       <div>
         <h2 className="text-2xl font-bold tracking-tight">Send us a message</h2>
         <p className="mt-1 text-sm text-muted">Takes about a minute. Fields marked * are required.</p>
@@ -100,17 +100,17 @@ export default function ContactForm() {
         <Field id="name" label="Full name *" error={errors.name}>
           <input id="name" autoComplete="name" value={form.name} onChange={set('name')} className={field} aria-invalid={!!errors.name} aria-describedby={errors.name ? 'name-err' : undefined} />
         </Field>
-        <Field id="email" label="Work email *" error={errors.email}>
+        <Field id="email" label="Company Email *" error={errors.email}>
           <input id="email" type="email" autoComplete="email" value={form.email} onChange={set('email')} className={field} aria-invalid={!!errors.email} aria-describedby={errors.email ? 'email-err' : undefined} />
         </Field>
         <Field id="phone" label="Phone">
           <input id="phone" type="tel" autoComplete="tel" value={form.phone} onChange={set('phone')} className={field} />
         </Field>
-        <Field id="company" label="Organisation">
+        <Field id="company" label="Company">
           <input id="company" autoComplete="organization" value={form.company} onChange={set('company')} className={field} />
         </Field>
         {itemOptions.length > 0 ? (
-          <Field id="item" label="Which one?">
+          <Field id="item" label="Solution">
             <select id="item" value={form.item} onChange={set('item')} className={field}>
               <option value="">Select…</option>
               {itemOptions.map((o) => <option key={o}>{o}</option>)}
@@ -127,7 +127,7 @@ export default function ContactForm() {
       </Field>
       <div>
         <label className="flex items-start gap-3 text-sm text-muted">
-          <input type="checkbox" checked={form.consent} onChange={set('consent')} className="mt-1 h-5 w-5 accent-[#B08D63]" aria-invalid={!!errors.consent} />
+          <input type="checkbox" checked={form.consent} onChange={set('consent')} className="mt-1 h-5 w-5 accent-[#C81E3A]" aria-invalid={!!errors.consent} />
           <span>I agree to YesPanchi processing my details to respond to this enquiry, as described in the <a href="/privacy" className="text-bronze-light underline">privacy policy</a>.</span>
         </label>
         {errors.consent && <p id="consent-err" className="mt-1 text-sm text-red-500">{errors.consent}</p>}

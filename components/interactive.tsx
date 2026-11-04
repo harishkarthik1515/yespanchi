@@ -62,7 +62,7 @@ export function ProductShowcase() {
             role="tab"
             aria-selected={idx === i}
             onClick={() => setI(idx)}
-            className={`min-h-[44px] rounded-full border px-5 py-3 text-[15px] font-semibold transition-colors ${idx === i ? 'border-ink bg-ink text-cream' : 'border-[#D8CFC1] bg-white text-ink hover:border-ink'}`}
+            className={`min-h-[44px] rounded-full border px-5 py-3 text-[15px] font-semibold transition-colors ${idx === i ? 'border-bronze bg-bronze text-white' : 'border-[#DED6D8] bg-white text-cream hover:border-bronze'}`}
           >
             {x.name}
           </button>
@@ -257,14 +257,14 @@ export function GalleryGrid() {
         {gallery.map((cap, i) => (
           <li key={cap}>
             <button onClick={() => setOpen(i)} className="group relative block aspect-[4/3] w-full overflow-hidden rounded-2xl border border-line text-left" style={{ background: tones[i % tones.length] }} aria-label={`Open photo: ${cap}`}>
-              <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center text-bronze/60 transition-transform group-hover:scale-110"><Icon name="photo" size={44} /></span>
-              <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/90 to-transparent p-4 text-sm font-medium">{cap}</span>
+              <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center text-bronze-light/70 transition-transform group-hover:scale-110"><Icon name="photo" size={44} /></span>
+              <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-4 text-sm font-medium text-white">{cap}</span>
             </button>
           </li>
         ))}
       </ul>
       {open !== null && (
-        <div role="dialog" aria-modal="true" aria-label={gallery[open]} className="fixed inset-0 z-[60] flex items-center justify-center bg-ink/90 p-6" onClick={() => setOpen(null)}>
+        <div role="dialog" aria-modal="true" aria-label={gallery[open]} className="fixed inset-0 z-[60] flex items-center justify-center bg-black/85 p-6" onClick={() => setOpen(null)}>
           <div className="relative w-full max-w-3xl" onClick={(e) => e.stopPropagation()}>
             <div className="flex aspect-[16/10] items-center justify-center rounded-3xl border border-line2 bg-surface text-bronze/60"><Icon name="photo" size={72} /></div>
             <p className="mt-4 text-center text-lg">{gallery[open]} <span className="text-dim">— sample image placeholder</span></p>

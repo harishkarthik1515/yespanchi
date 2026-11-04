@@ -29,7 +29,7 @@ export default function EventsPage() {
       {featured && (
         <section aria-labelledby="featured" className="theme-light py-16 md:py-20">
           <Container>
-            <article className="relative grid overflow-hidden rounded-[32px] border border-line bg-surface shadow-[0_30px_80px_-40px_rgba(60,40,20,.35)] lg:grid-cols-[1.4fr_1fr]">
+            <article className="relative grid overflow-hidden rounded-[32px] border border-line bg-surface shadow-[0_30px_80px_-40px_rgba(26,21,23,.14)] lg:grid-cols-[1.4fr_1fr]">
               <div className="flex flex-col gap-5 p-7 md:p-12">
                 <div className="flex flex-wrap items-center gap-3">
                   <span className="rounded-full bg-bronze px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#faf7f2]">Featured</span>

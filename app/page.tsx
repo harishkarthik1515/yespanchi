@@ -52,7 +52,7 @@ export default function HomePage() {
       <section aria-labelledby="services" className="pb-28 pt-8">
         <Container className="flex flex-col gap-12">
           <div data-reveal className="flex flex-wrap items-end justify-between gap-6">
-            <SectionHeading id="services" eyebrow="What we do" title="End-to-end cyber protection," accent="one partner." lead="From threat assessment to digital transformation — we secure, innovate and scale with you." />
+            <SectionHeading id="services" eyebrow="What We Do" title="Turn Cyber Risk into" accent="Business Confidence." lead="From risk management to business evolution, we defend, transform, and strengthen enterprises with advanced cyber defense, AI protection, quantum technologies, intelligent compliance, and strategic resilience." />
             <Link href="/services" className="border-b border-bronze py-3 font-semibold">View all services →</Link>
           </div>
           <div data-reveal><ServicesTabs /></div>
@@ -60,11 +60,11 @@ export default function HomePage() {
       </section>
 
       {/* Products */}
-      <section aria-labelledby="products" className="bg-paper text-ink">
+      <section aria-labelledby="products" className="bg-paper text-cream">
         <Container className="flex flex-col gap-11 py-28">
           <div data-reveal className="flex flex-wrap items-end justify-between gap-6">
-            <SectionHeading light id="products" eyebrow="Innovation stack" title="Our technology" accent="products." lead="Cryptographic security, AI-powered corporate governance and natural voice interfaces — built for the enterprise." />
-            <Link href="/products" className="border-b border-ink py-3 font-semibold !text-ink">Explore all products →</Link>
+            <SectionHeading light id="products" eyebrow="Our Products" title="Intelligent security" accent="solutions." lead="Next-generation cybersecurity, AI security, and quantum-ready platforms designed to protect, empower, and future-proof modern enterprises." />
+            <Link href="/products" className="border-b border-cream py-3 font-semibold !text-cream">Explore all products →</Link>
           </div>
           <div data-reveal><ProductShowcase /></div>
         </Container>
@@ -168,11 +168,11 @@ export default function HomePage() {
           <div data-reveal className="relative flex flex-wrap items-end justify-between gap-10 overflow-hidden rounded-[32px] bg-bronze p-8 text-ink md:p-20">
             <svg aria-hidden="true" className="pointer-events-none absolute -right-16 -top-16 h-80 w-80 text-ink/10" viewBox="0 0 24 24" fill="none"><path d="M12 3 L19 6 V11.5 C19 16 16 19.5 12 21 C8 19.5 5 16 5 11.5 V6 Z" stroke="currentColor" strokeWidth="0.6" /></svg>
             <div className="relative flex min-w-0 flex-[999_1_480px] flex-col gap-4">
-              <h2 id="cta" className="text-[clamp(2.2rem,4.6vw,4rem)] font-extrabold leading-none tracking-[-0.04em]">Ready to secure your digital future?</h2>
-              <p className="max-w-xl text-lg">Join the organisations that trust YesPanchi to protect their infrastructure, stay compliant and innovate securely.</p>
+              <h2 id="cta" className="text-[clamp(2.2rem,4.6vw,4rem)] font-extrabold leading-none tracking-[-0.04em]">Ready to Secure Your Digital Future?</h2>
+              <p className="max-w-xl text-lg">Partner with YesPanchi to strengthen cybersecurity, streamline compliance, and accelerate innovation with AI security, quantum-ready solutions, and enterprise resilience.</p>
               <div className="mt-2 flex flex-wrap gap-3">
-                <Button href="/contact?topic=assessment" variant="dark">Book a Free Assessment</Button>
-                <Button href="/about" variant="ghost">Learn About Us</Button>
+                <Button href="/contact?topic=assessment" variant="dark">Schedule a Free Security Assessment</Button>
+                <Button href="/about" variant="ghost">Discover YesPanchi</Button>
               </div>
             </div>
             <div className="relative flex min-w-0 flex-1 basis-[340px]"><Newsletter /></div>

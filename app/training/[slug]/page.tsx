@@ -101,7 +101,7 @@ export default function ProgramPage({ params }: Props) {
                       </div>
                       <p className="mt-1.5 text-xs text-dim">{k.seats - k.seatsLeft} of {k.seats} seats filled</p>
                     </div>
-                    <Button href={`${enrol}&cohort=${k.start}`} variant="ghost" className="mt-auto">Book this cohort</Button>
+                    <Button href={`${enrol}&cohort=${k.start}`} variant="outline" className="mt-auto">Book this cohort</Button>
                   </li>
                 );
               })}

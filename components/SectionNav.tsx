@@ -40,14 +40,14 @@ export function SectionNav({ items }: { items: { id: string; label: string }[] }
         aria-label="Section progress"
         className={`group fixed right-5 top-1/2 z-40 hidden -translate-y-1/2 transition-all duration-500 xl:block ${show ? 'opacity-100' : 'pointer-events-none translate-x-4 opacity-0'}`}
       >
-        <ul className="flex flex-col items-end gap-1 rounded-full border border-white/10 bg-[#141210]/90 px-2.5 shadow-[0_12px_40px_rgba(0,0,0,0.35)] py-3 backdrop-blur-xl transition-all group-hover:rounded-2xl group-hover:px-3">
+        <ul className="flex flex-col items-end gap-1 rounded-full border border-white/10 bg-[#141210]/90 px-2.5 shadow-[0_12px_40px_rgba(0,0,0,0.25)] py-3 backdrop-blur-xl transition-all group-hover:rounded-2xl group-hover:px-3">
           {items.map((n) => {
             const on = active === n.id;
             return (
               <li key={n.id}>
                 <a href={`#${n.id}`} aria-current={on ? 'true' : undefined} className="flex items-center justify-end gap-3 py-1.5 text-[13px] font-semibold">
-                  <span className={`max-w-0 overflow-hidden whitespace-nowrap transition-all duration-300 group-hover:max-w-[140px] ${on ? 'text-[#E2C9A3]' : 'text-[#B5ADA2]'}`}>{n.label}</span>
-                  <span className={`block rounded-full transition-all duration-300 ${on ? 'h-5 w-1.5 bg-[#B08D63]' : 'h-1.5 w-1.5 bg-[#968C80]'}`} />
+                  <span className={`max-w-0 overflow-hidden whitespace-nowrap transition-all duration-300 group-hover:max-w-[140px] ${on ? 'text-[#FF6B81]' : 'text-[#A79DA0]'}`}>{n.label}</span>
+                  <span className={`block rounded-full transition-all duration-300 ${on ? 'h-5 w-1.5 bg-[#C81E3A]' : 'h-1.5 w-1.5 bg-[#6E6265]'}`} />
                 </a>
               </li>
             );
