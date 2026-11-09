@@ -127,7 +127,13 @@ export default function ContactForm() {
       </Field>
       <div>
         <label className="flex items-start gap-3 text-sm text-muted">
-          <input type="checkbox" checked={form.consent} onChange={set('consent')} className="mt-1 h-5 w-5 accent-[#C81E3A]" aria-invalid={!!errors.consent} />
+          <input
+            type="checkbox"
+            checked={form.consent}
+            onChange={set('consent')}
+            aria-invalid={!!errors.consent}
+            className="mt-0.5 h-5 w-5 flex-none appearance-none rounded-[6px] border-2 border-line3 bg-transparent transition-colors checked:border-accent checked:bg-accent checked:bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22><path d=%22M5 12.5 L10 17.5 L19 7%22 stroke=%22%23141415%22 stroke-width=%223%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/></svg>')] checked:bg-center checked:bg-no-repeat hover:border-accent"
+          />
           <span>I agree to YesPanchi processing my details to respond to this enquiry, as described in the <a href="/privacy" className="text-accent underline">privacy policy</a>.</span>
         </label>
         {errors.consent && <p id="consent-err" className="mt-1 text-sm text-red-500">{errors.consent}</p>}

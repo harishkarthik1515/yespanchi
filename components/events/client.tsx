@@ -62,12 +62,12 @@ export function AddToCalendar({ title, date, endDate, start, end, location, desc
 type Tile = { caption: string; event: string; date: string; tall?: boolean };
 
 const PATTERNS = [
-  'radial-gradient(circle at 20% 20%, rgba(230,57,80,.35), transparent 55%), linear-gradient(135deg,#3a2c1e,#14110e)',
-  'repeating-linear-gradient(45deg, rgba(200,30,58,.16) 0 2px, transparent 2px 14px), linear-gradient(160deg,#2a231c,#0f0d0b)',
-  'radial-gradient(circle at 80% 30%, rgba(200,30,58,.45), transparent 50%), radial-gradient(circle at 10% 90%, rgba(90,110,120,.35), transparent 50%), #17140f',
-  'linear-gradient(120deg,#6b4f31 0%,#2b2119 45%,#121010 100%)',
-  'radial-gradient(rgba(230,57,80,.22) 1.2px, transparent 1.3px) 0 0/16px 16px, linear-gradient(200deg,#2e2a26,#121110)',
-  'conic-gradient(from 210deg at 70% 40%, #4a3a28, #1b1714, #3b3024, #1b1714)'
+  'radial-gradient(circle at 20% 20%, rgb(var(--c-accent) / .38), transparent 55%), linear-gradient(135deg,#241a1c,#121011)',
+  'repeating-linear-gradient(45deg, rgb(var(--c-accent) / .16) 0 2px, transparent 2px 14px), linear-gradient(160deg,#211a1c,#0f0d0e)',
+  'radial-gradient(circle at 80% 30%, rgb(var(--c-accent) / .45), transparent 50%), radial-gradient(circle at 10% 90%, rgba(120,120,135,.22), transparent 50%), #161315',
+  'linear-gradient(120deg,#3d2328 0%,#231a1c 45%,#121011 100%)',
+  'radial-gradient(rgb(var(--c-accent) / .22) 1.2px, transparent 1.3px) 0 0/16px 16px, linear-gradient(200deg,#2a2426,#121011)',
+  'conic-gradient(from 210deg at 70% 40%, #3a2429, #1a1618, #2e2024, #1a1618)'
 ];
 
 export function MasonryGallery({ items }: { items: Tile[] }) {
@@ -92,11 +92,11 @@ export function MasonryGallery({ items }: { items: Tile[] }) {
           <li key={t.caption} className="mb-4 break-inside-avoid">
             <button onClick={() => setOpen(i)} aria-label={`Open: ${t.caption}`} className={`group relative block w-full overflow-hidden rounded-3xl border border-line text-left ${t.tall ? 'aspect-[3/4]' : 'aspect-[4/3]'}`}>
               <span aria-hidden="true" className="absolute inset-0 transition-transform duration-500 group-hover:scale-105" style={{ background: PATTERNS[i % PATTERNS.length] }} />
-              <span aria-hidden="true" className="absolute right-4 top-4 rounded-full bg-black/40 px-2.5 py-1 font-mono text-[11px] text-[#FF6B81] backdrop-blur">{String(i + 1).padStart(2, '0')}</span>
+              <span aria-hidden="true" className="absolute right-4 top-4 rounded-full bg-black/40 px-2.5 py-1 font-mono text-[11px] text-accent backdrop-blur">{String(i + 1).padStart(2, '0')}</span>
               <span className="absolute inset-x-0 bottom-0 flex flex-col gap-0.5 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-5 pt-12">
-                <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#FF6B81]">{t.event}</span>
-                <span className="font-semibold leading-snug text-[#f2ede4]">{t.caption}</span>
-                <span className="text-xs text-[#b5ada2]">{fmt(t.date)}</span>
+                <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-accent">{t.event}</span>
+                <span className="font-semibold leading-snug text-cream">{t.caption}</span>
+                <span className="text-xs text-muted">{fmt(t.date)}</span>
               </span>
             </button>
           </li>
@@ -106,8 +106,8 @@ export function MasonryGallery({ items }: { items: Tile[] }) {
         <div role="dialog" aria-modal="true" aria-label={items[open].caption} className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 p-4 sm:p-6" onClick={() => setOpen(null)}>
           <div className="relative w-full max-w-3xl" onClick={(e) => e.stopPropagation()}>
             <div className="aspect-[16/10] rounded-3xl border border-white/10" style={{ background: PATTERNS[open % PATTERNS.length] }} />
-            <p className="mt-4 text-center text-lg text-[#f2ede4]">{items[open].caption} <span className="block text-sm text-[#b5ada2]">{items[open].event} · {fmt(items[open].date)} · sample placeholder</span></p>
-            <div className="mt-4 flex justify-center gap-3 text-[#f2ede4]">
+            <p className="mt-4 text-center text-lg text-cream">{items[open].caption} <span className="block text-sm text-muted">{items[open].event} · {fmt(items[open].date)} · sample placeholder</span></p>
+            <div className="mt-4 flex justify-center gap-3 text-cream">
               <button className="min-h-[44px] rounded-full border border-white/20 px-5" onClick={() => go(-1)}>← Prev</button>
               <button autoFocus className="min-h-[44px] rounded-full border border-white/20 px-5" onClick={() => setOpen(null)}>Close</button>
               <button className="min-h-[44px] rounded-full border border-white/20 px-5" onClick={() => go(1)}>Next →</button>
