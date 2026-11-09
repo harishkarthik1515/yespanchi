@@ -44,7 +44,7 @@ export function Icon({ name, size = 20, className = '', strokeWidth = 1.7 }: { n
 export function IconTile({ name, size = 'md' }: { name: IconName; size?: 'sm' | 'md' | 'lg' }) {
   const box = size === 'lg' ? 'h-14 w-14 rounded-2xl' : size === 'sm' ? 'h-10 w-10 rounded-[10px]' : 'h-11 w-11 rounded-xl';
   return (
-    <span aria-hidden="true" className={`flex flex-none items-center justify-center border border-line2 bg-raised text-bronze ${box}`}>
+    <span aria-hidden="true" className={`flex flex-none items-center justify-center border border-line2 bg-raised text-accent ${box}`}>
       <Icon name={name} size={size === 'lg' ? 26 : size === 'sm' ? 18 : 22} />
     </span>
   );

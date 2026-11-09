@@ -31,14 +31,14 @@ export default function TrainingPage() {
           {outcomeStats.map((s) => (
             <div key={s.label} className="flex flex-col rounded-2xl border border-line bg-surface/70 p-4 backdrop-blur">
               <dt className="order-2 text-xs text-dim">{s.label}</dt>
-              <dd className="text-2xl font-extrabold tracking-tight text-cream">{s.value}</dd>
+              <dd className="text-2xl font-medium text-cream">{s.value}</dd>
             </div>
           ))}
         </dl>
       </PageHero>
       <div className="overflow-hidden border-b border-raised py-5">
         <ul className="marquee flex w-max animate-marquee gap-10 whitespace-nowrap text-sm font-semibold uppercase tracking-[0.14em] text-muted">
-          {[...trainingTopics, ...trainingTopics].map((t, i) => <li key={i} aria-hidden={i >= trainingTopics.length}>{t} <span className="ml-10 text-bronze">•</span></li>)}
+          {[...trainingTopics, ...trainingTopics].map((t, i) => <li key={i} aria-hidden={i >= trainingTopics.length}>{t} <span className="ml-10 text-accent">•</span></li>)}
         </ul>
       </div>
 
@@ -51,7 +51,7 @@ export default function TrainingPage() {
 
       <section aria-labelledby="cohorts" className="theme-light bg-ink py-20 text-cream md:py-24">
         <Container className="flex flex-col gap-10">
-          <SectionHeading id="cohorts" eyebrow="Calendar" title="Upcoming" accent="cohorts." lead="Seats are capped so every learner gets lab time and instructor attention." light />
+          <SectionHeading id="cohorts" eyebrow="Calendar" title="Upcoming" accent="cohorts." lead="Seats are capped so every learner gets lab time and instructor attention." />
           <ul className="flex flex-col divide-y divide-line overflow-hidden rounded-3xl border border-line bg-surface">
             {upcoming.map((c) => {
               const d = new Date(c.start + 'T00:00:00');
@@ -59,12 +59,12 @@ export default function TrainingPage() {
                 <li key={c.p.slug + c.start}>
                   <Link href={`/training/${c.p.slug}`} className="flex flex-wrap items-center gap-x-6 gap-y-3 p-5 !text-cream hover:bg-raised/60 sm:p-6">
                     <span className="flex w-16 flex-none flex-col items-center rounded-2xl bg-ink py-2 text-center">
-                      <span className="text-xs font-semibold uppercase text-bronze-dark">{d.toLocaleDateString('en-IN', { month: 'short' })}</span>
-                      <span className="text-2xl font-extrabold leading-none">{d.getDate()}</span>
+                      <span className="text-xs font-semibold uppercase text-accent">{d.toLocaleDateString('en-IN', { month: 'short' })}</span>
+                      <span className="text-2xl font-medium leading-none">{d.getDate()}</span>
                       <span className="text-[10px] text-dim">{d.getFullYear()}</span>
                     </span>
                     <span className="min-w-0 flex-1 basis-56">
-                      <span className="block font-bold sm:text-lg">{c.p.title}</span>
+                      <span className="block font-semibold sm:text-lg">{c.p.title}</span>
                       <span className="block text-sm text-muted">{c.schedule} · {c.location}</span>
                     </span>
                     <span className="flex items-center gap-3">
@@ -90,12 +90,12 @@ export default function TrainingPage() {
 
       <section aria-labelledby="voices" className="theme-light bg-ink py-20 text-cream md:py-24">
         <Container className="flex flex-col gap-10">
-          <SectionHeading id="voices" eyebrow="Learner stories" title="What alumni" accent="say." light />
+          <SectionHeading id="voices" eyebrow="Learner stories" title="What alumni" accent="say." />
           <ul className="grid gap-5 md:grid-cols-2">
             {testimonials.map((t) => (
               <li key={t.name}>
                 <figure className="flex h-full flex-col gap-6 rounded-3xl border border-line bg-surface p-7">
-                  <p aria-label="Rated 5 out of 5" className="text-bronze-dark">★★★★★</p>
+                  <p aria-label="Rated 5 out of 5" className="text-accent">★★★★★</p>
                   <blockquote className="text-lg leading-relaxed">“{t.text}”</blockquote>
                   <figcaption className="mt-auto flex items-center gap-3">
                     <Avatar name={t.name} />

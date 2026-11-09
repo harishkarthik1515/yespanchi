@@ -25,7 +25,7 @@ export function ProductExplorer() {
               type="button"
               aria-pressed={active}
               onClick={() => setFilter(f)}
-              className={`inline-flex min-h-[44px] items-center gap-2 rounded-full border px-5 text-sm font-semibold transition-colors ${active ? 'border-bronze bg-bronze text-ink' : 'border-line2 text-muted hover:border-bronze hover:text-cream'}`}
+              className={`inline-flex min-h-[44px] items-center gap-2 rounded-full border px-5 text-sm font-semibold transition-colors ${active ? 'border-accent bg-accent text-ink' : 'border-line2 text-muted hover:border-accent hover:text-cream'}`}
             >
               {f}
               <span className={`rounded-full px-2 py-0.5 text-xs ${active ? 'bg-ink/15' : 'bg-raised'}`}>{count}</span>
@@ -42,18 +42,18 @@ export function ProductExplorer() {
               href={p.externalUrl ?? `/products/${p.slug}`}
               target={p.externalUrl ? '_blank' : undefined}
               rel={p.externalUrl ? 'noopener noreferrer' : undefined}
-              className="group relative flex h-full flex-col gap-4 overflow-hidden rounded-3xl border border-line bg-surface p-7 !text-cream transition-all hover:-translate-y-0.5 hover:border-bronze/60 hover:shadow-[0_24px_60px_-20px_rgba(26,21,23,0.16)]"
+              className="group relative flex h-full flex-col gap-4 overflow-hidden rounded-3xl border border-line bg-surface p-7 !text-cream transition-all hover:-translate-y-0.5 hover:border-accent/60 hover:"
             >
-              <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-bronze/10 blur-3xl transition-opacity group-hover:opacity-100 md:opacity-0" />
+              <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-accent/10 blur-3xl transition-opacity group-hover:opacity-100 md:opacity-0" />
               <div className="relative flex items-start justify-between gap-3">
                 <IconTile name={p.icon} size="lg" />
               </div>
-              <span className="relative text-xs font-semibold uppercase tracking-[0.14em] text-bronze">{p.tag}</span>
-              <h2 className="relative text-[26px] font-extrabold tracking-[-0.025em]">{p.name}</h2>
+              <span className="relative text-xs font-semibold uppercase tracking-[0.14em] text-accent">{p.tag}</span>
+              <h2 className="relative text-[26px] font-medium">{p.name}</h2>
               <p className="relative text-muted">{p.description}</p>
               <div className="relative mt-auto flex items-center justify-between gap-3 border-t border-line pt-4 text-sm">
                 <span className="text-muted">{p.short}</span>
-                <span className="font-semibold text-bronze group-hover:underline">{p.externalUrl ? 'Visit site ↗' : 'Explore →'}</span>
+                <span className="font-semibold text-accent group-hover:underline">{p.externalUrl ? 'Visit site ↗' : 'Explore →'}</span>
               </div>
             </Link>
           </li>

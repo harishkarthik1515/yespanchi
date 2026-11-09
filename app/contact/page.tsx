@@ -30,14 +30,14 @@ export default function ContactPage() {
               key={q.title}
               href={q.href}
               {...(q.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-              className="spotlight group flex items-center gap-4 rounded-2xl border border-line bg-surface/70 p-4 backdrop-blur transition-colors hover:border-bronze hover:text-cream"
+              className="spotlight group flex items-center gap-4 rounded-2xl border border-line bg-surface/70 p-4 backdrop-blur transition-colors hover:border-accent hover:text-cream"
             >
-              <span className="grid h-11 w-11 flex-none place-items-center rounded-xl bg-bronze/15 text-bronze"><Icon name={q.icon} size={20} /></span>
+              <span className="grid h-11 w-11 flex-none place-items-center rounded-xl bg-accent/15 text-accent"><Icon name={q.icon} size={20} /></span>
               <span className="min-w-0">
                 <span className="block truncate font-semibold">{q.title}</span>
                 <span className="text-sm text-dim">{q.text}</span>
               </span>
-              <Icon name="arrow" size={16} className="ml-auto flex-none text-dim transition-transform group-hover:translate-x-1 group-hover:text-bronze" />
+              <Icon name="arrow" size={16} className="ml-auto flex-none text-dim transition-transform group-hover:translate-x-1 group-hover:text-accent" />
             </a>
           ))}
         </div>
@@ -52,7 +52,7 @@ export default function ContactPage() {
             </Suspense>
           </div>
           <aside className="flex min-w-0 flex-col gap-6">
-            <div className="rounded-3xl border border-line bg-surface p-7 shadow-[0_20px_60px_-30px_rgba(26,21,23,0.1)]">
+            <div className="rounded-3xl border border-line bg-surface p-7">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <p className="text-sm font-semibold uppercase tracking-[0.15em] text-dim">Office hours</p>
                 <OpenNow />
@@ -67,7 +67,7 @@ export default function ContactPage() {
                 {nextSteps.map((s, i) => (
                   <li key={s.title} className="relative flex gap-4">
                     {i < nextSteps.length - 1 && <span aria-hidden="true" className="absolute left-[15px] top-9 h-[calc(100%-4px)] w-px bg-line2" />}
-                    <span className="grid h-8 w-8 flex-none place-items-center rounded-full bg-bronze text-sm font-bold text-ink">{i + 1}</span>
+                    <span className="grid h-8 w-8 flex-none place-items-center rounded-full bg-accent text-sm font-semibold text-ink">{i + 1}</span>
                     <span>
                       <span className="block font-semibold">{s.title}</span>
                       <span className="text-sm text-muted">{s.text}</span>
@@ -78,7 +78,7 @@ export default function ContactPage() {
             </div>
 
             <div className="flex items-center gap-4 rounded-3xl border border-line bg-raised p-6">
-              <Icon name="lock" size={22} className="flex-none text-bronze" />
+              <Icon name="lock" size={22} className="flex-none text-accent" />
               <p className="text-sm text-muted">Your details are encrypted in transit and never shared. We’re happy to sign an NDA before you tell us anything sensitive.</p>
             </div>
           </aside>
@@ -92,12 +92,12 @@ export default function ContactPage() {
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {contactInfo.map((d) => (
               <div key={d.title} className="spotlight flex flex-col gap-4 rounded-3xl border border-line bg-surface p-6">
-                <span className="grid h-11 w-11 place-items-center rounded-xl bg-bronze/15 text-bronze"><Icon name={d.icon as 'phone'} size={20} /></span>
+                <span className="grid h-11 w-11 place-items-center rounded-xl bg-accent/15 text-accent"><Icon name={d.icon as 'phone'} size={20} /></span>
                 <div>
-                  <h3 className="text-lg font-bold">{d.title}</h3>
+                  <h3 className="text-lg font-semibold">{d.title}</h3>
                   {d.lines.map((l) => <p key={l} className="text-sm text-muted">{l}</p>)}
                 </div>
-                <a href={d.action.href} {...(d.action.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})} className="mt-auto inline-flex items-center gap-2 border-t border-line pt-4 text-sm font-semibold text-bronze hover:underline">
+                <a href={d.action.href} {...(d.action.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})} className="mt-auto inline-flex items-center gap-2 border-t border-line pt-4 text-sm font-semibold text-accent hover:underline">
                   {d.action.label} <Icon name="arrow" size={14} />
                 </a>
               </div>
@@ -111,17 +111,17 @@ export default function ContactPage() {
         <Container className="grid items-stretch gap-6 lg:grid-cols-[1fr_1.6fr]">
           <div className="flex flex-col gap-6 rounded-3xl border border-line bg-surface p-8">
             <SectionHeading id="visit" eyebrow="Visit us" title="Come say" accent="hello." />
-            <p className="flex items-start gap-3 text-lg"><Icon name="pin" size={20} className="mt-1 flex-none text-bronze" />{SITE.address}</p>
+            <p className="flex items-start gap-3 text-lg"><Icon name="pin" size={20} className="mt-1 flex-none text-accent" />{SITE.address}</p>
             <ul className="flex flex-col gap-3 text-sm text-muted">
-              <li className="flex gap-3"><Icon name="rail" size={16} className="mt-0.5 flex-none text-bronze" />Taramani MRTS station — 6 min walk</li>
-              <li className="flex gap-3"><Icon name="pin" size={16} className="mt-0.5 flex-none text-bronze" />Visitor parking at Gate 2; collect a pass at reception</li>
-              <li className="flex gap-3"><Icon name="clock" size={16} className="mt-0.5 flex-none text-bronze" />Visits by appointment, Mon–Fri</li>
+              <li className="flex gap-3"><Icon name="rail" size={16} className="mt-0.5 flex-none text-accent" />Taramani MRTS station — 6 min walk</li>
+              <li className="flex gap-3"><Icon name="pin" size={16} className="mt-0.5 flex-none text-accent" />Visitor parking at Gate 2; collect a pass at reception</li>
+              <li className="flex gap-3"><Icon name="clock" size={16} className="mt-0.5 flex-none text-accent" />Visits by appointment, Mon–Fri</li>
             </ul>
             <a
               href="https://www.google.com/maps/dir/?api=1&destination=IIT+Madras+Research+Park,+Taramani,+Chennai"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-auto inline-flex min-h-[48px] items-center gap-2 self-start rounded-full bg-bronze px-6 font-semibold text-ink hover:bg-bronze-dark hover:text-ink"
+              className="mt-auto inline-flex min-h-[48px] items-center gap-2 self-start rounded-full bg-accent px-6 font-semibold text-ink hover:bg-accent hover:text-ink"
             >
               <Icon name="pin" size={16} /> Get directions
             </a>

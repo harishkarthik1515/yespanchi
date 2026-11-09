@@ -14,7 +14,7 @@ export function SeatsBadge({ left }: { left: number }) {
 
 export function Avatar({ name, size = 'md' }: { name: string; size?: 'md' | 'lg' }) {
   return (
-    <span aria-hidden="true" className={`flex flex-none items-center justify-center rounded-full bg-gradient-to-br from-bronze-light to-bronze-dark font-bold text-ink ${size === 'lg' ? 'h-16 w-16 text-xl' : 'h-11 w-11 text-sm'}`}>
+    <span aria-hidden="true" className={`flex flex-none items-center justify-center rounded-full bg-gradient-to-br from-accent to-accent font-semibold text-ink ${size === 'lg' ? 'h-16 w-16 text-xl' : 'h-11 w-11 text-sm'}`}>
       {initials(name)}
     </span>
   );
@@ -26,8 +26,8 @@ export function InstructorCard({ i }: { i: Instructor }) {
       <div className="flex items-center gap-4">
         <Avatar name={i.name} size="lg" />
         <div className="min-w-0">
-          <h3 className="text-lg font-bold">{i.name}</h3>
-          <p className="text-sm text-bronze">{i.role}</p>
+          <h3 className="text-lg font-semibold">{i.name}</h3>
+          <p className="text-sm text-accent">{i.role}</p>
         </div>
       </div>
       <p className="text-sm text-muted">{i.bio}</p>
@@ -41,7 +41,7 @@ export function InstructorCard({ i }: { i: Instructor }) {
 
 export function CertificatePreview({ title, course }: { title: string; course: string }) {
   return (
-    <figure className="relative mx-auto w-full max-w-xl overflow-hidden rounded-2xl border-[6px] border-double border-bronze/60 bg-[#FBF7F0] p-6 text-[#1C1712] shadow-[0_40px_80px_-30px_rgba(26,21,23,0.22)] sm:p-10">
+    <figure className="relative mx-auto w-full max-w-xl overflow-hidden rounded-2xl border-[6px] border-double border-accent/60 bg-[#FBF7F0] p-6 text-[#1C1712] sm:p-10">
       <div aria-hidden="true" className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-[#C81E3A]/15" />
       <p className="text-center text-[11px] font-semibold uppercase tracking-[0.3em] text-[#8E101F]">YesPanchi Academy · IIT Madras Research Park</p>
       <p className="mt-5 text-center font-serif text-2xl sm:text-3xl">Certificate of Achievement</p>
@@ -51,7 +51,7 @@ export function CertificatePreview({ title, course }: { title: string; course: s
       <p className="mt-2 text-center font-semibold text-[#8E101F]">{title}</p>
       <div className="mt-8 flex items-end justify-between gap-4 text-[11px] text-[#5C5247]">
         <div><div className="mb-1 h-px w-24 bg-[#1C1712]/40" />Programme Director</div>
-        <span aria-hidden="true" className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-[#8E101F] text-[10px] font-bold text-[#8E101F]">SEAL</span>
+        <span aria-hidden="true" className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-[#8E101F] text-[10px] font-semibold text-[#8E101F]">SEAL</span>
         <div className="text-right"><div className="mb-1 ml-auto h-px w-24 bg-[#1C1712]/40" />ID: YPA-2027-XXXX</div>
       </div>
       <figcaption className="sr-only">Sample certificate preview for {course}</figcaption>

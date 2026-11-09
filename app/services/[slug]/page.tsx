@@ -55,8 +55,8 @@ export default function ServicePage({ params }: Props) {
               { k: 'Steps', v: `${s.process.length}-stage process`, icon: 'list' as const }
             ].map((x) => (
               <div key={x.k} className="flex items-center gap-3 bg-ink/80 p-4 backdrop-blur">
-                <span className="text-bronze"><Icon name={x.icon} size={20} /></span>
-                <div className="flex flex-col"><dt className="text-xs uppercase tracking-[0.14em] text-dim">{x.k}</dt><dd className="font-bold">{x.v}</dd></div>
+                <span className="text-accent"><Icon name={x.icon} size={20} /></span>
+                <div className="flex flex-col"><dt className="text-xs uppercase tracking-[0.14em] text-dim">{x.k}</dt><dd className="font-semibold">{x.v}</dd></div>
               </div>
             ))}
           </dl>
@@ -65,7 +65,7 @@ export default function ServicePage({ params }: Props) {
 
       <SectionNav items={subnav} />
 
-      {/* Scope + tools — light */}
+      {/* Scope + tools —  */}
       <section aria-labelledby="deliverables" className="theme-light scroll-mt-16 bg-ink py-24 text-cream">
         <Container className="grid gap-12 lg:grid-cols-[1fr_1.3fr]">
           <div className="flex flex-col gap-8">
@@ -81,8 +81,8 @@ export default function ServicePage({ params }: Props) {
           </div>
           <ul className="grid min-w-0 gap-4 sm:grid-cols-2">
             {s.deliverables.map((d, i) => (
-              <li key={d} className="flex flex-col gap-4 rounded-3xl border border-line bg-surface p-6 shadow-sm">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-bronze/15 text-bronze"><Icon name="check" size={20} /></span>
+              <li key={d} className="flex flex-col gap-4 rounded-3xl border border-line bg-surface p-6">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/15 text-accent"><Icon name="check" size={20} /></span>
                 <span className="text-lg font-semibold">{d}</span>
                 <span className="mt-auto font-mono text-xs text-dim">Deliverable 0{i + 1}</span>
               </li>
@@ -99,8 +99,8 @@ export default function ServicePage({ params }: Props) {
             <span aria-hidden="true" className="absolute left-5 right-5 top-5 hidden h-px bg-line2 lg:block" />
             {s.process.map((step, i) => (
               <li key={step} className="relative flex flex-col gap-3">
-                <span className="relative flex h-10 w-10 items-center justify-center rounded-full bg-bronze font-bold text-ink ring-8 ring-ink">{i + 1}</span>
-                <span className="text-xl font-bold">{step}</span>
+                <span className="relative flex h-10 w-10 items-center justify-center rounded-full bg-accent font-semibold text-ink ring-8 ring-ink">{i + 1}</span>
+                <span className="text-xl font-semibold">{step}</span>
               </li>
             ))}
           </ol>
@@ -126,7 +126,7 @@ export default function ServicePage({ params }: Props) {
                 {det.caseStudy.metrics.map((m) => (
                   <div key={m.label} className="flex flex-col justify-center bg-raised p-6">
                     <dt className="order-2 text-sm text-muted">{m.label}</dt>
-                    <dd className="order-1 text-4xl font-extrabold tracking-tight text-bronze">{m.value}</dd>
+                    <dd className="order-1 text-4xl font-medium text-accent">{m.value}</dd>
                   </div>
                 ))}
               </dl>
@@ -147,14 +147,14 @@ export default function ServicePage({ params }: Props) {
 
       <section aria-labelledby="related" className="scroll-mt-16 border-t border-raised py-24">
         <Container className="flex flex-col gap-10">
-          <h2 id="related" className="text-3xl font-extrabold tracking-[-0.03em]">Related services</h2>
+          <h2 id="related" className="text-3xl font-medium">Related services</h2>
           <ul className="grid gap-4 md:grid-cols-3">
             {related.map((r) => (
               <li key={r.slug}>
-                <Link href={`/services/${r.slug}`} className="group flex h-full flex-col gap-3 rounded-3xl border border-line bg-surface p-6 transition-colors hover:border-bronze focus-visible:outline focus-visible:outline-2 focus-visible:outline-bronze">
+                <Link href={`/services/${r.slug}`} className="group flex h-full flex-col gap-3 rounded-3xl border border-line bg-surface p-6 transition-colors hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent">
                   <div className="flex items-center gap-4"><IconTile name={r.icon} size="sm" /><span className="font-semibold">{r.name}</span></div>
                   <p className="text-sm text-muted">{r.summary}</p>
-                  <span className="mt-auto text-sm font-semibold text-bronze-light group-hover:underline">
+                  <span className="mt-auto text-sm font-semibold text-accent group-hover:underline">
                     {serviceDetails[r.slug] ? `From ${serviceDetails[r.slug].priceFrom} · ` : ''}View →
                   </span>
                 </Link>

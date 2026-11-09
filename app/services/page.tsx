@@ -34,16 +34,16 @@ export default function ServicesPage() {
       >
         <ul className="mt-2 flex flex-wrap gap-2" aria-label="Jump to division">
           {divisions.map((d) => (
-            <li key={d.id}><a href={`#${d.id}`} className="inline-flex items-center gap-2 rounded-full border border-line3 px-5 py-2.5 text-sm font-semibold hover:border-bronze hover:text-bronze-light">{d.name} <Icon name="arrow" size={16} /></a></li>
+            <li key={d.id}><a href={`#${d.id}`} className="inline-flex items-center gap-2 rounded-full border border-line3 px-5 py-2.5 text-sm font-semibold hover:border-accent hover:text-accent">{d.name} <Icon name="arrow" size={16} /></a></li>
           ))}
         </ul>
       </PageHero>
 
       {divisions.map((d, idx) => {
         const list = services.filter((s) => s.division === d.name);
-        const light = idx === 0;
+        const isFirst = idx === 0;
         return (
-          <section key={d.id} aria-labelledby={d.id} className={`scroll-mt-4 py-24 ${light ? 'theme-light bg-ink text-cream' : ''}`}>
+          <section key={d.id} aria-labelledby={d.id} className={`scroll-mt-4 py-24 ${isFirst ? 'theme-light' : ''}`}>
             <Container className="flex flex-col gap-12">
               <div className="flex flex-wrap items-end justify-between gap-6">
                 <SectionHeading id={d.id} eyebrow={`${list.length} services`} title={d.name} lead={d.blurb} />
@@ -54,26 +54,26 @@ export default function ServicesPage() {
                   const featured = i === 0;
                   return (
                     <li key={s.slug} className={featured ? 'md:col-span-2 lg:row-span-2 lg:col-span-1' : ''}>
-                      <Link href={`/services/${s.slug}`} className={`group flex h-full flex-col gap-4 rounded-3xl border border-line p-7 shadow-sm transition-all hover:-translate-y-0.5 hover:border-bronze focus-visible:outline focus-visible:outline-2 focus-visible:outline-bronze ${featured ? 'bg-raised' : 'bg-surface'}`}>
+                      <Link href={`/services/${s.slug}`} className={`group flex h-full flex-col gap-4 rounded-3xl border border-line p-7 transition-all hover:-translate-y-0.5 hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent ${featured ? 'bg-raised' : 'bg-surface'}`}>
                         <div className="flex items-start justify-between gap-4">
                           <IconTile name={s.icon} size="lg" />
-                          {det && <span className="rounded-full bg-bronze/15 px-3 py-1 text-xs font-bold text-bronze">From {det.priceFrom}</span>}
+                          {det && <span className="rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold text-accent">From {det.priceFrom}</span>}
                         </div>
-                        <h3 className="text-2xl font-bold tracking-[-0.02em]">{s.name}</h3>
+                        <h3 className="text-2xl font-semibold">{s.name}</h3>
                         <p className="text-muted">{s.summary}</p>
                         {featured && det && (
                           <div className="mt-2 rounded-2xl border border-line bg-surface p-5">
                             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-dim">Recent result · {det.caseStudy.industry}</p>
                             <dl className="mt-3 grid grid-cols-3 gap-3">
                               {det.caseStudy.metrics.map((m) => (
-                                <div key={m.label} className="flex flex-col"><dt className="order-2 text-xs text-muted">{m.label}</dt><dd className="order-1 text-xl font-extrabold text-bronze">{m.value}</dd></div>
+                                <div key={m.label} className="flex flex-col"><dt className="order-2 text-xs text-muted">{m.label}</dt><dd className="order-1 text-xl font-medium text-accent">{m.value}</dd></div>
                               ))}
                             </dl>
                           </div>
                         )}
                         <div className="mt-auto flex items-center justify-between border-t border-line pt-4 text-sm">
                           {det && <span className="flex items-center gap-1.5 text-muted"><Icon name="clock" size={16} />{det.duration}</span>}
-                          <span className="font-semibold text-bronze group-hover:underline">Details →</span>
+                          <span className="font-semibold text-accent group-hover:underline">Details →</span>
                         </div>
                       </Link>
                     </li>
@@ -90,12 +90,12 @@ export default function ServicesPage() {
           <SectionHeading id="engage" eyebrow="How engagements work" title="Simple, fixed-fee," accent="no surprises." />
           <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {engagement.map((e, i) => (
-              <li key={e.title} className="relative flex flex-col gap-3 rounded-3xl border border-line bg-surface p-7 shadow-sm">
+              <li key={e.title} className="relative flex flex-col gap-3 rounded-3xl border border-line bg-surface p-7">
                 <div className="flex items-center justify-between">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-bronze font-bold text-ink">{i + 1}</span>
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent font-semibold text-ink">{i + 1}</span>
                   <span className="text-xs font-semibold uppercase tracking-[0.14em] text-dim">{e.time}</span>
                 </div>
-                <h3 className="text-xl font-bold">{e.title}</h3>
+                <h3 className="text-xl font-semibold">{e.title}</h3>
                 <p className="text-muted">{e.text}</p>
               </li>
             ))}

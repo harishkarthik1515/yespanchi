@@ -69,27 +69,27 @@ export default function ContactForm() {
 
   if (status === 'sent') {
     return (
-      <div role="status" className="flex flex-col gap-4 rounded-3xl border border-bronze bg-surface p-8 md:p-10">
-        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-bronze">Message received</p>
-        <h2 className="text-3xl font-bold">Thank you, {form.name.split(' ')[0]}.</h2>
+      <div role="status" className="flex flex-col gap-4 rounded-3xl border border-accent bg-surface p-8 md:p-10">
+        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">Message received</p>
+        <h2 className="text-3xl font-semibold">Thank you, {form.name.split(' ')[0]}.</h2>
         <p className="text-muted">Our team will get back to you within one business day. Your reference is <strong className="text-cream">{ref}</strong>.</p>
         <button onClick={() => { setStatus('idle'); setForm((f) => ({ ...f, message: '' })); }} className="mt-2 min-h-[44px] self-start rounded-full border border-line3 px-6 font-semibold">Send another message</button>
       </div>
     );
   }
 
-  const field = 'w-full rounded-2xl border border-line2 bg-ink px-4 py-3.5 text-cream placeholder:text-dim transition-colors focus:border-bronze focus:outline-none focus:ring-4 focus:ring-bronze/15';
+  const field = 'w-full rounded-2xl border border-line2 bg-ink px-4 py-3.5 text-cream placeholder:text-dim transition-colors focus:border-accent focus:outline-none focus:ring-4 focus:ring-accent/15';
   return (
-    <form onSubmit={submit} noValidate className="flex flex-col gap-6 rounded-3xl border border-line bg-surface p-6 shadow-[0_30px_80px_-40px_rgba(26,21,23,0.14)] md:p-10">
+    <form onSubmit={submit} noValidate className="flex flex-col gap-6 rounded-3xl border border-line bg-surface p-6 md:p-10">
       <div>
-        <h2 className="text-2xl font-bold tracking-tight">Send us a message</h2>
+        <h2 className="text-2xl font-semibold">Send us a message</h2>
         <p className="mt-1 text-sm text-muted">Takes about a minute. Fields marked * are required.</p>
       </div>
       <fieldset>
         <legend className="mb-3 text-sm font-semibold">What can we help with?</legend>
         <div className="flex flex-wrap gap-2">
           {TOPICS.map((t) => (
-            <label key={t.value} className={`cursor-pointer rounded-full border px-4 py-2 text-sm font-medium transition-colors has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-bronze ${form.topic === t.value ? 'border-bronze bg-bronze text-ink' : 'border-line2 text-muted hover:border-bronze hover:text-cream'}`}>
+            <label key={t.value} className={`cursor-pointer rounded-full border px-4 py-2 text-sm font-medium transition-colors has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-accent ${form.topic === t.value ? 'border-accent bg-accent text-ink' : 'border-line2 text-muted hover:border-accent hover:text-cream'}`}>
               <input type="radio" name="topic" value={t.value} checked={form.topic === t.value} onChange={() => setForm((f) => ({ ...f, topic: t.value, item: '' }))} className="sr-only" />
               {t.label}
             </label>
@@ -128,12 +128,12 @@ export default function ContactForm() {
       <div>
         <label className="flex items-start gap-3 text-sm text-muted">
           <input type="checkbox" checked={form.consent} onChange={set('consent')} className="mt-1 h-5 w-5 accent-[#C81E3A]" aria-invalid={!!errors.consent} />
-          <span>I agree to YesPanchi processing my details to respond to this enquiry, as described in the <a href="/privacy" className="text-bronze-light underline">privacy policy</a>.</span>
+          <span>I agree to YesPanchi processing my details to respond to this enquiry, as described in the <a href="/privacy" className="text-accent underline">privacy policy</a>.</span>
         </label>
         {errors.consent && <p id="consent-err" className="mt-1 text-sm text-red-500">{errors.consent}</p>}
       </div>
       {status === 'error' && <p role="alert" className="text-red-500">Couldn’t send your message. Please try again or email us directly.</p>}
-      <button type="submit" disabled={status === 'sending'} className="min-h-[52px] self-start rounded-full bg-bronze px-8 font-semibold text-ink hover:bg-bronze-light disabled:opacity-60">
+      <button type="submit" disabled={status === 'sending'} className="min-h-[52px] self-start rounded-full bg-accent px-8 font-semibold text-ink hover:bg-accent disabled:opacity-60">
         {status === 'sending' ? 'Sending…' : 'Send message'}
       </button>
     </form>

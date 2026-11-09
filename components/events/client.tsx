@@ -21,7 +21,7 @@ export function EventTabs({ upcoming, past, upcomingCount, pastCount }: { upcomi
             aria-selected={tab === t.id}
             aria-controls={`panel-${t.id}`}
             onClick={() => setTab(t.id)}
-            className={`min-h-[44px] rounded-full px-5 text-sm font-semibold transition-colors ${tab === t.id ? 'bg-bronze text-ink' : 'text-muted hover:text-cream'}`}
+            className={`min-h-[44px] rounded-full px-5 text-sm font-semibold transition-colors ${tab === t.id ? 'bg-accent text-ink' : 'text-muted hover:text-cream'}`}
           >
             {t.label} <span className={`ml-1 rounded-full px-2 py-0.5 text-xs ${tab === t.id ? 'bg-ink/15' : 'bg-raised'}`}>{t.count}</span>
           </button>
@@ -52,7 +52,7 @@ export function AddToCalendar({ title, date, endDate, start, end, location, desc
     return () => URL.revokeObjectURL(url);
   }, [title, date, endDate, start, end, location, description, slug]);
   return (
-    <a href={href ?? '#'} download={`${slug}.ics`} aria-disabled={!href} className={`inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-line3 px-6 py-3 font-semibold text-cream transition-colors hover:border-bronze hover:text-bronze-light ${className}`}>
+    <a href={href ?? '#'} download={`${slug}.ics`} aria-disabled={!href} className={`inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-line3 px-6 py-3 font-semibold text-cream transition-colors hover:border-accent hover:text-accent ${className}`}>
       <Icon name="cal" size={18} /> Add to calendar
     </a>
   );

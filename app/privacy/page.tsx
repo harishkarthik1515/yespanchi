@@ -9,7 +9,7 @@ export default function PrivacyPage() {
     <>
       <PageHero crumbs={[{ name: 'Privacy policy', href: '/privacy' }]} eyebrow="Legal" title="Privacy policy" lead="Sample policy text — have your legal team review and replace before launch." />
       <Container className="py-16">
-        <div className="flex max-w-3xl flex-col gap-6 text-muted [&_h2]:mt-4 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-cream">
+        <div className="flex max-w-3xl flex-col gap-6 text-muted [&_h2]:mt-4 [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-cream">
           <h2>What we collect</h2>
           <p>Details you share through our forms — name, email, phone, organisation and your message — and basic, anonymised analytics about site usage.</p>
           <h2>How we use it</h2>
@@ -17,7 +17,7 @@ export default function PrivacyPage() {
           <h2>Your rights</h2>
           <p>You can request access, correction or deletion of your data, or unsubscribe at any time, in line with India’s Digital Personal Data Protection Act, 2023.</p>
           <h2>Contact</h2>
-          <p>Email <a href={`mailto:${SITE.email}`} className="!text-bronze-light">{SITE.email}</a> for privacy requests.</p>
+          <p>Email <a href={`mailto:${SITE.email}`} className="!text-accent">{SITE.email}</a> for privacy requests.</p>
         </div>
       </Container>
     </>

@@ -36,8 +36,8 @@ export default function ProductsPage() {
             { icon: 'hands' as const, t: 'Built for integration', d: 'Designed to work alongside your existing infrastructure, not replace it overnight.' }
           ].map((x) => (
             <article key={x.t} className="flex flex-col gap-3 rounded-3xl border border-line bg-surface p-7">
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-bronze/15 text-bronze"><Icon name={x.icon} size={22} /></span>
-              <h3 className="text-xl font-bold">{x.t}</h3>
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent/15 text-accent"><Icon name={x.icon} size={22} /></span>
+              <h3 className="text-xl font-semibold">{x.t}</h3>
               <p className="text-muted">{x.d}</p>
             </article>
           ))}

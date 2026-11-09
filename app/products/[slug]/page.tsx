@@ -59,7 +59,7 @@ export default function ProductPage({ params }: Props) {
             <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-dim">Core Technologies</h3>
             <ul className="flex flex-col gap-3">
               {p.coreTechnologies.map((t) => (
-                <li key={t} className="flex gap-3 text-sm"><span className="mt-1.5 h-1.5 w-1.5 flex-none rounded-full bg-bronze" />{t}</li>
+                <li key={t} className="flex gap-3 text-sm"><span className="mt-1.5 h-1.5 w-1.5 flex-none rounded-full bg-accent" />{t}</li>
               ))}
             </ul>
           </div>
@@ -69,7 +69,7 @@ export default function ProductPage({ params }: Props) {
       {/* The challenge */}
       <section aria-labelledby="challenge" className="theme-light bg-ink py-20 text-cream md:py-24">
         <Container className="flex flex-col gap-6">
-          <SectionHeading id="challenge" eyebrow={p.challenge.title} title={p.challenge.lead} light />
+          <SectionHeading id="challenge" eyebrow={p.challenge.title} title={p.challenge.lead} />
           <p className="max-w-3xl text-lg font-light text-muted">{p.challenge.body}</p>
         </Container>
       </section>
@@ -81,8 +81,8 @@ export default function ProductPage({ params }: Props) {
           <div className="grid gap-5 sm:grid-cols-2">
             {p.pillars.map((f, i) => (
               <article key={f.title} className="flex flex-col gap-2 rounded-[20px] border border-line bg-surface p-6">
-                <span className="font-mono text-xs text-bronze">{String(i + 1).padStart(2, '0')}</span>
-                <h3 className="text-lg font-bold">{f.title}</h3>
+                <span className="font-mono text-xs text-accent">{String(i + 1).padStart(2, '0')}</span>
+                <h3 className="text-lg font-semibold">{f.title}</h3>
                 <p className="text-sm text-muted">{f.text}</p>
               </article>
             ))}
@@ -94,12 +94,12 @@ export default function ProductPage({ params }: Props) {
       {p.workflow && (
         <section aria-labelledby="workflow" className="theme-light bg-ink py-20 text-cream md:py-24">
           <Container className="flex flex-col gap-10">
-            <SectionHeading id="workflow" eyebrow="Process" title="Step by" accent="step." light />
+            <SectionHeading id="workflow" eyebrow="Process" title="Step by" accent="step." />
             <ol className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
               {p.workflow.map((s, i) => (
                 <li key={s.title} className="flex flex-col gap-2 rounded-2xl border border-line bg-surface p-5">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full border border-bronze font-mono text-xs text-bronze-light">{i + 1}</span>
-                  <h3 className="font-bold">{s.title}</h3>
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full border border-accent font-mono text-xs text-accent">{i + 1}</span>
+                  <h3 className="font-semibold">{s.title}</h3>
                   <p className="text-sm text-muted">{s.text}</p>
                 </li>
               ))}
@@ -115,7 +115,7 @@ export default function ProductPage({ params }: Props) {
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {p.keyFeatures.map((f) => (
               <article key={f.title} className="flex flex-col gap-2 rounded-2xl border border-line bg-surface p-6">
-                <h3 className="font-bold">{f.title}</h3>
+                <h3 className="font-semibold">{f.title}</h3>
                 <p className="text-sm text-muted">{f.text}</p>
               </article>
             ))}
@@ -126,11 +126,11 @@ export default function ProductPage({ params }: Props) {
       {/* Business value */}
       <section aria-labelledby="value" className="theme-light bg-ink py-20 text-cream md:py-24">
         <Container className="flex flex-col gap-10">
-          <SectionHeading id="value" eyebrow="Strategic Business Value" title="Why it" accent="matters." light />
+          <SectionHeading id="value" eyebrow="Strategic Business Value" title="Why it" accent="matters." />
           <div className="grid gap-5 sm:grid-cols-2">
             {p.businessValue.map((v) => (
               <article key={v.title} className="flex flex-col gap-2 rounded-2xl border border-line bg-surface p-6">
-                <h3 className="font-bold">{v.title}</h3>
+                <h3 className="font-semibold">{v.title}</h3>
                 <p className="text-sm text-muted">{v.text}</p>
               </article>
             ))}
@@ -153,7 +153,7 @@ export default function ProductPage({ params }: Props) {
                     <tr key={row[0]}>
                       <th scope="row" className="px-5 py-4 font-semibold">{row[0]}</th>
                       <td className="px-5 py-4 text-muted">{row[1]}</td>
-                      <td className="px-5 py-4 font-semibold text-bronze">{row[2]}</td>
+                      <td className="px-5 py-4 font-semibold text-accent">{row[2]}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -166,7 +166,7 @@ export default function ProductPage({ params }: Props) {
       {/* Use cases by industry */}
       <section aria-labelledby="use-cases" className="theme-light bg-ink py-20 text-cream md:py-24">
         <Container className="flex flex-col gap-10">
-          <SectionHeading id="use-cases" eyebrow="Industry Applications" title="Enterprise use" accent="cases." light />
+          <SectionHeading id="use-cases" eyebrow="Industry Applications" title="Enterprise use" accent="cases." />
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {p.useCases.map((u) => (
               <li key={u.industry} className="flex flex-col gap-1.5 rounded-2xl border border-line bg-surface p-5">
@@ -182,17 +182,17 @@ export default function ProductPage({ params }: Props) {
       {related.length > 0 && (
         <section aria-labelledby="more" className="py-20 md:py-24">
           <Container className="flex flex-col gap-10">
-            <h2 id="more" className="text-3xl font-extrabold tracking-[-0.03em]">Related products</h2>
+            <h2 id="more" className="text-3xl font-medium">Related products</h2>
             <ul className="grid gap-4 md:grid-cols-2">
               {related.map((o) => (
                 <li key={o.slug}>
-                  <Link href={`/products/${o.slug}`} className="group flex h-full flex-col gap-4 rounded-2xl border border-line bg-surface p-6 hover:border-bronze">
+                  <Link href={`/products/${o.slug}`} className="group flex h-full flex-col gap-4 rounded-2xl border border-line bg-surface p-6 hover:border-accent">
                     <span className="flex items-center gap-4">
                       <IconTile name={o.icon} />
                       <span className="flex flex-col"><span className="font-semibold">{o.name}</span><span className="text-sm text-dim">{o.tag}</span></span>
                     </span>
                     <span className="text-sm text-muted">{o.short}</span>
-                    <span className="mt-auto text-sm font-semibold text-bronze group-hover:underline">View product →</span>
+                    <span className="mt-auto text-sm font-semibold text-accent group-hover:underline">View product →</span>
                   </Link>
                 </li>
               ))}

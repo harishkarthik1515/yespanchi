@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "@playwright/mcp@0.0.84",
+        "--browser",
+        "chrome",
+        "--isolated",
+        "--viewport-size",
+        "1920x1080",
+        "--output-dir",
+        "D:/SR/yespanchi/playwright-screenshots"
+      ]
+    }
+  }
+}
