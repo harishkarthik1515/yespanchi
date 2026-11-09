@@ -118,7 +118,7 @@ export function PlatformTabs() {
                 </div>
 
                 <div className="flex min-w-0 items-center">
-                  <ul className="w-full divide-y divide-line overflow-hidden rounded-3xl border border-line bg-ink/80 backdrop-blur-sm">
+                  <ul className="w-full divide-y divide-line overflow-hidden rounded-3xl border border-line bg-surface/90">
                     {(p.coreTechnologies ?? p.builtFor).slice(0, 4).map((c) => (
                       <li key={c} className="flex items-start gap-3.5 px-6 py-5 text-[15px]">
                         <span aria-hidden="true" className="mt-1.5 h-2 w-2 flex-none rotate-45 bg-accent" />

@@ -115,10 +115,20 @@ export function GhostFigure({
   value, caption, className = ''
 }: { value: string; caption?: string; className?: string }) {
   return (
-    <Parallax speed={26} className={`pointer-events-none absolute inset-y-0 right-6 flex max-w-[48%] select-none flex-col items-end justify-center ${className}`}>
-      <span aria-hidden="true" className="ghost-figure ghost-fill whitespace-nowrap text-[clamp(5rem,15vw,14rem)]">{value}</span>
+    /* Anchored to the bottom-right so it fills empty space rather than
+       sitting behind the content cards, which would slice it in half. */
+    <Parallax
+      speed={18}
+      className={`pointer-events-none absolute bottom-10 right-8 flex select-none flex-col items-end ${className}`}
+    >
+      <span aria-hidden="true" className="ghost-figure ghost-fill whitespace-nowrap text-[clamp(3.5rem,10vw,9rem)]">{value}</span>
       {caption && (
-        <span aria-hidden="true" className="mt-1 whitespace-nowrap text-[clamp(.6rem,1.1vw,1rem)] font-medium uppercase tracking-[0.28em] text-cream/[0.07]">
+        /* tracking adds a trailing space after the last letter, so pad the
+           right by the same amount to keep the block flush with the edge. */
+        <span
+          aria-hidden="true"
+          className="mt-1.5 whitespace-nowrap pr-[0.28em] text-[clamp(.55rem,.95vw,.9rem)] font-medium uppercase tracking-[0.28em] text-cream/[0.07]"
+        >
           {caption}
         </span>
       )}
