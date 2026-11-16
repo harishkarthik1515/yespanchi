@@ -1,7 +1,7 @@
 /* Real contact details from the company's provided content — phone, email, office and hours. */
 export const contactInfo = [
   { icon: 'phone', title: 'Phone', lines: ['+91 98401 02079', '+91 73050 62079'], note: 'Call us anytime', action: { label: 'Call Now', href: 'tel:+919840102079' } },
-  { icon: 'mail', title: 'Email', lines: ['hello@yespanchi.com', 'panchi@yespanchi.com'], note: 'Send us a message', action: { label: 'Send Email', href: 'mailto:hello@yespanchi.com' } },
+  { icon: 'mail', title: 'Email', lines: ['hello@yespanchi.com'], note: 'Send us a message', action: { label: 'Send Email', href: 'mailto:hello@yespanchi.com' } },
   { icon: 'pin', title: 'Office', lines: ['IITM Research Park, Kanagam Road, Tharamani, Chennai'], note: 'Visit our primary office', action: { label: 'Get Directions', href: 'https://www.google.com/maps/dir/?api=1&destination=IIT+Madras+Research+Park,+Taramani,+Chennai' } },
   { icon: 'clock', title: 'Working Hours', lines: ['Mon - Sat 9.30 - 18.30'], note: '', action: { label: 'Schedule Meeting', href: '/contact?topic=assessment#form' } }
 ] as const;

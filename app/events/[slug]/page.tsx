@@ -48,13 +48,13 @@ export default function EventPage({ params }: Props) {
         <Container className="grid gap-12 lg:grid-cols-[1fr_380px]">
           <div className="flex min-w-0 flex-col gap-16">
             <div className="flex flex-col gap-5">
-              <h2 id="about-event" className="text-3xl font-medium">About this event</h2>
+              <h2 id="about-event" className="text-3xl">About this event</h2>
               <p className="text-lg text-muted">{e.description}</p>
               <ul className="flex flex-wrap gap-2 text-sm">{e.tags.map((t) => <li key={t} className="rounded-full border border-line2 px-3 py-1 text-muted">{t}</li>)}</ul>
             </div>
 
             {e.recap && (
-              <div className="flex flex-col gap-4 rounded-3xl border border-line bg-surface p-6"><dl className="grid grid-cols-3 gap-3 text-center">
+              <div className="flex flex-col gap-4 rounded-2xl border border-line bg-surface p-6"><dl className="grid grid-cols-3 gap-3 text-center">
                 <div><dt className="text-sm text-dim">Attendees</dt><dd className="text-3xl font-medium text-accent">{e.recap.attendees.toLocaleString('en-IN')}</dd></div>
                 <div><dt className="text-sm text-dim">Sessions</dt><dd className="text-3xl font-medium text-accent">{e.recap.sessions}</dd></div>
                 <div><dt className="text-sm text-dim">Avg. rating</dt><dd className="text-3xl font-medium text-accent">{e.recap.rating}</dd></div>
@@ -82,7 +82,7 @@ export default function EventPage({ params }: Props) {
           </div>
 
           <aside aria-label="Tickets and venue" className="flex flex-col gap-5 lg:sticky lg:top-28 lg:self-start">
-            <div className="flex flex-col gap-5 rounded-3xl border border-line2 bg-surface p-6">
+            <div className="flex flex-col gap-5 rounded-2xl border border-line2 bg-surface p-6">
               <div className="flex items-baseline justify-between">
                 <span className="text-sm text-dim">{e.price === 0 ? 'Entry' : 'Delegate pass'}</span>
                 <span className="text-3xl font-medium">{priceLabel(e.price)}</span>
@@ -98,8 +98,8 @@ export default function EventPage({ params }: Props) {
                 <span className="rounded-full border border-line2 px-5 py-3 text-center text-muted">This event has ended</span>
               )}
             </div>
-            <div className="flex flex-col gap-3 rounded-3xl border border-line bg-surface p-6">
-              <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-dim">{online ? 'Where' : 'Venue'}</h2>
+            <div className="flex flex-col gap-3 rounded-2xl border border-line bg-surface p-6">
+              <h2 className="text-sm uppercase tracking-[0.16em] text-dim">{online ? 'Where' : 'Venue'}</h2>
               <p className="font-semibold">{e.venue}</p>
               <p className="text-sm text-muted">{e.address}</p>
               {!online && <a className="text-sm font-semibold !text-accent underline underline-offset-4" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${e.venue} ${e.address}`)}`} target="_blank" rel="noopener noreferrer">Open in Maps ↗</a>}
@@ -113,7 +113,7 @@ export default function EventPage({ params }: Props) {
           <SectionHeading id="speakers" eyebrow="Line-up" title="Speakers" />
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {e.speakers.map((s) => (
-              <li key={s.name} className="flex flex-col gap-4 rounded-3xl border border-line bg-surface p-6">
+              <li key={s.name} className="flex flex-col gap-4 rounded-2xl border border-line bg-surface p-6">
                 <Avatar name={s.name} size={64} />
                 <div className="flex flex-col gap-0.5">
                   <span className="text-lg font-semibold">{s.name}</span>
@@ -131,7 +131,7 @@ export default function EventPage({ params }: Props) {
         <section aria-labelledby="more" className="py-20">
           <Container className="flex flex-col gap-8">
             <div className="flex flex-wrap items-end justify-between gap-4">
-              <h2 id="more" className="text-3xl font-medium">More upcoming events</h2>
+              <h2 id="more" className="text-3xl">More upcoming events</h2>
               <Link href="/events" className="border-b border-accent py-2 font-semibold">All events →</Link>
             </div>
             <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{more.map((x) => <li key={x.slug} className="min-w-0"><EventCard e={x} /></li>)}</ul>

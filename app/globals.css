@@ -3,51 +3,62 @@
 @tailwind utilities;
 
 /* ==================================================================
- * Colour tokens — DARK is the default canvas.
- * `.theme-light` is kept as the alternating-band hook used across the
- * site; on the dark canvas it renders as a *lifted* panel rather than
- * a paper one, so existing pages alternate without per-page edits.
+ * Colour tokens — Theme 05 "Executive Steel".
+ * LIGHT is the default; `html.dark` switches the whole page.
+ * Token names are historical: `ink` = page background, `cream` = text.
+ * `.theme-light` = alternating grey band, `.theme-dark` = midnight-navy
+ * panel (hero, top bar, footer) that stays navy in both modes.
  * ================================================================== */
-:root, .theme-dark {
-  --c-ink: 20 20 21;          /* page base            #141415 */
-  --c-surface: 27 27 29;      /* cards                #1B1B1D */
-  --c-raised: 36 36 39;       /* hover / raised       #242427 */
-  --c-line: 42 42 46;
-  --c-line2: 58 58 63;
-  --c-line3: 88 88 95;
-  --c-cream: 255 255 255;     /* primary text */
-  --c-muted: 176 176 182;
-  --c-dim: 132 132 140;
-  --c-bronze: 230 57 80;      /* crimson accent       #E63950 */
-  --c-bronze-light: 255 109 128;
-  --c-bronze-dark: 200 30 58;
-
-  /* Per-section accent — sections override this to recolour in place,
-     the way Palo Alto retints each platform as you scroll. */
-  --c-accent: var(--c-bronze);
-  --c-accent-contrast: 20 20 21;
+:root {
+  --c-ink: 255 255 255;        /* Background      #FFFFFF */
+  --c-surface: 244 247 250;    /* Surface         #F4F7FA */
+  --c-raised: 233 238 245;
+  --c-line: 221 229 238;       /* Cool Mist       #DDE5EE — lines only */
+  --c-line2: 196 208 222;
+  --c-line3: 150 165 184;
+  --c-cream: 36 48 60;         /* Heading Text    #24303C */
+  --c-heading: 15 31 56;       /* Midnight Navy   #0F1F38 */
+  --c-muted: 90 104 120;       /* Body Text       #5A6878 */
+  --c-dim: 98 111 127;
+  --c-accent: 31 78 121;       /* Steel Blue      #1F4E79 — text, links, icons */
+  --c-accent-bg: 31 78 121;    /* solid fills; text on it is always white */
+  --c-accent-contrast: 255 255 255;
+  --c-bronze: 138 90 34;       /* Logo Bronze     #8A5A22 — small accents */
 }
 
 .theme-light {
-  --c-ink: 26 26 29;
-  --c-surface: 35 35 38;
-  --c-raised: 46 46 50;
-  --c-line: 52 52 57;
-  --c-line2: 68 68 74;
-  --c-line3: 98 98 106;
-  --c-cream: 255 255 255;
-  --c-muted: 182 182 188;
-  --c-dim: 140 140 148;
+  --c-ink: 244 247 250;
+  --c-surface: 255 255 255;
   background-color: rgb(var(--c-ink));
-  color: rgb(var(--c-cream));
 }
 
-/* Section accent themes */
-.accent-crimson { --c-accent: 230 57 80;  --c-accent-contrast: 20 20 21; }
-.accent-amber   { --c-accent: 245 183 0;  --c-accent-contrast: 20 20 21; }
-.accent-emerald { --c-accent: 0 204 102;  --c-accent-contrast: 20 20 21; }
-.accent-cyan    { --c-accent: 56 189 248; --c-accent-contrast: 20 20 21; }
-.accent-violet  { --c-accent: 167 139 250;--c-accent-contrast: 20 20 21; }
+.dark, .theme-dark {
+  --c-line: 34 56 90;
+  --c-line2: 50 78 118;
+  --c-line3: 90 118 158;
+  --c-cream: 236 242 249;
+  --c-heading: 255 255 255;
+  --c-muted: 186 200 218;
+  --c-dim: 142 160 184;
+  --c-accent: 125 184 232;     /* lifted steel, AA on navy */
+  --c-accent-bg: 52 120 184;   /* white text stays 4.6:1 */
+  --c-bronze: 201 150 86;
+}
+.dark {
+  --c-ink: 9 18 32;
+  --c-surface: 15 28 48;
+  --c-raised: 24 42 70;
+}
+.dark .theme-light {
+  --c-ink: 13 25 43;
+  --c-surface: 19 35 60;
+}
+.theme-dark {
+  --c-ink: 15 31 56;
+  --c-surface: 22 42 72;
+  --c-raised: 30 54 90;
+  color: rgb(var(--c-cream));
+}
 
 @layer base {
   html { scroll-behavior: smooth; }
@@ -55,9 +66,12 @@
     @apply bg-ink text-cream font-sans text-[17px] antialiased;
     line-height: 1.6;
   }
-  /* Reference sites all set headings at medium weight, large size and
-     near-normal tracking — not heavy + tight. */
-  h1, h2, h3 { font-weight: 500; letter-spacing: -0.015em; line-height: 1.12; }
+  /* One heading system for the whole site — sections set size only. */
+  h1, h2, h3, h4 { font-weight: 600; letter-spacing: -0.015em; line-height: 1.15; color: rgb(var(--c-heading)); }
+  h1 { @apply text-d1; }
+  h2 { @apply text-d2; }
+  h3 { font-size: 1.375rem; }
+  h4 { font-size: 1.125rem; }
   a { @apply text-cream no-underline transition-colors; }
   a:hover { color: rgb(var(--c-accent)); }
   :focus-visible { outline: 2px solid rgb(var(--c-accent)); outline-offset: 3px; }
@@ -156,13 +170,13 @@
   background-image: repeating-linear-gradient(135deg, rgb(var(--c-accent) / .09) 0 1px, transparent 1px 11px);
 }
 .dotgrid {
-  background-image: radial-gradient(rgb(255 255 255 / .07) 1px, transparent 1.2px);
+  background-image: radial-gradient(rgb(var(--c-cream) / .09) 1px, transparent 1.2px);
   background-size: 22px 22px;
 }
 .grid-lines {
   background-image:
-    linear-gradient(rgb(255 255 255 / .035) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(255 255 255 / .035) 1px, transparent 1px);
+    linear-gradient(rgb(var(--c-cream) / .05) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--c-cream) / .05) 1px, transparent 1px);
   background-size: 64px 64px;
 }
 
@@ -178,3 +192,17 @@
 }
 
 .marquee:hover .animate-marquee { animation-play-state: paused; }
+
+/* ==================================================================
+ * Product book — CSS 3D page flip (/products)
+ * ================================================================== */
+.book { perspective: 2400px; }
+.book-leaf {
+  position: absolute; top: 0; right: 0; width: 50%; height: 100%;
+  transform-origin: left center; transform-style: preserve-3d;
+  transition: transform .9s cubic-bezier(.3,.1,.2,1);
+}
+.book-leaf.is-flipped { transform: rotateY(-180deg); }
+.book-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; overflow: hidden; }
+.book-face.back { transform: rotateY(180deg); }
+@media (prefers-reduced-motion: reduce) { .book-leaf { transition: none; } }

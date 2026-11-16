@@ -12,7 +12,7 @@ export function CaseStudies() {
         <div className="flex flex-wrap items-end justify-between gap-8">
           <div className="flex max-w-[32ch] flex-col gap-5">
             <p data-reveal className="text-[13px] font-semibold uppercase tracking-[0.22em] text-accent">Results</p>
-            <MaskLines as="h2" id="cases" className="text-d2 font-medium" lines={[<>Outcomes,</>, <>not just reports.</>]} />
+            <MaskLines as="h2" id="cases" className="text-d2" lines={[<>Outcomes,</>, <>not just reports.</>]} />
           </div>
           <ArrowLink href="/contact?topic=assessment" className="pb-2 text-cream">Discuss your project</ArrowLink>
         </div>
@@ -20,11 +20,11 @@ export function CaseStudies() {
         <ul className="grid gap-5 lg:grid-cols-3">
           {caseStudies.map((c, i) => (
             <li key={c.title} data-reveal style={{ ['--d' as string]: `${i * 100}ms` }}>
-              <article className="spotlight edge-glow flex h-full flex-col gap-5 rounded-[26px] border border-line bg-surface/70 p-7 transition-colors hover:border-line2">
+              <article className="spotlight edge-glow flex h-full flex-col gap-5 rounded-2xl border border-line bg-surface/70 p-7 transition-colors hover:border-line2">
                 <span className="w-fit rounded-full border border-line2 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-accent">
                   {c.sector}
                 </span>
-                <h3 className="text-[21px] font-medium leading-snug">{c.title}</h3>
+                <h3 className="text-[21px] leading-snug">{c.title}</h3>
                 <p className="text-muted">{c.summary}</p>
                 <dl className="mt-auto grid grid-cols-3 gap-3 border-t border-line pt-5">
                   {c.metrics.map((m) => (
@@ -53,7 +53,7 @@ export function Testimonials() {
       <Container className="flex flex-col gap-14">
         <div className="flex max-w-[34ch] flex-col gap-5">
           <p data-reveal className="text-[13px] font-semibold uppercase tracking-[0.22em] text-accent">Client voices</p>
-          <MaskLines as="h2" id="voices" className="text-d2 font-medium" lines={[<>Trusted by teams who</>, <>can’t afford to guess.</>]} />
+          <MaskLines as="h2" id="voices" className="text-d2" lines={[<>Trusted by teams who</>, <>can’t afford to guess.</>]} />
         </div>
 
         <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr]">
@@ -76,7 +76,7 @@ export function Testimonials() {
           <ul className="flex flex-col gap-5">
             {rest.map((t, i) => (
               <li key={t.name} data-reveal style={{ ['--d' as string]: `${i * 100}ms` }}>
-                <figure className="spotlight flex flex-col gap-5 rounded-3xl border border-line bg-surface/60 p-6 transition-colors hover:border-line2">
+                <figure className="spotlight flex flex-col gap-5 rounded-2xl border border-line bg-surface/60 p-6 transition-colors hover:border-line2">
                   <blockquote className="text-muted">“{t.quote}”</blockquote>
                   <Person t={t} small />
                 </figure>
@@ -103,9 +103,9 @@ function Person({ t, small }: { t: (typeof testimonials)[number]; small?: boolea
 
 /* Abstract cover art per insight — tinted to the live accent. */
 const TILE = [
-  'radial-gradient(circle at 78% 22%, rgb(var(--c-accent) / .5), transparent 56%), linear-gradient(140deg, #26181b, #121113)',
-  'repeating-linear-gradient(135deg, rgb(var(--c-accent) / .2) 0 2px, transparent 2px 13px), linear-gradient(160deg, #221a1c, #111012)',
-  'radial-gradient(rgb(var(--c-accent) / .32) 1.2px, transparent 1.4px) 0 0/15px 15px, linear-gradient(200deg, #2a1d20, #121012)'
+  'radial-gradient(circle at 78% 22%, rgb(var(--c-accent) / .5), transparent 56%), linear-gradient(140deg, #1B3F6B, #0F1F38)',
+  'repeating-linear-gradient(135deg, rgb(var(--c-accent) / .2) 0 2px, transparent 2px 13px), linear-gradient(160deg, #1B3F6B, #0F1F38)',
+  'radial-gradient(rgb(var(--c-accent) / .32) 1.2px, transparent 1.4px) 0 0/15px 15px, linear-gradient(200deg, #1B3F6B, #0F1F38)'
 ];
 
 export function Insights() {
@@ -115,16 +115,16 @@ export function Insights() {
         <div className="flex flex-wrap items-end justify-between gap-8">
           <div className="flex max-w-[30ch] flex-col gap-5">
             <p data-reveal className="text-[13px] font-semibold uppercase tracking-[0.22em] text-accent">Latest insights</p>
-            <MaskLines as="h2" id="insights" className="text-d2 font-medium" lines={[<>Field notes</>, <>from our team.</>]} />
+            <MaskLines as="h2" id="insights" className="text-d2" lines={[<>Field notes</>, <>from our team.</>]} />
           </div>
-          <ArrowLink href="/contact?topic=newsletter" className="pb-2 text-cream">Get these by email</ArrowLink>
+          <ArrowLink href="/insights" className="pb-2 text-cream">Explore all insights</ArrowLink>
         </div>
 
         <ul className="grid gap-6 md:grid-cols-3">
           {insights.map((a, i) => (
             <li key={a.slug} data-reveal style={{ ['--d' as string]: `${i * 100}ms` }}>
-              <article className="group flex h-full flex-col overflow-hidden rounded-[26px] border border-line bg-surface/70 transition-colors hover:border-line2">
-                <div aria-hidden="true" className="relative aspect-[16/9] overflow-hidden" style={{ background: TILE[i % TILE.length] }}>
+              <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface/70 transition-colors hover:border-line2">
+                <div aria-hidden="true" className="theme-dark relative aspect-[16/9] overflow-hidden" style={{ background: TILE[i % TILE.length] }}>
                   <span className="absolute left-5 top-5 rounded-full border border-cream/20 bg-ink/50 px-3 py-1 text-xs font-medium text-accent backdrop-blur">
                     {a.tag}
                   </span>
@@ -135,7 +135,7 @@ export function Insights() {
                     <span aria-hidden="true">·</span>
                     {a.read} min read
                   </p>
-                  <h3 className="text-xl font-medium leading-snug">{a.title}</h3>
+                  <h3 className="text-xl leading-snug">{a.title}</h3>
                   <p className="text-[15px] text-muted">{a.excerpt}</p>
                   <span className="mt-auto flex items-center gap-1.5 pt-3 text-sm font-medium text-accent">
                     Coming soon

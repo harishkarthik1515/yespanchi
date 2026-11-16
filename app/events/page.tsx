@@ -29,13 +29,13 @@ export default function EventsPage() {
       {featured && (
         <section aria-labelledby="featured" className="theme-light py-16 md:py-20">
           <Container>
-            <article className="relative grid overflow-hidden rounded-[32px] border border-line bg-surface lg:grid-cols-[1.4fr_1fr]">
+            <article className="relative grid overflow-hidden rounded-2xl border border-line bg-surface lg:grid-cols-[1.4fr_1fr]">
               <div className="flex flex-col gap-5 p-7 md:p-12">
                 <div className="flex flex-wrap items-center gap-3">
-                  <span className="rounded-full bg-accent px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#faf7f2]">Featured</span>
+                  <span className="rounded-full bg-accent px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent-contrast">Featured</span>
                   <span className="text-sm font-semibold uppercase tracking-wider text-accent">{featured.type}</span>
                 </div>
-                <h2 id="featured" className="text-[clamp(1.9rem,3.6vw,3rem)] font-medium leading-[1.04]">{featured.title}</h2>
+                <h2 id="featured" className="text-[clamp(1.9rem,3.6vw,3rem)] leading-[1.04]">{featured.title}</h2>
                 <p className="max-w-xl text-lg text-muted">{featured.summary}</p>
                 <ul className="flex flex-wrap gap-2 text-sm">{featured.tags.map((t) => <li key={t} className="rounded-full border border-line2 px-3 py-1 text-muted">{t}</li>)}</ul>
                 <div className="mt-2 flex flex-wrap gap-3">
@@ -64,7 +64,7 @@ export default function EventsPage() {
       <section aria-labelledby="all-events" className="py-20">
         <Container className="flex flex-col gap-8">
           <div className="flex flex-wrap items-end justify-between gap-4">
-            <h2 id="all-events" className="text-3xl font-medium">All events</h2>
+            <h2 id="all-events" className="text-3xl">All events</h2>
             <p className="text-sm text-dim">{totalAttendees.toLocaleString('en-IN')}+ people attended our recent events</p>
           </div>
           <EventTabs

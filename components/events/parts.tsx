@@ -24,7 +24,7 @@ export function DateBadge({ iso, size = 'md' }: { iso: string; size?: 'md' | 'lg
   const lg = size === 'lg';
   return (
     <time dateTime={iso} className={`flex flex-none flex-col overflow-hidden rounded-2xl border border-line2 bg-surface text-center ${lg ? 'w-24' : 'w-[68px]'}`}>
-      <span className={`bg-accent font-semibold tracking-[0.15em] text-ink ${lg ? 'py-1.5 text-sm' : 'py-1 text-[11px]'}`}>{mon}</span>
+      <span className={`bg-accent font-semibold tracking-[0.15em] text-accent-contrast ${lg ? 'py-1.5 text-sm' : 'py-1 text-[11px]'}`}>{mon}</span>
       <span className={`font-medium leading-none text-cream ${lg ? 'pt-3 text-5xl' : 'pt-2 text-3xl'}`}>{day}</span>
       <span className={`pb-2 pt-1 text-dim ${lg ? 'text-sm' : 'text-xs'}`}>{wk}</span>
     </time>
@@ -32,10 +32,10 @@ export function DateBadge({ iso, size = 'md' }: { iso: string; size?: 'md' | 'lg
 }
 
 export function Avatar({ name, size = 48 }: { name: string; size?: number }) {
-  // deterministic crimson hue per name
+  // deterministic steel-blue hue per name
   const h = [...name].reduce((a, c) => a + c.charCodeAt(0), 0) % 20;
   return (
-    <span aria-hidden="true" className="flex flex-none items-center justify-center rounded-full font-semibold text-white" style={{ width: size, height: size, fontSize: size * 0.36, background: `linear-gradient(135deg, hsl(${345 + h} 68% 62%), hsl(${340 + h} 60% 42%))` }}>
+    <span aria-hidden="true" className="flex flex-none items-center justify-center rounded-full font-semibold text-white" style={{ width: size, height: size, fontSize: size * 0.36, background: `linear-gradient(135deg, hsl(${205 + h} 55% 42%), hsl(${212 + h} 62% 26%))` }}>
       {initials(name)}
     </span>
   );
@@ -60,12 +60,12 @@ export function SeatsBar({ seats, registered }: { seats: number; registered: num
 
 export function EventCard({ e }: { e: MockEvent }) {
   return (
-    <Link href={`/events/${e.slug}`} className="spotlight group flex h-full flex-col gap-5 rounded-3xl border border-line bg-surface p-6 transition-all hover:-translate-y-0.5 hover:border-accent">
+    <Link href={`/events/${e.slug}`} className="spotlight group flex h-full flex-col gap-5 rounded-2xl border border-line bg-surface p-6 transition-all hover:-translate-y-0.5 hover:border-accent">
       <div className="flex items-start gap-4">
         <DateBadge iso={e.date} />
         <div className="flex min-w-0 flex-col gap-1.5">
           <span className="w-fit rounded-full bg-raised px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-accent">{e.type}</span>
-          <h3 className="text-xl font-semibold leading-snug text-cream">{e.title}</h3>
+          <h3 className="text-xl leading-snug text-cream">{e.title}</h3>
         </div>
       </div>
       <p className="text-[15px] text-muted">{e.summary}</p>
@@ -87,12 +87,12 @@ export function EventCard({ e }: { e: MockEvent }) {
 export function RecapCard({ e }: { e: MockEvent }) {
   const r = e.recap;
   return (
-    <Link href={`/events/${e.slug}`} className="group flex h-full flex-col gap-4 rounded-3xl border border-line bg-surface p-6 transition-colors hover:border-line3">
+    <Link href={`/events/${e.slug}`} className="group flex h-full flex-col gap-4 rounded-2xl border border-line bg-surface p-6 transition-colors hover:border-line3">
       <div className="flex items-center justify-between gap-3 text-sm">
         <span className="font-semibold uppercase tracking-wider text-dim">{e.type} · {e.city}</span>
         <time dateTime={e.date} className="text-dim">{new Date(e.date + 'T00:00:00').toLocaleDateString('en-IN', { month: 'short', year: 'numeric' })}</time>
       </div>
-      <h3 className="text-xl font-semibold leading-snug">{e.title}</h3>
+      <h3 className="text-xl leading-snug">{e.title}</h3>
       {r && (
         <>
           <dl className="grid grid-cols-3 gap-2 rounded-2xl bg-raised p-4 text-center">

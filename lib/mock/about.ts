@@ -1,11 +1,16 @@
 export type Leader = { name: string; role: string; initials: string };
 
-/* Real leadership — the source document lists only two names and two roles
-   ("Panchi S | Paraman Pachaimuthu | CTO | CBO") with no further detail, so
-   no focus area, tenure or bio is included here. Paired in the order given. */
+/* Real leadership. Roles for Panchi S and Paraman Pachaimuthu come from the
+   company's content; the other five names are from "Our Board" in the 2025
+   brochure, which gives no titles, so they are listed as board members. */
 export const leadership: Leader[] = [
   { name: 'Panchi S', role: 'CTO', initials: 'PS' },
-  { name: 'Paraman Pachaimuthu', role: 'CBO', initials: 'PP' }
+  { name: 'Paraman Pachaimuthu', role: 'CBO', initials: 'PP' },
+  { name: 'Eka Pillai', role: 'Board member', initials: 'EP' },
+  { name: 'Srinivas Mahankali', role: 'Board member', initials: 'SM' },
+  { name: 'Puneet Choudhary', role: 'Board member', initials: 'PC' },
+  { name: 'Raghavendra Prasad', role: 'Board member', initials: 'RP' },
+  { name: 'Rakesh Kumar Raju', role: 'Board member', initials: 'RR' }
 ];
 
 /* "Our Core Expertise" — About page */
@@ -43,7 +48,7 @@ export const milestones = [ // SAMPLE
   { year: '2022', title: 'FICCI Start-Up STAR', text: 'Corporate training practice launched; 1,200+ professionals trained in year one.', metric: '1.2k trained' },
   { year: '2023', title: 'Audit practice scales', text: 'ISO 27001, PCI DSS and forensic audits added. Moved into IIT Madras Research Park.', metric: '40+ audits' },
   { year: '2024', title: 'Product R&D', text: 'BoardMind, Alexi Voice and UNIFAI enter pilot with three enterprise design partners.', metric: '3 pilots' },
-  { year: '2025', title: 'Quantum & AI governance', text: 'Quantik and AI Guardrails introduced; PQC readiness assessments for BFSI.', metric: '12 BFSI orgs' },
+  { year: '2025', title: 'Quantum & AI governance', text: 'YP-PRAKAAR and AI Guardrails introduced; PQC readiness assessments for BFSI.', metric: '12 BFSI orgs' },
   { year: '2026', title: 'QSecura PQ-SSL', text: 'Post-quantum SSL launched for the enterprise; team crosses 60 people.', metric: '60+ people' }
 ];
 
@@ -54,8 +59,9 @@ export const culture = [ // SAMPLE
   { value: '96%', label: 'Client retention', note: 'FY 2025–26' }
 ];
 
-export const certifications = [ // SAMPLE
-  'ISO/IEC 27001:2022', 'DPIIT Recognised Startup', 'MSME Udyam', 'IIT Madras Research Park', 'Microsoft Partner', 'AWS Partner Network', 'NASSCOM Member', 'ISACA Chennai Chapter'
+/* Only what the supplied certificates and photos evidence. */
+export const certifications = [
+  'Govt. of India DPIIT Recognised Startup (June 2021)', 'Member, Women Entrepreneurship Platform', 'IIT Madras Research Park'
 ];
 
 export const testimonials = [ // SAMPLE

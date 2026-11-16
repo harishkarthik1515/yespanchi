@@ -22,11 +22,11 @@ export function Avatar({ name, size = 'md' }: { name: string; size?: 'md' | 'lg'
 
 export function InstructorCard({ i }: { i: Instructor }) {
   return (
-    <article className="flex h-full flex-col gap-4 rounded-3xl border border-line bg-surface p-7">
+    <article className="flex h-full flex-col gap-4 rounded-2xl border border-line bg-surface p-7">
       <div className="flex items-center gap-4">
         <Avatar name={i.name} size="lg" />
         <div className="min-w-0">
-          <h3 className="text-lg font-semibold">{i.name}</h3>
+          <h3 className="text-lg">{i.name}</h3>
           <p className="text-sm text-accent">{i.role}</p>
         </div>
       </div>
@@ -41,18 +41,18 @@ export function InstructorCard({ i }: { i: Instructor }) {
 
 export function CertificatePreview({ title, course }: { title: string; course: string }) {
   return (
-    <figure className="relative mx-auto w-full max-w-xl overflow-hidden rounded-2xl border-[6px] border-double border-accent/60 bg-[#FBF7F0] p-6 text-[#1C1712] sm:p-10">
-      <div aria-hidden="true" className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-[#C81E3A]/15" />
-      <p className="text-center text-[11px] font-semibold uppercase tracking-[0.3em] text-[#8E101F]">YesPanchi Academy · IIT Madras Research Park</p>
+    <figure className="relative mx-auto w-full max-w-xl overflow-hidden rounded-2xl border-[6px] border-double border-accent/60 bg-[#FFFFFF] p-6 text-[#24303C] sm:p-10">
+      <div aria-hidden="true" className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-[#1F4E79]/15" />
+      <p className="text-center text-[11px] font-semibold uppercase tracking-[0.3em] text-[#1F4E79]">YesPanchi Academy · IIT Madras Research Park</p>
       <p className="mt-5 text-center font-serif text-2xl sm:text-3xl">Certificate of Achievement</p>
-      <p className="mt-4 text-center text-sm text-[#5C5247]">This certifies that</p>
+      <p className="mt-4 text-center text-sm text-[#5A6878]">This certifies that</p>
       <p className="mt-1 text-center font-serif text-xl italic sm:text-2xl">Your Name Here</p>
-      <p className="mt-3 text-center text-sm text-[#5C5247]">has successfully completed <span className="font-semibold text-[#1C1712]">{course}</span> and is awarded the credential</p>
-      <p className="mt-2 text-center font-semibold text-[#8E101F]">{title}</p>
-      <div className="mt-8 flex items-end justify-between gap-4 text-[11px] text-[#5C5247]">
-        <div><div className="mb-1 h-px w-24 bg-[#1C1712]/40" />Programme Director</div>
-        <span aria-hidden="true" className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-[#8E101F] text-[10px] font-semibold text-[#8E101F]">SEAL</span>
-        <div className="text-right"><div className="mb-1 ml-auto h-px w-24 bg-[#1C1712]/40" />ID: YPA-2027-XXXX</div>
+      <p className="mt-3 text-center text-sm text-[#5A6878]">has successfully completed <span className="font-semibold text-[#0F1F38]">{course}</span> and is awarded the credential</p>
+      <p className="mt-2 text-center font-semibold text-[#1F4E79]">{title}</p>
+      <div className="mt-8 flex items-end justify-between gap-4 text-[11px] text-[#5A6878]">
+        <div><div className="mb-1 h-px w-24 bg-[#0F1F38]/40" />Programme Director</div>
+        <span aria-hidden="true" className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-[#1F4E79] text-[10px] font-semibold text-[#1F4E79]">SEAL</span>
+        <div className="text-right"><div className="mb-1 ml-auto h-px w-24 bg-[#0F1F38]/40" />ID: YPA-2027-XXXX</div>
       </div>
       <figcaption className="sr-only">Sample certificate preview for {course}</figcaption>
     </figure>

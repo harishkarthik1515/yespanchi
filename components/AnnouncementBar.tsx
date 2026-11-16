@@ -3,7 +3,7 @@ export default function AnnouncementBar() {
     <div
       role="region"
       aria-label="Announcement"
-      className="relative flex flex-wrap items-center justify-center gap-x-4 gap-y-2 border-b border-line bg-ink px-6 py-2.5 text-sm text-muted"
+      className="theme-dark relative flex flex-wrap items-center justify-center gap-x-4 gap-y-2 bg-ink px-6 py-2 text-sm text-muted"
     >
       <div
         aria-hidden="true"

@@ -52,7 +52,7 @@ export default function TrainingPage() {
       <section aria-labelledby="cohorts" className="theme-light bg-ink py-20 text-cream md:py-24">
         <Container className="flex flex-col gap-10">
           <SectionHeading id="cohorts" eyebrow="Calendar" title="Upcoming" accent="cohorts." lead="Seats are capped so every learner gets lab time and instructor attention." />
-          <ul className="flex flex-col divide-y divide-line overflow-hidden rounded-3xl border border-line bg-surface">
+          <ul className="flex flex-col divide-y divide-line overflow-hidden rounded-2xl border border-line bg-surface">
             {upcoming.map((c) => {
               const d = new Date(c.start + 'T00:00:00');
               return (
@@ -94,7 +94,7 @@ export default function TrainingPage() {
           <ul className="grid gap-5 md:grid-cols-2">
             {testimonials.map((t) => (
               <li key={t.name}>
-                <figure className="flex h-full flex-col gap-6 rounded-3xl border border-line bg-surface p-7">
+                <figure className="flex h-full flex-col gap-6 rounded-2xl border border-line bg-surface p-7">
                   <p aria-label="Rated 5 out of 5" className="text-accent">★★★★★</p>
                   <blockquote className="text-lg leading-relaxed">“{t.text}”</blockquote>
                   <figcaption className="mt-auto flex items-center gap-3">

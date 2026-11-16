@@ -16,6 +16,8 @@ const INDEX: Item[] = [
   { title: 'Events & conferences', group: 'Pages', href: '/events', icon: 'cal' },
   { title: 'MoUs & collaborations', group: 'Pages', href: '/events/mous', icon: 'hands' },
   { title: 'Photo gallery', group: 'Pages', href: '/events/gallery', icon: 'photo' },
+  { title: 'Insights', group: 'Pages', href: '/insights', icon: 'doc', keywords: 'white papers reports blogs case studies release notes' },
+  { title: 'Careers', group: 'Pages', href: '/careers', icon: 'graduation', keywords: 'jobs roles hiring internship' },
   { title: 'Contact us', group: 'Pages', href: '/contact', icon: 'mail' },
   { title: 'Book a free security assessment', group: 'Actions', href: '/contact?topic=assessment', icon: 'shield', keywords: 'audit consult' },
   { title: 'Request a product demo', group: 'Actions', href: '/contact?topic=product', icon: 'board' },

@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState, useEffect, useCallback, type ReactNode } from 'react';
 import { Icon } from '@/components/Icon';
 
@@ -21,7 +22,7 @@ export function EventTabs({ upcoming, past, upcomingCount, pastCount }: { upcomi
             aria-selected={tab === t.id}
             aria-controls={`panel-${t.id}`}
             onClick={() => setTab(t.id)}
-            className={`min-h-[44px] rounded-full px-5 text-sm font-semibold transition-colors ${tab === t.id ? 'bg-accent text-ink' : 'text-muted hover:text-cream'}`}
+            className={`min-h-[44px] rounded-full px-5 text-sm font-semibold transition-colors ${tab === t.id ? 'bg-accent text-accent-contrast' : 'text-muted hover:text-cream'}`}
           >
             {t.label} <span className={`ml-1 rounded-full px-2 py-0.5 text-xs ${tab === t.id ? 'bg-ink/15' : 'bg-raised'}`}>{t.count}</span>
           </button>
@@ -58,17 +59,9 @@ export function AddToCalendar({ title, date, endDate, start, end, location, desc
   );
 }
 
-/* ---------- Masonry gallery with lightbox ---------- */
-type Tile = { caption: string; event: string; date: string; tall?: boolean };
-
-const PATTERNS = [
-  'radial-gradient(circle at 20% 20%, rgb(var(--c-accent) / .38), transparent 55%), linear-gradient(135deg,#241a1c,#121011)',
-  'repeating-linear-gradient(45deg, rgb(var(--c-accent) / .16) 0 2px, transparent 2px 14px), linear-gradient(160deg,#211a1c,#0f0d0e)',
-  'radial-gradient(circle at 80% 30%, rgb(var(--c-accent) / .45), transparent 50%), radial-gradient(circle at 10% 90%, rgba(120,120,135,.22), transparent 50%), #161315',
-  'linear-gradient(120deg,#3d2328 0%,#231a1c 45%,#121011 100%)',
-  'radial-gradient(rgb(var(--c-accent) / .22) 1.2px, transparent 1.3px) 0 0/16px 16px, linear-gradient(200deg,#2a2426,#121011)',
-  'conic-gradient(from 210deg at 70% 40%, #3a2429, #1a1618, #2e2024, #1a1618)'
-];
+/* ---------- Photo gallery with lightbox ---------- */
+/* Photos are pre-sized (public/gallery = large, public/gallery/thumbs = small) and served as-is. */
+type Tile = { src: string; caption: string; event?: string };
 
 export function MasonryGallery({ items }: { items: Tile[] }) {
   const [open, setOpen] = useState<number | null>(null);
@@ -84,19 +77,16 @@ export function MasonryGallery({ items }: { items: Tile[] }) {
     window.addEventListener('keydown', k);
     return () => window.removeEventListener('keydown', k);
   }, [open, go]);
-  const fmt = (iso: string) => new Date(iso + 'T00:00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
   return (
     <>
-      <ul className="columns-1 gap-4 sm:columns-2 lg:columns-3">
+      <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((t, i) => (
-          <li key={t.caption} className="mb-4 break-inside-avoid">
-            <button onClick={() => setOpen(i)} aria-label={`Open: ${t.caption}`} className={`group relative block w-full overflow-hidden rounded-3xl border border-line text-left ${t.tall ? 'aspect-[3/4]' : 'aspect-[4/3]'}`}>
-              <span aria-hidden="true" className="absolute inset-0 transition-transform duration-500 group-hover:scale-105" style={{ background: PATTERNS[i % PATTERNS.length] }} />
-              <span aria-hidden="true" className="absolute right-4 top-4 rounded-full bg-black/40 px-2.5 py-1 font-mono text-[11px] text-accent backdrop-blur">{String(i + 1).padStart(2, '0')}</span>
+          <li key={t.src}>
+            <button onClick={() => setOpen(i)} aria-label={`Open: ${t.caption}`} className="theme-dark group relative block aspect-[4/3] w-full overflow-hidden rounded-2xl border border-line bg-ink text-left">
+              <Image src={t.src.replace("/gallery/", "/gallery/thumbs/")} alt="" fill unoptimized loading="lazy" className="object-cover transition-transform duration-500 group-hover:scale-105" />
               <span className="absolute inset-x-0 bottom-0 flex flex-col gap-0.5 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-5 pt-12">
-                <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-accent">{t.event}</span>
+                {t.event && <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-accent">{t.event}</span>}
                 <span className="font-semibold leading-snug text-cream">{t.caption}</span>
-                <span className="text-xs text-muted">{fmt(t.date)}</span>
               </span>
             </button>
           </li>
@@ -104,9 +94,11 @@ export function MasonryGallery({ items }: { items: Tile[] }) {
       </ul>
       {open !== null && (
         <div role="dialog" aria-modal="true" aria-label={items[open].caption} className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 p-4 sm:p-6" onClick={() => setOpen(null)}>
-          <div className="relative w-full max-w-3xl" onClick={(e) => e.stopPropagation()}>
-            <div className="aspect-[16/10] rounded-3xl border border-white/10" style={{ background: PATTERNS[open % PATTERNS.length] }} />
-            <p className="mt-4 text-center text-lg text-cream">{items[open].caption} <span className="block text-sm text-muted">{items[open].event} · {fmt(items[open].date)} · sample placeholder</span></p>
+          <div className="theme-dark relative w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
+            <div className="relative aspect-[16/10]">
+              <Image src={items[open].src} alt={items[open].caption} fill unoptimized priority className="object-contain" />
+            </div>
+            <p className="mt-4 text-center text-lg text-cream">{items[open].caption}</p>
             <div className="mt-4 flex justify-center gap-3 text-cream">
               <button className="min-h-[44px] rounded-full border border-white/20 px-5" onClick={() => go(-1)}>← Prev</button>
               <button autoFocus className="min-h-[44px] rounded-full border border-white/20 px-5" onClick={() => setOpen(null)}>Close</button>

@@ -47,12 +47,12 @@ export default function ContactPage() {
       <section id="form" className="theme-light scroll-mt-24 py-20">
         <Container className="grid gap-10 lg:grid-cols-[1.5fr_1fr]">
           <div className="min-w-0">
-            <Suspense fallback={<div className="h-[600px] rounded-3xl border border-line bg-surface" />}>
+            <Suspense fallback={<div className="h-[600px] rounded-2xl border border-line bg-surface" />}>
               <ContactForm />
             </Suspense>
           </div>
           <aside className="flex min-w-0 flex-col gap-6">
-            <div className="rounded-3xl border border-line bg-surface p-7">
+            <div className="rounded-2xl border border-line bg-surface p-7">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <p className="text-sm font-semibold uppercase tracking-[0.15em] text-dim">Office hours</p>
                 <OpenNow />
@@ -61,13 +61,13 @@ export default function ContactPage() {
               <p className="mt-1 text-sm text-muted">Incident response is available 24×7, 365 days.</p>
             </div>
 
-            <div className="rounded-3xl border border-line bg-surface p-7">
+            <div className="rounded-2xl border border-line bg-surface p-7">
               <p className="text-sm font-semibold uppercase tracking-[0.15em] text-dim">What happens next</p>
               <ol className="mt-5 flex flex-col gap-6">
                 {nextSteps.map((s, i) => (
                   <li key={s.title} className="relative flex gap-4">
                     {i < nextSteps.length - 1 && <span aria-hidden="true" className="absolute left-[15px] top-9 h-[calc(100%-4px)] w-px bg-line2" />}
-                    <span className="grid h-8 w-8 flex-none place-items-center rounded-full bg-accent text-sm font-semibold text-ink">{i + 1}</span>
+                    <span className="grid h-8 w-8 flex-none place-items-center rounded-full bg-accent text-sm font-semibold text-accent-contrast">{i + 1}</span>
                     <span>
                       <span className="block font-semibold">{s.title}</span>
                       <span className="text-sm text-muted">{s.text}</span>
@@ -77,7 +77,7 @@ export default function ContactPage() {
               </ol>
             </div>
 
-            <div className="flex items-center gap-4 rounded-3xl border border-line bg-raised p-6">
+            <div className="flex items-center gap-4 rounded-2xl border border-line bg-raised p-6">
               <Icon name="lock" size={22} className="flex-none text-accent" />
               <p className="text-sm text-muted">Your details are encrypted in transit and never shared. We’re happy to sign an NDA before you tell us anything sensitive.</p>
             </div>
@@ -91,10 +91,10 @@ export default function ContactPage() {
           <SectionHeading id="teams" eyebrow="Get In Touch" title="Contact" accent="Information." lead="Reach us anytime and get the support you need." />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {contactInfo.map((d) => (
-              <div key={d.title} className="spotlight flex flex-col gap-4 rounded-3xl border border-line bg-surface p-6">
+              <div key={d.title} className="spotlight flex flex-col gap-4 rounded-2xl border border-line bg-surface p-6">
                 <span className="grid h-11 w-11 place-items-center rounded-xl bg-accent/15 text-accent"><Icon name={d.icon as 'phone'} size={20} /></span>
                 <div>
-                  <h3 className="text-lg font-semibold">{d.title}</h3>
+                  <h3 className="text-lg">{d.title}</h3>
                   {d.lines.map((l) => <p key={l} className="text-sm text-muted">{l}</p>)}
                 </div>
                 <a href={d.action.href} {...(d.action.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})} className="mt-auto inline-flex items-center gap-2 border-t border-line pt-4 text-sm font-semibold text-accent hover:underline">
@@ -109,7 +109,7 @@ export default function ContactPage() {
       {/* Visit */}
       <section aria-labelledby="visit" className="theme-light py-20">
         <Container className="grid items-stretch gap-6 lg:grid-cols-[1fr_1.6fr]">
-          <div className="flex flex-col gap-6 rounded-3xl border border-line bg-surface p-8">
+          <div className="flex flex-col gap-6 rounded-2xl border border-line bg-surface p-8">
             <SectionHeading id="visit" eyebrow="Visit us" title="Come say" accent="hello." />
             <p className="flex items-start gap-3 text-lg"><Icon name="pin" size={20} className="mt-1 flex-none text-accent" />{SITE.address}</p>
             <ul className="flex flex-col gap-3 text-sm text-muted">
@@ -121,12 +121,12 @@ export default function ContactPage() {
               href="https://www.google.com/maps/dir/?api=1&destination=IIT+Madras+Research+Park,+Taramani,+Chennai"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-auto inline-flex min-h-[48px] items-center gap-2 self-start rounded-full bg-accent px-6 font-semibold text-ink hover:bg-accent hover:text-ink"
+              className="mt-auto inline-flex min-h-[48px] items-center gap-2 self-start rounded-full bg-accent px-6 font-semibold text-accent-contrast hover:bg-accent hover:text-accent-contrast"
             >
               <Icon name="pin" size={16} /> Get directions
             </a>
           </div>
-          <div className="relative min-h-[360px] overflow-hidden rounded-3xl border border-line">
+          <div className="relative min-h-[360px] overflow-hidden rounded-2xl border border-line">
             <iframe
               title="Map: YesPanchi at IIT Madras Research Park, Chennai"
               src="https://maps.google.com/maps?q=IIT+Madras+Research+Park,+Kanagam+Road,+Taramani,+Chennai+600113&z=16&output=embed"

@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
+  darkMode: 'class',
   content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}'],
   theme: {
     extend: {
@@ -12,28 +13,33 @@ const config: Config = {
         line2: 'rgb(var(--c-line2) / <alpha-value>)',
         line3: 'rgb(var(--c-line3) / <alpha-value>)',
         cream: 'rgb(var(--c-cream) / <alpha-value>)',
+        heading: 'rgb(var(--c-heading) / <alpha-value>)',
         muted: 'rgb(var(--c-muted) / <alpha-value>)',
         dim: 'rgb(var(--c-dim) / <alpha-value>)',
-        bronze: {
-          DEFAULT: 'rgb(var(--c-bronze) / <alpha-value>)',
-          light: 'rgb(var(--c-bronze-light) / <alpha-value>)',
-          dark: 'rgb(var(--c-bronze-dark) / <alpha-value>)'
-        },
+        bronze: 'rgb(var(--c-bronze) / <alpha-value>)',
         /* Section-scoped accent — follows whatever `.accent-*` class is
            in effect, so a section can retint itself as you scroll. */
         accent: {
           DEFAULT: 'rgb(var(--c-accent) / <alpha-value>)',
           contrast: 'rgb(var(--c-accent-contrast) / <alpha-value>)'
         },
-        /* Legacy aliases kept so existing pages keep compiling; they now
-           resolve to dark-canvas equivalents. */
+        /* Legacy aliases kept so existing pages keep compiling. */
         paper: 'rgb(var(--c-surface) / <alpha-value>)',
         sand: 'rgb(var(--c-raised) / <alpha-value>)',
         taupe: 'rgb(var(--c-muted) / <alpha-value>)'
       },
       fontFamily: {
         sans: ['"Outfit Variable"', 'Outfit', 'system-ui', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace']
+        /* One typeface site-wide: mono/serif utilities resolve to it too. */
+        mono: ['"Outfit Variable"', 'Outfit', 'system-ui', 'sans-serif'],
+        serif: ['"Outfit Variable"', 'Outfit', 'system-ui', 'sans-serif']
+      },
+      /* Solid fills use their own token so white text passes AA in both modes. */
+      backgroundColor: {
+        accent: {
+          DEFAULT: 'rgb(var(--c-accent-bg) / <alpha-value>)',
+          contrast: 'rgb(var(--c-accent-contrast) / <alpha-value>)'
+        }
       },
       maxWidth: { site: '1280px', wide: '1480px' },
       fontSize: {

@@ -5,7 +5,7 @@ import { prefersReducedMotion } from './motion';
 
 /* ------------------------------------------------------------------
  * ThreatField — the hero backdrop. A slow horizontal weave of light
- * filaments (echoing the ribbon in the Palo Alto hero) over a drifting
+ * filaments over a drifting
  * particle field, with the accent colour pulled from the live CSS
  * custom property so it retints with the section.
  * ------------------------------------------------------------------ */
@@ -26,9 +26,13 @@ export function ThreatField({ className = '', intensity = 1 }: { className?: str
     type Node = { x: number; y: number; vx: number; vy: number; r: number; tw: number };
     let nodes: Node[] = [];
 
+    /* Both colours come from the live theme tokens, so the field works on
+       white, grey and navy panels alike. */
+    let ink = '36 48 60';
     const accent = () => {
-      const v = getComputedStyle(canvas).getPropertyValue('--c-accent').trim();
-      return v || '230 57 80';
+      const cs = getComputedStyle(canvas);
+      ink = cs.getPropertyValue('--c-cream').trim() || ink;
+      return cs.getPropertyValue('--c-accent').trim() || '31 78 121';
     };
 
     const resize = () => {
@@ -57,7 +61,7 @@ export function ThreatField({ className = '', intensity = 1 }: { className?: str
         const grad = ctx.createLinearGradient(0, 0, w, 0);
         grad.addColorStop(0, `rgba(${a} / 0)`);
         grad.addColorStop(0.35, `rgba(${a} / ${0.3 - band * 0.07})`);
-        grad.addColorStop(0.62, `rgba(255 255 255 / ${0.14 - band * 0.04})`);
+        grad.addColorStop(0.62, `rgba(${ink} / ${0.14 - band * 0.04})`);
         grad.addColorStop(1, `rgba(${a} / 0)`);
         ctx.strokeStyle = grad;
         ctx.lineWidth = 1.5 - band * 0.35;
@@ -88,7 +92,7 @@ export function ThreatField({ className = '', intensity = 1 }: { className?: str
           const d2 = dx * dx + dy * dy;
           if (d2 < LINK * LINK) {
             const o = (1 - Math.sqrt(d2) / LINK) * 0.14;
-            ctx.strokeStyle = `rgba(255 255 255 / ${o})`;
+            ctx.strokeStyle = `rgba(${ink} / ${o})`;
             ctx.lineWidth = 0.6;
             ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke();
           }
@@ -101,7 +105,7 @@ export function ThreatField({ className = '', intensity = 1 }: { className?: str
           ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(pointer.x, pointer.y); ctx.stroke();
         }
         const twinkle = 0.45 + Math.sin(t * 0.002 + p.tw) * 0.3;
-        ctx.fillStyle = near ? `rgba(${a} / .95)` : `rgba(255 255 255 / ${twinkle * 0.45})`;
+        ctx.fillStyle = near ? `rgba(${a} / .95)` : `rgba(${ink} / ${twinkle * 0.45})`;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r * (near ? 1.7 : 1), 0, Math.PI * 2);
         ctx.fill();

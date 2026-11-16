@@ -54,12 +54,12 @@ export default function ServicesPage() {
                   const featured = i === 0;
                   return (
                     <li key={s.slug} className={featured ? 'md:col-span-2 lg:row-span-2 lg:col-span-1' : ''}>
-                      <Link href={`/services/${s.slug}`} className={`group flex h-full flex-col gap-4 rounded-3xl border border-line p-7 transition-all hover:-translate-y-0.5 hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent ${featured ? 'bg-raised' : 'bg-surface'}`}>
+                      <Link href={`/services/${s.slug}`} className={`group flex h-full flex-col gap-4 rounded-2xl border border-line p-7 transition-all hover:-translate-y-0.5 hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent ${featured ? 'bg-raised' : 'bg-surface'}`}>
                         <div className="flex items-start justify-between gap-4">
                           <IconTile name={s.icon} size="lg" />
                           {det && <span className="rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold text-accent">From {det.priceFrom}</span>}
                         </div>
-                        <h3 className="text-2xl font-semibold">{s.name}</h3>
+                        <h3 className="text-2xl">{s.name}</h3>
                         <p className="text-muted">{s.summary}</p>
                         {featured && det && (
                           <div className="mt-2 rounded-2xl border border-line bg-surface p-5">
@@ -90,12 +90,12 @@ export default function ServicesPage() {
           <SectionHeading id="engage" eyebrow="How engagements work" title="Simple, fixed-fee," accent="no surprises." />
           <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {engagement.map((e, i) => (
-              <li key={e.title} className="relative flex flex-col gap-3 rounded-3xl border border-line bg-surface p-7">
+              <li key={e.title} className="relative flex flex-col gap-3 rounded-2xl border border-line bg-surface p-7">
                 <div className="flex items-center justify-between">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent font-semibold text-ink">{i + 1}</span>
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent font-semibold text-accent-contrast">{i + 1}</span>
                   <span className="text-xs font-semibold uppercase tracking-[0.14em] text-dim">{e.time}</span>
                 </div>
-                <h3 className="text-xl font-semibold">{e.title}</h3>
+                <h3 className="text-xl">{e.title}</h3>
                 <p className="text-muted">{e.text}</p>
               </li>
             ))}

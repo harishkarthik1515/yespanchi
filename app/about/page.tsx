@@ -54,14 +54,14 @@ export default function AboutPage() {
               { icon: 'eye' as const, title: 'Our Vision', text: 'To become a global leader in intelligent, secure, and trusted digital technologies by empowering enterprise organizations with cutting-edge AI, robust cybersecurity, post-quantum innovation, and transparent corporate governance.', span: 'sm:col-span-2 lg:col-span-6' },
               { icon: 'target' as const, title: 'Our Mission', text: 'To build intelligent, secure, and future-ready digital ecosystems by developing world-class technology platforms that enable enterprises to innovate confidently through secure AI, quantum-safe infrastructure, intelligent automation, and responsible digital transformation.', span: 'sm:col-span-2 lg:col-span-6' }
             ].map((c) => (
-              <article key={c.title} className={`flex flex-col gap-5 rounded-3xl border border-line bg-surface p-8 md:p-10 ${c.span}`}>
+              <article key={c.title} className={`flex flex-col gap-5 rounded-2xl border border-line bg-surface p-8 md:p-10 ${c.span}`}>
                 <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-accent/15 text-accent"><Icon name={c.icon} size={26} /></span>
-                <h3 className="text-3xl font-medium">{c.title}</h3>
+                <h3 className="text-3xl">{c.title}</h3>
                 <p className="text-lg text-muted">{c.text}</p>
               </article>
             ))}
             {culture.map((c) => (
-              <div key={c.label} className="flex flex-col gap-1 rounded-3xl border border-line bg-raised p-6 lg:col-span-3">
+              <div key={c.label} className="flex flex-col gap-1 rounded-2xl border border-line bg-raised p-6 lg:col-span-3">
                 <span className="text-5xl font-medium leading-none text-accent">{c.value}</span>
                 <span className="mt-2 font-semibold">{c.label}</span>
                 <span className="text-sm text-muted">{c.note}</span>
@@ -93,13 +93,13 @@ export default function AboutPage() {
           <SectionHeading id="journey" eyebrow="Our journey" title="From a Chennai start-up to" accent="quantum-ready products." />
           <ol className="relative grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {milestones.map((m, i) => (
-              <li key={m.year} className="relative flex flex-col gap-3 rounded-3xl border border-line bg-surface p-7 transition-colors hover:border-accent">
+              <li key={m.year} className="relative flex flex-col gap-3 rounded-2xl border border-line bg-surface p-7 transition-colors hover:border-accent">
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-sm text-dim">0{i + 1}</span>
                   <span className="rounded-full border border-line2 px-3 py-1 text-xs font-semibold text-accent">{m.metric}</span>
                 </div>
                 <p className="text-4xl font-medium text-accent">{m.year}</p>
-                <h3 className="text-xl font-semibold">{m.title}</h3>
+                <h3 className="text-xl">{m.title}</h3>
                 <p className="text-muted">{m.text}</p>
               </li>
             ))}
@@ -111,13 +111,14 @@ export default function AboutPage() {
       {/* Leadership —  */}
       <section aria-labelledby="team" className="theme-light scroll-mt-16 bg-ink py-24 text-cream">
         <Container className="flex flex-col gap-12">
-          <SectionHeading id="team" eyebrow="Leadership" title="Our" accent="Leadership." />
+          <SectionHeading id="team" eyebrow="Leadership & board" title="Our" accent="Leadership." />
+          <p className="text-muted">We’re hiring. <a href="/careers" className="font-semibold text-accent underline underline-offset-[3px]">See open roles →</a></p>
           <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {leadership.map((p) => (
-              <li key={p.name} className="flex items-center gap-4 rounded-3xl border border-line bg-surface p-7">
+              <li key={p.name} className="flex items-center gap-4 rounded-2xl border border-line bg-surface p-7">
                 <Avatar initials={p.initials} />
                 <div className="min-w-0">
-                  <h3 className="text-lg font-semibold">{p.name}</h3>
+                  <h3 className="text-lg">{p.name}</h3>
                   <p className="text-sm font-semibold text-accent">{p.role}</p>
                 </div>
               </li>
@@ -144,9 +145,9 @@ export default function AboutPage() {
           <SectionHeading id="differentiators" eyebrow="Why YesPanchi?" title="What Sets Our Innovation" accent="and Engineering Apart." />
           <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {differentiators.map((d, i) => (
-              <li key={d.title} className="flex flex-col gap-3 rounded-3xl border border-line bg-surface p-7">
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent font-semibold text-ink">{i + 1}</span>
-                <h3 className="text-lg font-semibold">{d.title}</h3>
+              <li key={d.title} className="flex flex-col gap-3 rounded-2xl border border-line bg-surface p-7">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent font-semibold text-accent-contrast">{i + 1}</span>
+                <h3 className="text-lg">{d.title}</h3>
                 <p className="text-sm text-muted">{d.text}</p>
               </li>
             ))}
@@ -162,9 +163,9 @@ export default function AboutPage() {
           </div>
           <ol className="grid gap-4 sm:grid-cols-2">
             {values.map((v, i) => (
-              <li key={v.title} className="flex flex-col gap-3 rounded-3xl border border-line bg-surface p-7">
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent font-semibold text-ink">{i + 1}</span>
-                <h3 className="text-xl font-semibold">{v.title}</h3>
+              <li key={v.title} className="flex flex-col gap-3 rounded-2xl border border-line bg-surface p-7">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent font-semibold text-accent-contrast">{i + 1}</span>
+                <h3 className="text-xl">{v.title}</h3>
                 <p className="text-muted">{v.text}</p>
               </li>
             ))}
@@ -179,7 +180,7 @@ export default function AboutPage() {
           <ul className="grid gap-5 lg:grid-cols-3">
             {testimonials.map((t) => (
               <li key={t.name}>
-                <figure className="flex h-full flex-col gap-6 rounded-3xl border border-line bg-surface p-8">
+                <figure className="flex h-full flex-col gap-6 rounded-2xl border border-line bg-surface p-8">
                   <span aria-hidden="true" className="text-6xl font-medium leading-none text-accent">“</span>
                   <blockquote className="-mt-6 text-lg">{t.quote}</blockquote>
                   <figcaption className="mt-auto flex items-center gap-3">
@@ -207,7 +208,7 @@ export default function AboutPage() {
             ))}
           </ul>
           <div className="flex flex-col gap-4">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-muted">Certifications & memberships</h3>
+            <h3 className="text-sm uppercase tracking-[0.18em] text-muted">Certifications & memberships</h3>
             <ul className="flex flex-wrap gap-2">
               {certifications.map((c) => (
                 <li key={c} className="flex items-center gap-2 rounded-full border border-line2 bg-surface px-4 py-2 text-sm font-medium">
@@ -215,7 +216,6 @@ export default function AboutPage() {
                 </li>
               ))}
             </ul>
-            <p className="text-sm text-dim">Certification list is sample content.</p>
           </div>
         </Container>
       </section>

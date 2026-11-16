@@ -59,8 +59,8 @@ export default function ProgramPage({ params }: Props) {
           </div>
 
           {c && (
-            <aside aria-labelledby="fees" className="flex min-w-0 flex-col gap-5 rounded-3xl border border-accent/40 bg-surface p-7 lg:sticky lg:top-28">
-              <h2 id="fees" className="text-xs font-semibold uppercase tracking-[0.16em] text-dim">Programme fee</h2>
+            <aside aria-labelledby="fees" className="flex min-w-0 flex-col gap-5 rounded-2xl border border-accent/40 bg-surface p-7 lg:sticky lg:top-28">
+              <h2 id="fees" className="text-xs uppercase tracking-[0.16em] text-dim">Programme fee</h2>
               <p className="flex flex-wrap items-baseline gap-x-3">
                 <span className="text-4xl font-medium">{formatINR(c.earlyBird ?? c.fee)}</span>
                 {c.earlyBird && <span className="text-dim line-through">{formatINR(c.fee)}</span>}
@@ -87,7 +87,7 @@ export default function ProgramPage({ params }: Props) {
               {c.cohorts.map((k) => {
                 const pct = Math.round(((k.seats - k.seatsLeft) / k.seats) * 100);
                 return (
-                  <li key={k.start} className="flex flex-col gap-4 rounded-3xl border border-line bg-surface p-7">
+                  <li key={k.start} className="flex flex-col gap-4 rounded-2xl border border-line bg-surface p-7">
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <span className="flex items-center gap-2 font-semibold"><Icon name="cal" size={18} className="text-accent" />{formatShortDate(k.start)}</span>
                       <SeatsBadge left={k.seatsLeft} />
@@ -126,7 +126,7 @@ export default function ProgramPage({ params }: Props) {
                 <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-dim">Prerequisites</p>
                 <ul className="flex flex-wrap gap-2">{c.prerequisites.map((x) => <li key={x} className="rounded-full bg-raised px-3 py-1.5 text-sm text-muted">{x}</li>)}</ul>
               </div>
-              <figure className="flex flex-col gap-4 rounded-3xl border border-line bg-gradient-to-br from-raised to-surface p-7">
+              <figure className="flex flex-col gap-4 rounded-2xl border border-line bg-gradient-to-br from-raised to-surface p-7">
                 <blockquote className="text-lg leading-relaxed">“{story.text}”</blockquote>
                 <figcaption className="flex items-center gap-3"><Avatar name={story.name} /><span><span className="block font-semibold">{story.name}</span><span className="text-sm text-dim">{story.role}</span></span></figcaption>
               </figure>
@@ -146,7 +146,7 @@ export default function ProgramPage({ params }: Props) {
 
       <section aria-labelledby="more" className="py-20 md:py-24">
         <Container className="flex flex-col gap-10">
-          <h2 id="more" className="text-3xl font-medium">Other programmes</h2>
+          <h2 id="more" className="text-3xl">Other programmes</h2>
           <ul className="grid gap-4 md:grid-cols-3">
             {related.map((o) => (
               <li key={o.slug}>

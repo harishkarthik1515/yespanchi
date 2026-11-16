@@ -56,7 +56,7 @@ export default function ProductPage({ params }: Props) {
             </ul>
           </div>
           <div className="flex min-w-0 flex-col gap-3 rounded-[20px] border border-line bg-surface p-7">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-dim">Core Technologies</h3>
+            <h3 className="text-sm uppercase tracking-[0.16em] text-dim">Core Technologies</h3>
             <ul className="flex flex-col gap-3">
               {p.coreTechnologies.map((t) => (
                 <li key={t} className="flex gap-3 text-sm"><span className="mt-1.5 h-1.5 w-1.5 flex-none rounded-full bg-accent" />{t}</li>
@@ -82,7 +82,7 @@ export default function ProductPage({ params }: Props) {
             {p.pillars.map((f, i) => (
               <article key={f.title} className="flex flex-col gap-2 rounded-[20px] border border-line bg-surface p-6">
                 <span className="font-mono text-xs text-accent">{String(i + 1).padStart(2, '0')}</span>
-                <h3 className="text-lg font-semibold">{f.title}</h3>
+                <h3 className="text-lg">{f.title}</h3>
                 <p className="text-sm text-muted">{f.text}</p>
               </article>
             ))}
@@ -143,7 +143,7 @@ export default function ProductPage({ params }: Props) {
         <section aria-labelledby="compare" className="py-20 md:py-24">
           <Container className="flex flex-col gap-10">
             <SectionHeading id="compare" eyebrow="Side by side" title={`${p.name} vs.`} accent="conventional cryptography." />
-            <div className="overflow-x-auto rounded-3xl border border-line bg-surface">
+            <div className="overflow-x-auto rounded-2xl border border-line bg-surface">
               <table className="w-full min-w-[640px] text-left text-sm">
                 <thead className="bg-raised text-xs uppercase tracking-[0.12em] text-dim">
                   <tr>{p.comparisonTable.headers.map((h) => <th key={h} scope="col" className="px-5 py-4 font-semibold">{h}</th>)}</tr>
@@ -182,7 +182,7 @@ export default function ProductPage({ params }: Props) {
       {related.length > 0 && (
         <section aria-labelledby="more" className="py-20 md:py-24">
           <Container className="flex flex-col gap-10">
-            <h2 id="more" className="text-3xl font-medium">Related products</h2>
+            <h2 id="more" className="text-3xl">Related products</h2>
             <ul className="grid gap-4 md:grid-cols-2">
               {related.map((o) => (
                 <li key={o.slug}>

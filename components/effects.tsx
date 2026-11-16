@@ -101,7 +101,7 @@ export function CookieConsent() {
     <div
       role="dialog"
       aria-label="Cookie preferences"
-      className="fixed bottom-24 right-4 z-[65] w-[min(420px,calc(100vw-32px))] rounded-2xl border border-line2 bg-surface/95 p-5 shadow-[0_24px_70px_rgba(0,0,0,.6)] backdrop-blur-xl"
+      className="fixed bottom-24 right-4 z-[65] w-[min(420px,calc(100vw-32px))] rounded-2xl border border-line2 bg-surface/95 p-5 shadow-2xl backdrop-blur-xl"
     >
       <p className="text-sm text-muted">
         We use essential cookies to run this site and optional analytics to improve it. See our{' '}

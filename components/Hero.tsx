@@ -7,9 +7,9 @@ import { ThreatField } from './ThreatField';
 import { Counter, Magnetic, MaskLines, useScrollProgress } from './motion';
 
 /* ------------------------------------------------------------------
- * Hero — full-bleed dark stage, oversized medium-weight headline that
- * reveals line by line, and a scroll-linked fade/lift so the hero
- * recedes as the page moves under it (the Palo Alto opening beat).
+ * Hero — full-bleed midnight-navy panel (navy in both themes) with the
+ * animated network field, a line-by-line headline and a scroll-linked
+ * fade/lift so the hero recedes as the page moves under it.
  * ------------------------------------------------------------------ */
 export function Hero() {
   const { ref, progress } = useScrollProgress<HTMLElement>();
@@ -19,12 +19,11 @@ export function Hero() {
     <section
       ref={ref}
       aria-labelledby="hero-title"
-      className="relative isolate flex min-h-[clamp(620px,92vh,980px)] items-center overflow-hidden border-b border-line"
+      className="theme-dark relative isolate flex min-h-[max(600px,calc(100svh-var(--chrome-h,112px)))] items-center overflow-hidden bg-ink"
     >
       <ThreatField />
       <div aria-hidden="true" className="dotgrid pointer-events-none absolute inset-0 opacity-50" />
       <div aria-hidden="true" className="pointer-events-none absolute -right-[12%] top-[-10%] h-[62vw] max-h-[760px] w-[62vw] max-w-[760px] rounded-full bg-accent/[0.13] blur-[130px]" />
-      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-56 bg-gradient-to-b from-transparent to-ink" />
 
       <div
         className="relative mx-auto w-full max-w-wide px-6 py-24"
@@ -50,31 +49,32 @@ export function Hero() {
             />
 
             <p data-reveal style={{ ['--d' as string]: '220ms' }} className="max-w-[58ch] text-lead text-muted">
-              Next-generation cybersecurity, AI security, post-quantum cryptography and
-              automated compliance for organisations that cannot afford to fail.
+              YesPanchi is a security-first technology company at IIT Madras Research Park, Chennai —
+              delivering cybersecurity, post-quantum cryptography, enterprise AI and compliance for
+              organisations that cannot afford to fail.
             </p>
 
             <div data-reveal style={{ ['--d' as string]: '320ms' }} className="mt-2 flex flex-wrap items-center gap-4">
               <Magnetic>
                 <Link
-                  href="/contact?topic=assessment"
-                  className="group inline-flex min-h-[54px] items-center gap-2.5 rounded-full bg-accent px-7 text-[15px] font-semibold text-accent-contrast transition-all duration-300 hover:text-accent-contrast hover:shadow-[0_0_44px_-6px_rgb(var(--c-accent)/.7)]"
+                  href="/products"
+                  className="group inline-flex min-h-[54px] items-center gap-2.5 rounded-full bg-accent px-7 text-[15px] font-semibold text-accent-contrast transition-all duration-300 hover:text-accent-contrast hover:brightness-110"
                 >
-                  Book a free security assessment
+                  Explore Our Solutions
                   <Icon name="arrow" size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
               </Magnetic>
               <Link
-                href="/products"
-                className="group inline-flex min-h-[54px] items-center gap-2.5 rounded-full border border-line2 px-7 text-[15px] font-medium transition-colors hover:border-cream"
+                href="/about"
+                className="group inline-flex min-h-[54px] items-center gap-2.5 rounded-full border border-line3 px-7 text-[15px] font-medium transition-colors hover:border-cream"
               >
-                Explore our platforms
+                Discover Our Company
                 <Icon name="arrow" size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </div>
 
             <ul data-reveal style={{ ['--d' as string]: '400ms' }} className="mt-4 flex flex-wrap items-center gap-x-7 gap-y-3 text-sm text-dim">
-              {([['shield', 'Enterprise-grade defence'], ['key', 'NIST post-quantum ready'], ['eye', 'ISO 27001 & PCI DSS']] as const).map(([i, t]) => (
+              {([['shield', 'Enterprise-grade defence'], ['key', 'NIST post-quantum ready'], ['badge', 'ISO 27001 & PCI DSS']] as const).map(([i, t]) => (
                 <li key={t} className="flex items-center gap-2.5">
                   <Icon name={i} size={16} className="text-accent" />
                   {t}
@@ -86,7 +86,7 @@ export function Hero() {
           {/* Stat rail */}
           <div data-reveal="right" style={{ ['--d' as string]: '300ms' }} className="relative min-w-0">
             <span aria-hidden="true" className="absolute -left-8 top-0 hidden h-full w-px bg-gradient-to-b from-transparent via-accent/60 to-transparent lg:block" />
-            <dl className="grid gap-px overflow-hidden rounded-3xl border border-line bg-line sm:grid-cols-3 lg:grid-cols-1">
+            <dl className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3 lg:grid-cols-1">
               {heroStats.map((s, i) => (
                 <div key={s.label} className="spotlight flex flex-col gap-1.5 bg-ink/80 p-7 backdrop-blur-sm" style={{ ['--d' as string]: `${360 + i * 90}ms` }}>
                   <dt className="sr-only">{s.label}</dt>

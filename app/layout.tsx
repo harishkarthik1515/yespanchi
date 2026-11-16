@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 // Self-hosted fonts (no runtime request to Google — faster & privacy-friendly)
 import '@fontsource-variable/outfit';
-import '@fontsource/jetbrains-mono/400.css';
-import '@fontsource/jetbrains-mono/500.css';
 import './globals.css';
 import AnnouncementBar from '@/components/AnnouncementBar';
 import Header from '@/components/Header';
@@ -38,17 +36,17 @@ export const metadata: Metadata = {
   formatDetection: { telephone: false }
 };
 
-export const viewport: Viewport = { themeColor: '#141415', width: 'device-width', initialScale: 1 };
+export const viewport: Viewport = { themeColor: '#0F1F38', width: 'device-width', initialScale: 1 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en-IN" suppressHydrationWarning>
       <head>
-        {/* Enables reveal animations only when JS runs — content stays visible to crawlers & no-JS users */}
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        {/* Enables reveal animations only when JS runs, and applies a saved dark theme before paint (light is the default). */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js');try{if(localStorage.theme==='dark')document.documentElement.classList.add('dark')}catch(e){}" }} />
       </head>
       <body>
-        <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-ink">Skip to content</a>
+        <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-contrast">Skip to content</a>
         <CommandPaletteProvider>
           <SiteEffects />
           <AnnouncementBar />

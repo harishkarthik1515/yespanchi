@@ -72,7 +72,7 @@ export default function ServicePage({ params }: Props) {
             <SectionHeading id="deliverables" eyebrow="Scope" title="What's included" />
             {det && (
               <div className="flex flex-col gap-3">
-                <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-muted">Standards & tools we use</h3>
+                <h3 className="text-sm uppercase tracking-[0.16em] text-muted">Standards & tools we use</h3>
                 <ul className="flex flex-wrap gap-2">
                   {det.tools.map((t) => <li key={t} className="rounded-full border border-line2 bg-surface px-3.5 py-1.5 text-sm font-medium">{t}</li>)}
                 </ul>
@@ -81,7 +81,7 @@ export default function ServicePage({ params }: Props) {
           </div>
           <ul className="grid min-w-0 gap-4 sm:grid-cols-2">
             {s.deliverables.map((d, i) => (
-              <li key={d} className="flex flex-col gap-4 rounded-3xl border border-line bg-surface p-6">
+              <li key={d} className="flex flex-col gap-4 rounded-2xl border border-line bg-surface p-6">
                 <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/15 text-accent"><Icon name="check" size={20} /></span>
                 <span className="text-lg font-semibold">{d}</span>
                 <span className="mt-auto font-mono text-xs text-dim">Deliverable 0{i + 1}</span>
@@ -99,7 +99,7 @@ export default function ServicePage({ params }: Props) {
             <span aria-hidden="true" className="absolute left-5 right-5 top-5 hidden h-px bg-line2 lg:block" />
             {s.process.map((step, i) => (
               <li key={step} className="relative flex flex-col gap-3">
-                <span className="relative flex h-10 w-10 items-center justify-center rounded-full bg-accent font-semibold text-ink ring-8 ring-ink">{i + 1}</span>
+                <span className="relative flex h-10 w-10 items-center justify-center rounded-full bg-accent font-semibold text-accent-contrast ring-8 ring-ink">{i + 1}</span>
                 <span className="text-xl font-semibold">{step}</span>
               </li>
             ))}
@@ -111,14 +111,14 @@ export default function ServicePage({ params }: Props) {
         <section aria-labelledby="case" className="theme-light scroll-mt-16 bg-ink py-24 text-cream">
           <Container className="flex flex-col gap-10">
             <SectionHeading id="case" eyebrow={`Case study · ${det.caseStudy.industry}`} title="Real problem," accent="measurable outcome." />
-            <article className="grid gap-px overflow-hidden rounded-3xl border border-line bg-line lg:grid-cols-[1.4fr_1fr]">
+            <article className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line lg:grid-cols-[1.4fr_1fr]">
               <div className="flex flex-col gap-6 bg-surface p-8 md:p-10">
                 <div className="flex flex-col gap-2">
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-dim">The challenge</h3>
+                  <h3 className="text-sm uppercase tracking-[0.16em] text-dim">The challenge</h3>
                   <p className="text-lg">{det.caseStudy.problem}</p>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-dim">What we did</h3>
+                  <h3 className="text-sm uppercase tracking-[0.16em] text-dim">What we did</h3>
                   <p className="text-lg">{det.caseStudy.outcome}</p>
                 </div>
               </div>
@@ -147,11 +147,11 @@ export default function ServicePage({ params }: Props) {
 
       <section aria-labelledby="related" className="scroll-mt-16 border-t border-raised py-24">
         <Container className="flex flex-col gap-10">
-          <h2 id="related" className="text-3xl font-medium">Related services</h2>
+          <h2 id="related" className="text-3xl">Related services</h2>
           <ul className="grid gap-4 md:grid-cols-3">
             {related.map((r) => (
               <li key={r.slug}>
-                <Link href={`/services/${r.slug}`} className="group flex h-full flex-col gap-3 rounded-3xl border border-line bg-surface p-6 transition-colors hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent">
+                <Link href={`/services/${r.slug}`} className="group flex h-full flex-col gap-3 rounded-2xl border border-line bg-surface p-6 transition-colors hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent">
                   <div className="flex items-center gap-4"><IconTile name={r.icon} size="sm" /><span className="font-semibold">{r.name}</span></div>
                   <p className="text-sm text-muted">{r.summary}</p>
                   <span className="mt-auto text-sm font-semibold text-accent group-hover:underline">

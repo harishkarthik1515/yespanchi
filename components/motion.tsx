@@ -208,82 +208,9 @@ export function Meter({
 }
 
 /* ==================================================================
- * StickyNav — the secondary section bar that pins beneath the header
- * and underlines whichever section you are currently in
- * (Palo Alto's `waypoint-sticky`).
- * ================================================================== */
-export function StickyNav({
-  sections, cta
-}: { sections: { id: string; label: string }[]; cta?: { href: string; label: string } }) {
-  const [active, setActive] = useState(sections[0]?.id);
-  const [stuck, setStuck] = useState(false);
-  const sentinel = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const io = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible[0]) setActive(visible[0].target.id);
-      },
-      { rootMargin: '-25% 0px -55% 0px', threshold: [0, 0.2, 0.6] }
-    );
-    sections.forEach((s) => { const el = document.getElementById(s.id); if (el) io.observe(el); });
-    return () => io.disconnect();
-  }, [sections]);
-
-  useEffect(() => {
-    const el = sentinel.current;
-    if (!el) return;
-    const io = new IntersectionObserver(([e]) => setStuck(!e.isIntersecting), { rootMargin: '-81px 0px 0px 0px' });
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  return (
-    <>
-      <div ref={sentinel} aria-hidden="true" />
-      <div
-        className={`sticky top-[64px] z-40 border-b transition-colors duration-300 ${
-          stuck ? 'border-line bg-ink/95 backdrop-blur-xl' : 'border-transparent bg-transparent'
-        }`}
-      >
-        <div className="mx-auto flex w-full max-w-wide items-center gap-1 overflow-x-auto px-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {sections.map((s) => (
-            <a
-              key={s.id}
-              href={`#${s.id}`}
-              aria-current={active === s.id ? 'true' : undefined}
-              className={`relative whitespace-nowrap px-4 py-4 text-[15px] font-medium transition-colors ${
-                active === s.id ? 'text-cream' : 'text-dim hover:text-cream'
-              }`}
-            >
-              {s.label}
-              <span
-                aria-hidden="true"
-                className={`absolute inset-x-3 bottom-0 h-[2px] origin-left rounded-full bg-accent transition-transform duration-300 ease-out ${
-                  active === s.id ? 'scale-x-100' : 'scale-x-0'
-                }`}
-              />
-            </a>
-          ))}
-          {cta && (
-            <Link
-              href={cta.href}
-              className="ml-auto hidden shrink-0 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-accent-contrast transition-opacity hover:opacity-90 hover:text-accent-contrast sm:inline-flex"
-            >
-              {cta.label}
-            </Link>
-          )}
-        </div>
-      </div>
-    </>
-  );
-}
-
-/* ==================================================================
- * ScrollTabs — Palo Alto's signature move. A tall section whose panel
- * is sticky; as you scroll through it the active tab advances, the
- * section's accent colour retints everything, and panels crossfade.
+ * ScrollTabs — a tall section whose panel
+ * is sticky; as you scroll through it the active tab advances and
+ * panels crossfade.
  * Clicking a tab scrolls to that tab's slice of the section.
  * ================================================================== */
 type ScrollTabsCtx = { active: number };
@@ -293,7 +220,7 @@ export const useScrollTab = () => useContext(TabsCtx);
 export function ScrollTabs({
   items, children, className = '', stickyTop = 128
 }: {
-  items: { id: string; label: string; accent: string; icon?: ReactNode }[];
+  items: { id: string; label: string; icon?: ReactNode }[];
   children: (active: number) => ReactNode;
   className?: string;
   stickyTop?: number;
@@ -329,8 +256,8 @@ export function ScrollTabs({
   const ctx = useMemo(() => ({ active }), [active]);
 
   return (
-    <div ref={wrap} className={`${items[active]?.accent ?? ''} relative transition-colors duration-700 ${className}`}>
-      {/* Tab bar — pins below the section nav */}
+    <div ref={wrap} className={`relative ${className}`}>
+      {/* Tab bar — pins below the header */}
       <div className="sticky z-30 border-b border-line bg-ink/95 backdrop-blur-xl transition-colors duration-700" style={{ top: stickyTop }}>
         <div
           role="tablist"

@@ -17,7 +17,7 @@ export function ReadinessCheck() {
     : 'Excellent. Keep it that way with periodic audits and PQ-ready encryption.';
 
   return (
-    <div className="flex min-w-0 flex-[999_1_560px] flex-col gap-2.5 rounded-[26px] border border-line bg-surface/60 p-6 md:p-9">
+    <div className="flex min-w-0 flex-[999_1_560px] flex-col gap-2.5 rounded-2xl border border-line bg-surface/60 p-6 md:p-9">
       {readinessChecks.map((label, idx) => {
         const on = checks[idx];
         return (
@@ -64,7 +64,7 @@ export function ReadinessCheck() {
         <p className="text-muted" aria-live="polite">{verdict}</p>
         <Link
           href={`/contact?topic=assessment&score=${score}`}
-          className="group mt-2 inline-flex min-h-[52px] w-fit items-center gap-2.5 rounded-full bg-accent px-7 font-semibold text-accent-contrast transition-all duration-300 hover:text-accent-contrast hover:shadow-[0_0_40px_-8px_rgb(var(--c-accent)/.75)]"
+          className="group mt-2 inline-flex min-h-[52px] w-fit items-center gap-2.5 rounded-full bg-accent px-7 font-semibold text-accent-contrast transition-all duration-300 hover:text-accent-contrast hover:brightness-110"
         >
           Get my free assessment
           <Icon name="arrow" size={18} className="transition-transform duration-300 group-hover:translate-x-1" />

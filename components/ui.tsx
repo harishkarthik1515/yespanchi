@@ -9,7 +9,12 @@ export function Container({ children, className = '' }: { children: ReactNode; c
 }
 
 export function Eyebrow({ children }: { children: ReactNode; light?: boolean }) {
-  return <p className="text-[13px] font-semibold uppercase tracking-[0.22em] text-accent">{children}</p>;
+  return (
+    <p className="flex items-center gap-3 text-[13px] font-semibold uppercase tracking-[0.22em] text-accent">
+      <span aria-hidden="true" className="h-0.5 w-8 bg-bronze" />
+      {children}
+    </p>
+  );
 }
 
 export function SectionHeading({
@@ -29,7 +34,7 @@ export function SectionHeading({
 type BtnProps = { href: string; children: ReactNode; variant?: 'primary' | 'outline' | 'dark' | 'ghost'; className?: string; external?: boolean };
 export function Button({ href, children, variant = 'primary', className = '', external }: BtnProps) {
   const styles = {
-    primary: 'bg-accent text-accent-contrast hover:text-accent-contrast hover:shadow-[0_0_40px_-8px_rgb(var(--c-accent)/.75)]',
+    primary: 'bg-accent text-accent-contrast hover:text-accent-contrast hover:brightness-110',
     outline: 'border border-line2 text-cream hover:border-cream',
     dark: 'bg-cream text-ink hover:bg-cream/90 hover:text-ink',
     ghost: 'border border-line2 text-cream hover:border-cream'
@@ -78,7 +83,7 @@ export function PageHero({
   eyebrow, title, accent, lead, crumbs, children
 }: { eyebrow: string; title: string; accent?: string; lead?: string; crumbs: { name: string; href: string }[]; children?: ReactNode }) {
   return (
-    <section className="relative isolate overflow-hidden border-b border-line">
+    <section className="theme-light relative isolate overflow-hidden border-b border-line">
       <ThreatField intensity={0.6} />
       <div aria-hidden="true" className="dotgrid pointer-events-none absolute inset-0 opacity-40" />
       <div aria-hidden="true" className="pointer-events-none absolute -right-28 -top-24 h-[460px] w-[460px] rounded-full bg-accent/[0.12] blur-[120px]" />
@@ -86,7 +91,7 @@ export function PageHero({
       <Container className="relative flex flex-col gap-6 pb-24 pt-28 md:pb-28 md:pt-32">
         <div data-reveal><Breadcrumbs items={crumbs} /></div>
         <div data-reveal style={{ ['--d' as string]: '80ms' }}><Eyebrow>{eyebrow}</Eyebrow></div>
-        <h1 data-reveal style={{ ['--d' as string]: '140ms' }} className="max-w-[20ch] text-d1 font-medium">
+        <h1 data-reveal style={{ ['--d' as string]: '140ms' }} className="max-w-[20ch] text-d1">
           {title} {accent && <span className="text-accent">{accent}</span>}
         </h1>
         {lead && (
@@ -119,7 +124,7 @@ export function CtaBand() {
   return (
     <section aria-labelledby="cta-band" className="py-24">
       <Container>
-        <div data-reveal className="relative flex flex-wrap items-end justify-between gap-10 overflow-hidden rounded-[32px] border border-line bg-surface/60 p-8 md:p-16">
+        <div data-reveal className="theme-dark relative flex flex-wrap items-end justify-between gap-10 overflow-hidden rounded-2xl bg-ink p-8 md:p-16">
           <div aria-hidden="true" className="hatch pointer-events-none absolute inset-0 opacity-60" />
           <div
             aria-hidden="true"
@@ -127,7 +132,7 @@ export function CtaBand() {
             style={{ background: 'radial-gradient(80% 90% at 85% 20%, rgb(var(--c-accent) / .18), transparent 60%)' }}
           />
           <div className="relative flex max-w-2xl flex-col gap-5">
-            <h2 id="cta-band" className="text-d2 font-medium">Ready to secure your digital future?</h2>
+            <h2 id="cta-band" className="text-d2">Ready to secure your digital future?</h2>
             <p className="text-lead text-muted">
               Partner with YesPanchi to strengthen cybersecurity, streamline compliance and accelerate
               innovation with AI security and quantum-ready solutions.
@@ -135,7 +140,7 @@ export function CtaBand() {
           </div>
           <div className="relative flex flex-wrap gap-3">
             <Button href="/contact?topic=assessment">Schedule a free assessment</Button>
-            <Button href="/about" variant="outline">Discover YesPanchi</Button>
+            <Button href="/products" variant="outline">Explore our solutions</Button>
           </div>
         </div>
       </Container>

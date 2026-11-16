@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Container, CtaBand, PageHero, SectionHeading, Button } from '@/components/ui';
 import { Icon } from '@/components/Icon';
 import { ProductExplorer } from '@/components/products/ProductExplorer';
+import { ProductBook } from '@/components/products/ProductBook';
 
 export const metadata: Metadata = {
   title: 'Products — Post-Quantum Security, Enterprise AI & AI Governance',
@@ -23,7 +24,8 @@ export default function ProductsPage() {
       <section aria-labelledby="catalogue" className="py-20 md:py-24">
         <Container className="flex flex-col gap-10">
           <SectionHeading id="catalogue" eyebrow="Catalogue" title="Find the right" accent="product." lead="Next-generation cybersecurity, AI security, and quantum-ready platforms designed to protect, empower, and future-proof modern enterprises." />
-          <ProductExplorer />
+          <div className="hidden lg:block"><ProductBook /></div>
+          <div className="lg:hidden"><ProductExplorer /></div>
         </Container>
       </section>
 
@@ -35,9 +37,9 @@ export default function ProductsPage() {
             { icon: 'shield' as const, t: 'Security-first engineering', d: 'Developed at IIT Madras Research Park by a team that also runs VAPT and forensics engagements.' },
             { icon: 'hands' as const, t: 'Built for integration', d: 'Designed to work alongside your existing infrastructure, not replace it overnight.' }
           ].map((x) => (
-            <article key={x.t} className="flex flex-col gap-3 rounded-3xl border border-line bg-surface p-7">
+            <article key={x.t} className="flex flex-col gap-3 rounded-2xl border border-line bg-surface p-7">
               <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent/15 text-accent"><Icon name={x.icon} size={22} /></span>
-              <h3 className="text-xl font-semibold">{x.t}</h3>
+              <h3 className="text-xl">{x.t}</h3>
               <p className="text-muted">{x.d}</p>
             </article>
           ))}

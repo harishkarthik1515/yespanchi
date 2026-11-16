@@ -8,7 +8,7 @@ import { Icon } from './Icon';
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="relative overflow-hidden border-t border-line">
+    <footer className="theme-dark relative overflow-hidden bg-ink">
       <div aria-hidden="true" className="grid-lines pointer-events-none absolute inset-0" />
       <div
         aria-hidden="true"
@@ -48,7 +48,7 @@ export default function Footer() {
           <nav aria-label="Footer" className="flex flex-wrap gap-x-16 gap-y-10">
             <FooterCol
               title="Company"
-              links={[['About Us', '/about'], ['Training', '/training'], ['Events', '/events'], ['MoUs', '/events/mous'], ['Gallery', '/events/gallery'], ['Contact', '/contact']]}
+              links={[['About Us', '/about'], ['Training', '/training'], ['Events', '/events'], ['MoUs', '/events/mous'], ['Gallery', '/events/gallery'], ['Insights', '/insights'], ['Careers', '/careers'], ['Contact', '/contact']]}
             />
             <FooterCol title="Services" links={services.slice(4).map((s) => [s.name, `/services/${s.slug}`] as [string, string])} />
             <FooterCol title="Products" links={products.map((p) => [p.name, `/products/${p.slug}`] as [string, string])} />
@@ -62,7 +62,7 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-wrap justify-between gap-3 border-t border-line pt-7 text-sm text-dim">
-          <span>© {year} {SITE.legalName}. All rights reserved.</span>
+          <span>© {year} {SITE.legalName} All rights reserved.</span>
           <span className="flex gap-6">
             <Link href="/privacy" className="text-muted hover:text-accent">Privacy policy</Link>
             <Link href="/terms" className="text-muted hover:text-accent">Terms</Link>

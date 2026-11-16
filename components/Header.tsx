@@ -8,16 +8,19 @@ import { nav } from '@/lib/data';
 import { Icon, IconTile } from './Icon';
 import { useCommandPalette } from './CommandPalette';
 
-type MenuKey = 'products' | 'services' | 'events' | null;
+type MenuKey = 'products' | 'events' | null;
 
 const links = [
-  { name: 'Home', href: '/' },
-  { name: 'About Us', href: '/about' },
-  { name: 'Products', href: '/products', menu: 'products' as const },
-  { name: 'Services', href: '/services', menu: 'services' as const },
-  { name: 'Training', href: '/training' },
-  { name: 'Events', href: '/events', menu: 'events' as const },
-  { name: 'Contact', href: '/contact' }
+  { name: 'Overview', href: '/' },
+  { name: 'Who We Are', href: '/about' },
+  { name: 'What We Build', href: '/products', menu: 'products' as const },
+  /* Services and Training live inside the "What We Build" menu on desktop; the mobile drawer lists them directly. */
+  { name: 'Services', href: '/services', mobileOnly: true },
+  { name: 'Training', href: '/training', mobileOnly: true },
+  { name: 'Insights', href: '/insights' },
+  { name: 'Newsroom', href: '/events', menu: 'events' as const },
+  { name: 'Careers', href: '/careers' },
+  { name: 'Connect', href: '/contact' }
 ];
 
 export default function Header() {
@@ -61,13 +64,9 @@ export default function Header() {
         aria-label="Primary"
         onMouseLeave={() => setMenu(null)}
         onKeyDown={(e) => e.key === 'Escape' && setMenu(null)}
-        className={`relative border-b transition-all duration-300 ${
-          scrolled
-            ? 'border-line bg-ink/95 backdrop-blur-xl'
-            : 'border-transparent bg-gradient-to-b from-ink via-ink/70 to-transparent'
-        }`}
+        className={`relative border-b border-line bg-ink/95 backdrop-blur-xl transition-shadow duration-300 ${scrolled ? 'shadow-md' : ''}`}
       >
-        <div className={`mx-auto flex w-full max-w-wide items-center justify-between gap-4 px-6 transition-all duration-300 ${scrolled ? 'py-2.5' : 'py-4'}`}>
+        <div className={`mx-auto flex w-full max-w-wide items-center justify-between gap-4 px-6 transition-all duration-300 ${scrolled ? 'py-2' : 'py-3'}`}>
           <Link href="/" aria-label="YesPanchi — Group of Companies, home" className="flex shrink-0 items-center">
             <Image
               src="/logo.png"
@@ -80,8 +79,8 @@ export default function Header() {
           </Link>
 
           {/* Desktop links */}
-          <ul className="hidden items-center gap-0.5 text-[15px] font-medium lg:flex">
-            {links.map((l) =>
+          <ul className="hidden items-center gap-0.5 text-[15px] font-medium xl:flex">
+            {links.filter((l) => !l.mobileOnly).map((l) =>
               l.menu ? (
                 <li key={l.name}>
                   <button
@@ -92,7 +91,7 @@ export default function Header() {
                     onClick={() => setMenu(menu === l.menu ? null : l.menu)}
                     onMouseEnter={() => setMenu(l.menu)}
                     className={`relative flex min-h-[44px] items-center gap-1.5 px-3.5 py-2.5 transition-colors ${
-                      isActive(l.href) || menu === l.menu ? 'text-cream' : 'text-muted hover:text-cream'
+                      isActive(l.href) || menu === l.menu ? 'text-accent' : 'text-cream hover:text-accent'
                     }`}
                   >
                     {l.name}
@@ -111,7 +110,7 @@ export default function Header() {
                     href={l.href}
                     onMouseEnter={() => setMenu(null)}
                     aria-current={isActive(l.href) ? 'page' : undefined}
-                    className={`relative block px-3.5 py-2.5 transition-colors ${isActive(l.href) ? 'text-cream' : 'text-muted hover:text-cream'}`}
+                    className={`relative block px-3.5 py-2.5 transition-colors ${isActive(l.href) ? 'text-accent' : 'text-cream hover:text-accent'}`}
                   >
                     {l.name}
                     <span
@@ -131,20 +130,32 @@ export default function Header() {
               type="button"
               onClick={palette.open}
               aria-label="Search the site (Ctrl K)"
-              className="flex h-11 items-center gap-2 rounded-full border border-line2 px-3.5 text-dim transition-colors hover:border-line3 hover:text-cream"
+              className="flex h-11 items-center gap-2 rounded-full border border-line2 px-3.5 text-muted transition-colors hover:border-accent hover:text-accent"
             >
               <Icon name="search" size={18} />
-              <kbd className="hidden rounded border border-line2 px-1.5 font-mono text-[10px] xl:inline">⌘K</kbd>
+              <kbd className="hidden rounded border border-line2 px-1.5 text-[10px] 2xl:inline">⌘K</kbd>
+            </button>
+            <button
+              type="button"
+              aria-label="Switch between light and dark theme"
+              onClick={() => {
+                const dark = document.documentElement.classList.toggle('dark');
+                try { localStorage.theme = dark ? 'dark' : 'light'; } catch {}
+              }}
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-line2 text-muted transition-colors hover:border-accent hover:text-accent"
+            >
+              <Icon name="moon" size={18} className="dark:hidden" />
+              <Icon name="sun" size={18} className="hidden dark:block" />
             </button>
             <Link
               href="/contact"
-              className="hidden min-h-[44px] items-center rounded-full bg-accent px-5 text-[15px] font-semibold text-accent-contrast transition-all duration-300 hover:text-accent-contrast hover:shadow-[0_0_32px_-6px_rgb(var(--c-accent)/.75)] sm:inline-flex"
+              className="hidden min-h-[44px] items-center rounded-full bg-accent px-5 text-[15px] font-semibold text-accent-contrast transition-all duration-300 hover:text-accent-contrast hover:brightness-110 sm:inline-flex"
             >
               Get Started
             </Link>
             <button
               type="button"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-line2 lg:hidden"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-line2 xl:hidden"
               aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen((v) => !v)}
@@ -156,8 +167,8 @@ export default function Header() {
 
         {/* Mega menus */}
         {menu === 'products' && (
-          <Panel id="menu-products" width="w-[min(720px,calc(100vw-32px))]" title="Explore our platforms" sub="Post-quantum, AI security & governance" allHref="/products" allLabel="All products">
-            <ul className="grid gap-1 p-3 sm:grid-cols-2">
+          <Panel id="menu-products" width="w-[min(900px,calc(100vw-32px))]" title="Products & services" sub="Platforms, audits, security services & training" allHref="/products" allLabel="All products">
+            <ul className="grid gap-1 p-3 sm:grid-cols-3">
               {nav.products.map((p) => (
                 <li key={p.href}>
                   <Link
@@ -175,10 +186,6 @@ export default function Header() {
                 </li>
               ))}
             </ul>
-          </Panel>
-        )}
-        {menu === 'services' && (
-          <Panel id="menu-services" width="w-[min(820px,calc(100vw-32px))]" title="Our service divisions" sub="Technology delivery & cybersecurity audit expertise" allHref="/services" allLabel="All services">
             <div className="grid gap-3 p-3.5 sm:grid-cols-2">
               {nav.services.map((g) => (
                 <div key={g.title} className="rounded-2xl border border-line bg-ink px-2.5 pb-2 pt-3.5">
@@ -202,10 +209,14 @@ export default function Header() {
                 </div>
               ))}
             </div>
+            <div className="flex flex-wrap gap-x-8 gap-y-2 border-t border-line px-6 py-4 text-sm font-medium">
+              <Link href="/services" className="text-accent">All services →</Link>
+              <Link href="/training" className="text-accent">Training programmes →</Link>
+            </div>
           </Panel>
         )}
         {menu === 'events' && (
-          <Panel id="menu-events" width="w-[min(420px,calc(100vw-32px))]" title="Events & highlights" sub="Conferences, MoUs & photo galleries">
+          <Panel id="menu-events" width="w-[min(420px,calc(100vw-32px))]" title="Newsroom" sub="Conferences, MoUs & photo galleries">
             <ul className="p-3">
               {nav.events.map((e) => (
                 <li key={e.href}>
@@ -225,7 +236,7 @@ export default function Header() {
 
       {/* Mobile drawer */}
       {mobileOpen && (
-        <div className="absolute inset-x-0 top-full z-40 h-[calc(100dvh-72px)] overflow-y-auto border-t border-line bg-ink px-6 pb-10 pt-4 lg:hidden">
+        <div className="absolute inset-x-0 top-full z-40 h-[calc(100dvh-72px)] overflow-y-auto border-t border-line bg-ink px-6 pb-10 pt-4 xl:hidden">
           <ul className="flex flex-col">
             {links.map((l) => (
               <li key={l.name} className="border-b border-line">
@@ -235,7 +246,7 @@ export default function Header() {
                     {nav.products.map((p) => <li key={p.href}><Link href={p.href} className="block py-1.5 text-muted">{p.name}</Link></li>)}
                   </ul>
                 )}
-                {l.menu === 'services' && (
+                {l.href === '/services' && (
                   <ul className="mb-3 grid grid-cols-2 gap-2">
                     {nav.services.flatMap((g) => g.items).map((s) => <li key={s.href}><Link href={s.href} className="block py-1.5 text-muted">{s.name}</Link></li>)}
                   </ul>
@@ -259,7 +270,7 @@ function Panel({ id, width, title, sub, allHref, allLabel, children }: { id: str
   return (
     <div
       id={id}
-      className={`absolute left-1/2 top-[calc(100%+8px)] -translate-x-1/2 animate-fadeDown rounded-[22px] border border-line2 bg-surface/95 shadow-[0_32px_80px_rgba(0,0,0,0.6)] backdrop-blur-xl ${width}`}
+      className={`absolute left-1/2 top-[calc(100%+8px)] -translate-x-1/2 animate-fadeDown rounded-2xl border border-line bg-ink shadow-2xl ${width}`}
     >
       {/* invisible bridge over the gap so the pointer doesn't "leave" the nav on the way down */}
       <span aria-hidden="true" className="absolute inset-x-0 -top-[12px] h-[12px]" />

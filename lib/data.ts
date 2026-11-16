@@ -207,7 +207,7 @@ export const services: Service[] = [
 export const serviceAreas = [
   { name: 'Cyber Defense & Threat Intelligence', tag: 'Detect · Respond · Recover', href: '/services/cyber-forensics', desc: 'Advanced cybersecurity solutions, threat detection and response, managed security operations, and enterprise cyber defense to protect your business against evolving cyber threats.', points: ['Threat detection & monitoring', 'Incident response', 'Cloud security', 'Managed security operations'] },
   { name: 'Security Audits & VAPT', tag: 'Audit · Assess · Comply', href: '/services/vapt', desc: 'Comprehensive cybersecurity audits, VAPT, risk assessments, and regulatory compliance audits tailored to your industry and security requirements.', points: ['VAPT', 'ISO 27001 audit', 'PCI-DSS audit', 'Risk assessments'] },
-  { name: 'AI Security & Intelligent Automation', tag: 'Automate · Transform', href: '/services/ai-movie-clips', desc: 'AI security solutions, intelligent workflow automation, AI-powered business processes, and digital transformation consulting to enhance operational efficiency, strengthen security, and accelerate business growth.', points: ['AI security solutions', 'Intelligent workflow automation', 'Digital transformation consulting', 'AI-powered business processes'] },
+  { name: 'AI Security & Intelligent Automation', tag: 'Automate · Transform', href: '/products/yp-raksha', desc: 'AI security solutions, intelligent workflow automation, AI-powered business processes, and digital transformation consulting to enhance operational efficiency, strengthen security, and accelerate business growth.', points: ['AI security solutions', 'Intelligent workflow automation', 'Digital transformation consulting', 'AI-powered business processes'] },
   { name: 'Corporate Training & Emerging Technologies', tag: 'Upskill · Certify', href: '/training', desc: 'Corporate training and workforce upskilling in artificial intelligence (AI), cybersecurity, blockchain technology, and quantum computing to build future-ready teams and strengthen organizational capabilities.', points: ['Artificial intelligence', 'Cyber security', 'Blockchain technology', 'Quantum computing'] }
 ];
 
@@ -287,7 +287,19 @@ export const awards = [
   { title: 'Visionary Woman Leader', by: 'Redington, Microsoft & Check Point', year: '2023' },
   { title: 'Best Speaker of the Year', by: 'ISACA Chennai', year: '2022' },
   { title: 'Professional of the Year', by: 'MSME India', year: '2021' },
+  { title: 'Promising Start-Up of the Year', by: 'Indian Achievers’ Award', year: '2021' },
   { title: 'Woman Business Leader of the Year', by: 'Women Entrepreneur India', year: '2021' }
+];
+
+/* Partners — from the 2025 company brochure and supplied material. */
+export const groupCompanies = [
+  { name: 'Kriscon Global', logo: '/partners/kriscon-global.png' },
+  { name: 'PaRiSu Charitable and Educational Trust', logo: '/partners/parisu-trust.png' },
+  { name: 'C-Suite Academy', logo: '/partners/c-suite-academy.png' }
+];
+export const associates = ['DigiAlert', 'CISOGenie', 'Certus Software', 'OS-SCi', 'Odyssey', 'iTuring.ai', 'TeejLab', 'Skitre'];
+export const collaborations = [
+  { partner: 'CyberFIT', text: 'YesPanchi and CyberFIT join hands to provide secure data erasure services.', image: '/gallery/yespanchi-and-cyberfit-join-hands-to-provide-secure-data-erasure-services.jpg' }
 ];
 
 export const values = [

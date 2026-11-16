@@ -7,7 +7,7 @@ import { ArrowLink, Counter, GhostFigure, MaskLines, Meter, ScrollTabs } from '@
 
 /* ==================================================================
  * ThreatPanel — "the bad news". Animated meters counting up against a
- * dark field, mirroring Palo Alto's threat-statistics beat.
+ * dark field, on a midnight-navy panel.
  * ================================================================== */
 const THREATS = [
   { label: 'Increase in ransomware attacks on Indian enterprises (YoY)', value: 73 },
@@ -17,7 +17,7 @@ const THREATS = [
 
 export function ThreatPanel() {
   return (
-    <section id="threat" aria-labelledby="threat-title" className="relative overflow-hidden border-b border-line bg-ink py-24 md:py-32">
+    <section id="threat" aria-labelledby="threat-title" className="theme-dark relative overflow-hidden border-b border-line bg-ink py-24 md:py-32">
       <div aria-hidden="true" className="hatch pointer-events-none absolute inset-0 opacity-70" />
       <div aria-hidden="true" className="pointer-events-none absolute -left-[10%] top-1/4 h-[40vw] max-h-[520px] w-[40vw] max-w-[520px] rounded-full bg-accent/[0.11] blur-[120px]" />
 
@@ -51,16 +51,10 @@ export function ThreatPanel() {
 
 /* ==================================================================
  * PlatformTabs — the signature scroll-driven section. Scrolling moves
- * through the platforms; each one retints the whole panel.
+ * through the platforms.
  * ================================================================== */
-const ACCENTS = ['accent-crimson', 'accent-emerald', 'accent-cyan', 'accent-amber'];
-
 export function PlatformTabs() {
-  const items = products.map((p, i) => ({
-    id: p.slug,
-    label: p.name,
-    accent: ACCENTS[i % ACCENTS.length]
-  }));
+  const items = products.map((p) => ({ id: p.slug, label: p.name }));
 
   return (
     <section id="platforms" aria-labelledby="platforms-title" className="relative border-b border-line">
@@ -74,7 +68,7 @@ export function PlatformTabs() {
         />
       </div>
 
-      <ScrollTabs items={items} stickyTop={120}>
+      <ScrollTabs items={items} stickyTop={60}>
         {(active) => {
           const p = products[active];
           return (
@@ -89,7 +83,7 @@ export function PlatformTabs() {
 
               <div className="relative mx-auto grid w-full max-w-wide gap-12 px-6 py-16 lg:grid-cols-[1.05fr_.95fr]">
                 <div key={p.slug} className="flex min-w-0 animate-[fadeIn_.6s_ease-out] flex-col gap-6">
-                  <h3 className="text-[clamp(1.9rem,4.4vw,3.4rem)] font-semibold uppercase leading-[1.04] tracking-[0.03em] text-accent">
+                  <h3 className="text-[clamp(1.9rem,4.4vw,3.4rem)] uppercase leading-[1.04] tracking-[0.03em] text-accent">
                     {p.name}
                   </h3>
                   <p className="max-w-[56ch] text-lead text-muted">{p.description}</p>
@@ -110,7 +104,7 @@ export function PlatformTabs() {
                     href={p.externalUrl ?? `/products/${p.slug}`}
                     target={p.externalUrl ? '_blank' : undefined}
                     rel={p.externalUrl ? 'noopener noreferrer' : undefined}
-                    className="group mt-4 inline-flex min-h-[52px] w-fit items-center gap-2.5 rounded-full bg-accent px-7 font-semibold text-accent-contrast transition-all duration-300 hover:text-accent-contrast hover:shadow-[0_0_40px_-8px_rgb(var(--c-accent)/.75)]"
+                    className="group mt-4 inline-flex min-h-[52px] w-fit items-center gap-2.5 rounded-full bg-accent px-7 font-semibold text-accent-contrast transition-all duration-300 hover:text-accent-contrast hover:brightness-110"
                   >
                     {p.externalUrl ? 'Visit' : 'Explore'} {p.name}
                     <Icon name="arrow" size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
@@ -118,7 +112,7 @@ export function PlatformTabs() {
                 </div>
 
                 <div className="flex min-w-0 items-center">
-                  <ul className="w-full divide-y divide-line overflow-hidden rounded-3xl border border-line bg-surface/90">
+                  <ul className="w-full divide-y divide-line overflow-hidden rounded-2xl border border-line bg-surface/90">
                     {(p.coreTechnologies ?? p.builtFor).slice(0, 4).map((c) => (
                       <li key={c} className="flex items-start gap-3.5 px-6 py-5 text-[15px]">
                         <span aria-hidden="true" className="mt-1.5 h-2 w-2 flex-none rotate-45 bg-accent" />
@@ -146,7 +140,7 @@ export function ServiceGrid() {
         <div className="mb-14 flex flex-wrap items-end justify-between gap-8">
           <div className="flex max-w-[34ch] flex-col gap-5">
             <p data-reveal className="text-[13px] font-semibold uppercase tracking-[0.22em] text-accent">What we do</p>
-            <MaskLines as="h2" id="services-title" className="text-d2 font-medium" lines={[<>Turn cyber risk into</>, <>business confidence.</>]} />
+            <MaskLines as="h2" id="services-title" className="text-d2" lines={[<>Turn cyber risk into</>, <>business confidence.</>]} />
           </div>
           <ArrowLink href="/services" className="pb-2 text-cream">View all services</ArrowLink>
         </div>
@@ -156,14 +150,14 @@ export function ServiceGrid() {
             <li key={a.name} data-reveal style={{ ['--d' as string]: `${i * 90}ms` }}>
               <Link
                 href={a.href}
-                className={`spotlight edge-glow group flex h-full flex-col gap-5 rounded-[26px] border border-line bg-surface/70 p-8 transition-colors duration-300 hover:border-line2 md:p-10 ${ACCENTS[i % ACCENTS.length]}`}
+                className={`spotlight edge-glow group flex h-full flex-col gap-5 rounded-2xl border border-line bg-surface/70 p-8 transition-colors duration-300 hover:border-line2 md:p-10`}
               >
                 <div className="flex items-start justify-between gap-6">
                   <span className="font-mono text-[13px] text-accent">0{i + 1}</span>
                   <Icon name="arrow" size={20} className="-rotate-45 text-dim transition-all duration-300 group-hover:rotate-0 group-hover:text-accent" />
                 </div>
                 <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-accent">{a.tag}</p>
-                <h3 className="text-d3 font-medium">{a.name}</h3>
+                <h3 className="text-d3">{a.name}</h3>
                 <p className="text-muted">{a.desc}</p>
                 <ul className="mt-auto flex flex-wrap gap-2 pt-4">
                   {a.points.map((pt) => (

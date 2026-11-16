@@ -28,7 +28,7 @@ export function CourseCatalogue() {
 
   return (
     <div className="flex flex-col gap-8">
-      <div className="flex flex-wrap items-end gap-3 rounded-3xl border border-line bg-surface/60 p-4 sm:p-5">
+      <div className="flex flex-wrap items-end gap-3 rounded-2xl border border-line bg-surface/60 p-4 sm:p-5">
         <Select label="Track" value={track} options={uniq(programs.map((p) => p.track))} onChange={setTrack} />
         <Select label="Level" value={level} options={['All', 'Beginner', 'Intermediate', 'Advanced']} onChange={setLevel} />
         <Select label="Mode" value={mode} options={uniq(programs.map((p) => p.mode))} onChange={setMode} />
@@ -37,7 +37,7 @@ export function CourseCatalogue() {
       <p aria-live="polite" className="text-sm text-dim">{list.length} of {programs.length} programmes</p>
 
       {list.length === 0 ? (
-        <p className="rounded-3xl border border-dashed border-line2 p-10 text-center text-muted">No programmes match these filters. <button type="button" onClick={reset} className="font-semibold text-accent underline">Clear filters</button></p>
+        <p className="rounded-2xl border border-dashed border-line2 p-10 text-center text-muted">No programmes match these filters. <button type="button" onClick={reset} className="font-semibold text-accent underline">Clear filters</button></p>
       ) : (
         <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {list.map((p) => {
@@ -45,12 +45,12 @@ export function CourseCatalogue() {
             const next = c?.cohorts[0];
             return (
               <li key={p.slug}>
-                <Link href={`/training/${p.slug}`} className="group flex h-full flex-col gap-4 rounded-3xl border border-line bg-surface p-7 !text-cream transition-all hover:-translate-y-0.5 hover:border-accent/60">
+                <Link href={`/training/${p.slug}`} className="group flex h-full flex-col gap-4 rounded-2xl border border-line bg-surface p-7 !text-cream transition-all hover:-translate-y-0.5 hover:border-accent/60">
                   <div className="flex flex-wrap items-center gap-2 text-xs font-semibold">
                     <span className="rounded-full bg-accent/15 px-2.5 py-1 text-accent">{p.track}</span>
                     <span className="rounded-full border border-line2 px-2.5 py-1 text-muted">{p.level}</span>
                   </div>
-                  <h3 className="text-2xl font-medium">{p.title}</h3>
+                  <h3 className="text-2xl">{p.title}</h3>
                   <p className="text-muted">{p.summary}</p>
                   <dl className="grid grid-cols-3 gap-2 text-sm">
                     <div><dt className="text-xs text-dim">Duration</dt><dd className="font-semibold">{p.duration}</dd></div>

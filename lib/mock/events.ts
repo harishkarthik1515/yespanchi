@@ -232,29 +232,3 @@ export const mockEvents: MockEvent[] = [
     recap: { attendees: 731, sessions: 2, rating: 4.6, highlight: '731 developers live, 2,400+ replay views in the first month.' }
   }
 ];
-
-// SAMPLE
-export const mockMous = [
-  { partner: 'Sri Venkateswara College of Engineering', short: 'SVCE', city: 'Sriperumbudur', kind: 'Academic', date: '2026-09-18', scope: ['Cybersecurity minor curriculum', '30 paid internships / year', 'Faculty development'], status: 'Active' },
-  { partner: 'Centre for Quantum Information Research', short: 'CQIR', city: 'Chennai', kind: 'Research', date: '2026-07-02', scope: ['Joint PQC benchmarking', 'Shared HSM test-bed', 'Co-authored papers'], status: 'Active' },
-  { partner: 'Tamil Nadu MSME Technology Forum', short: 'TNMTF', city: 'Coimbatore', kind: 'Industry', date: '2026-04-11', scope: ['Subsidised VAPT for 200 MSMEs', 'Awareness workshops in Tamil'], status: 'Active' },
-  { partner: 'Kongu Institute of Technology', short: 'KIT', city: 'Erode', kind: 'Academic', date: '2025-12-05', scope: ['AI & blockchain centre of excellence', 'Hackathon co-hosting'], status: 'Active' },
-  { partner: 'Bharat Fintech Alliance', short: 'BFA', city: 'Mumbai', kind: 'Industry', date: '2025-08-27', scope: ['PQC readiness playbook for members', 'Quarterly threat briefings'], status: 'Renewal due' },
-  { partner: 'Madurai Polytechnic Consortium', short: 'MPC', city: 'Madurai', kind: 'Academic', date: '2025-03-14', scope: ['Diploma-level SOC analyst track', 'Placement support'], status: 'Active' }
-] as const;
-
-// SAMPLE — gallery tiles render CSS patterns, not photos
-export const mockGallery = [
-  { caption: 'Keynote at the Quantum-Safe Summit', event: 'Quantum-Safe India Summit', date: '2025-12-05', tall: true },
-  { caption: 'VAPT lab — students on live targets', event: 'VAPT Masterclass', date: '2026-02-08' },
-  { caption: 'MoU signing with SVCE', event: 'Partnerships', date: '2026-09-18' },
-  { caption: 'Mentoring circles', event: 'Women in Cyber Meetup', date: '2026-06-14', tall: true },
-  { caption: 'Hour 5 of the student CTF', event: 'Student CTF Bootcamp', date: '2026-01-18' },
-  { caption: 'Ransomware tabletop in progress', event: 'Cyber Resilience Conclave', date: '2026-08-22' },
-  { caption: 'Directors at the AI governance roundtable', event: 'AI Governance Roundtable', date: '2025-11-13', tall: true },
-  { caption: 'Graduation — SOC analyst cohort 4', event: 'YesPanchi Academy', date: '2026-05-30' },
-  { caption: 'Team day at IITM Research Park', event: 'Team', date: '2026-07-25' },
-  { caption: 'Award evening, Chennai', event: 'Recognition', date: '2026-02-21', tall: true },
-  { caption: 'Live coding a hybrid handshake', event: 'PQC for Developers', date: '2026-03-19' },
-  { caption: 'MSME awareness workshop in Coimbatore', event: 'Partnerships', date: '2026-05-09' }
-];
