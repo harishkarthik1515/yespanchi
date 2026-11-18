@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function MousPage() {
   return (
     <>
-      <PageHero crumbs={[{ name: 'Events', href: '/events' }, { name: 'MoUs & Collaborations', href: '/events/mous' }]} eyebrow="Partnerships" title="MoUs &" accent="collaborations." lead="The group companies, technology associates and collaborations that extend what YesPanchi delivers.">
+      <PageHero image="/gallery/yespanchi-and-cyberfit-join-hands-to-provide-secure-data-erasure-services.jpg" crumbs={[{ name: 'Events', href: '/events' }, { name: 'MoUs & Collaborations', href: '/events/mous' }]} eyebrow="Partnerships" title="MoUs &" accent="collaborations." lead="The group companies, technology associates and collaborations that extend what YesPanchi delivers.">
         <dl className="mt-2 flex flex-wrap gap-3">
           {[{ k: 'Group companies', n: groupCompanies.length }, { k: 'Associates', n: associates.length }, { k: 'Collaborations', n: collaborations.length }].map((c) => (
             <div key={c.k} className="flex items-baseline gap-2 rounded-full border border-line2 px-4 py-2">

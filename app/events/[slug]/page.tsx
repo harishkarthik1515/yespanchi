@@ -33,7 +33,7 @@ export default function EventPage({ params }: Props) {
   const more = mockEvents.filter((x) => x.slug !== e.slug && isUpcoming(x)).slice(0, 3);
   return (
     <>
-      <PageHero crumbs={[{ name: 'Events', href: '/events' }, { name: e.title, href: `/events/${e.slug}` }]} eyebrow={e.type} title={e.title} lead={e.summary}>
+      <PageHero image="/gallery/isaca-conference-2025-2.jpg" crumbs={[{ name: 'Events', href: '/events' }, { name: e.title, href: `/events/${e.slug}` }]} eyebrow={e.type} title={e.title} lead={e.summary}>
         <div className="mt-2 flex flex-wrap items-center gap-5">
           <DateBadge iso={e.date} size="lg" />
           <ul className="flex flex-col gap-2 text-muted">

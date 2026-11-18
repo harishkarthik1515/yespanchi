@@ -1,16 +1,23 @@
-export type Leader = { name: string; role: string; initials: string };
+export type Leader = { name: string; role: string; photo: string; linkedin: string; bio: string; highlights: string[] };
 
-/* Real leadership. Roles for Panchi S and Paraman Pachaimuthu come from the
-   company's content; the other five names are from "Our Board" in the 2025
-   brochure, which gives no titles, so they are listed as board members. */
+/* "Our Board" — from the About page and profile pages on yespanchi.com. */
 export const leadership: Leader[] = [
-  { name: 'Panchi S', role: 'CTO', initials: 'PS' },
-  { name: 'Paraman Pachaimuthu', role: 'CBO', initials: 'PP' },
-  { name: 'Eka Pillai', role: 'Board member', initials: 'EP' },
-  { name: 'Srinivas Mahankali', role: 'Board member', initials: 'SM' },
-  { name: 'Puneet Choudhary', role: 'Board member', initials: 'PC' },
-  { name: 'Raghavendra Prasad', role: 'Board member', initials: 'RP' },
-  { name: 'Rakesh Kumar Raju', role: 'Board member', initials: 'RR' }
+  {
+    name: 'Panchi S',
+    role: 'Director',
+    photo: '/leadership/panchi-s.jpg',
+    linkedin: 'https://www.linkedin.com/in/yespanchi/',
+    bio: 'Ms. Panchi S has over two decades of experience in technology and financial services. She has been instrumental in driving one of the public sector bank’s most successful digital transformations, leading internet banking, mobile banking, and payment gateway operations. With postgraduate degrees in engineering and management, and credentials as a Certified Information Systems Auditor (CISA) and Cyber Law professional, she brings both technical and governance expertise. She also contributes regularly as an IT columnist and keynote speaker, and serves as a Qualified Independent Director recognized by the Ministry of Corporate Affairs, India.',
+    highlights: ['Led the digital transformation of a major PSU bank’s internet, mobile, and payment systems.', 'Certified Information Systems Auditor (CISA) and Cyber Law professional.', 'Qualified Independent Director recognized by the Ministry of Corporate Affairs, India.', 'Writes for leading IT publications and speaks regularly on digital finance, cybersecurity, and innovation.']
+  },
+  {
+    name: 'Paraman Pachaimuthu',
+    role: 'Director',
+    photo: '/leadership/paraman-pachaimuthu.png',
+    linkedin: 'https://www.linkedin.com/in/paraman-pachaimuthu-971aaa237/',
+    bio: 'Mr. Paraman Pachaimuthu is a life-transforming speaker, writer, and founder of Malarchi, an initiative dedicated to uplifting lives within the Tamil-speaking community. Through coaching, programs, and his monthly magazine Valarchi, he has guided countless individuals toward personal growth and purpose.',
+    highlights: ['Founder of Malarchi, focused on community empowerment and growth.', 'Publisher of Valarchi, a monthly magazine for Tamil-speaking audiences.', 'Conducts personal growth coaching and transformative programs.']
+  }
 ];
 
 /* "Our Core Expertise" — About page */
@@ -22,8 +29,7 @@ export const coreExpertise = [
   { title: 'Cybersecurity & Digital Trust', text: 'Strengthening enterprise security through threat intelligence, Zero Trust architecture, vulnerability assessment and penetration testing (VAPT), security operations, and incident response.' },
   { title: 'Banking & FinTech Solutions', text: 'Modernizing financial technology with secure payment processing, ISO 20022 integration, fraud detection, payment security, and core banking transformation.' },
   { title: 'Enterprise Digital Transformation', text: 'Accelerating business modernization through cloud migration, microservices architecture, legacy system modernization, and intelligent business process automation.' },
-  { title: 'Corporate Governance Platforms', text: 'Streamlining corporate governance with board meeting automation, regulatory compliance tracking, audit management, and centralized governance workflows.' },
-  { title: 'Technology Consulting & Training', text: 'Empowering organizations through strategic technology advisory, executive cybersecurity programs, AI upskilling, and specialized engineering training across emerging technologies.' }
+  { title: 'Corporate Governance Platforms', text: 'Streamlining corporate governance with board meeting automation, regulatory compliance tracking, audit management, and centralized governance workflows.' }
 ];
 
 /* "Industries We Empower" — About page */
@@ -32,24 +38,6 @@ export const industries = [
   'Healthcare & Medical Technology', 'Manufacturing & Industry 4.0', 'Insurance & InsurTech',
   'Telecommunications & Connectivity', 'Retail & E-Commerce', 'Logistics & Supply Chain',
   'Enterprise IT & AIOps', 'Energy & Utilities', 'Education & Research'
-];
-
-/* "What Sets Our Innovation and Engineering Apart" — About page */
-export const differentiators = [
-  { title: 'Integrated Technology Expertise', text: 'A comprehensive portfolio spanning Enterprise AI, Agentic AI, Post-Quantum Cryptography, Cybersecurity, and Digital Transformation.' },
-  { title: 'Security-First Engineering', text: 'Enterprise-grade platforms built with security, governance, regulatory compliance, and operational resilience embedded by design.' },
-  { title: 'Deep Industry Understanding', text: 'Specialized technology capabilities aligned with the complex security, compliance, and operational demands of banking, financial services, and regulated industries.' },
-  { title: 'End-to-End Technology Partnership', text: 'Full-lifecycle capabilities spanning strategic consulting, product engineering, implementation, managed services, and executive technology training.' },
-  { title: 'Collaborative Innovation', text: 'A commitment to advancing technology through strategic collaborations, research partnerships, and engagement with academia, technology innovators, and industry ecosystems.' }
-];
-
-export const milestones = [ // SAMPLE
-  { year: '2021', title: 'Founded in Chennai', text: 'Incorporated with a 4-person team; first VAPT engagements for two Chennai fintechs.', metric: '6 clients' },
-  { year: '2022', title: 'FICCI Start-Up STAR', text: 'Corporate training practice launched; 1,200+ professionals trained in year one.', metric: '1.2k trained' },
-  { year: '2023', title: 'Audit practice scales', text: 'ISO 27001, PCI DSS and forensic audits added. Moved into IIT Madras Research Park.', metric: '40+ audits' },
-  { year: '2024', title: 'Product R&D', text: 'BoardMind, Alexi Voice and UNIFAI enter pilot with three enterprise design partners.', metric: '3 pilots' },
-  { year: '2025', title: 'Quantum & AI governance', text: 'YP-PRAKAAR and AI Guardrails introduced; PQC readiness assessments for BFSI.', metric: '12 BFSI orgs' },
-  { year: '2026', title: 'QSecura PQ-SSL', text: 'Post-quantum SSL launched for the enterprise; team crosses 60 people.', metric: '60+ people' }
 ];
 
 export const culture = [ // SAMPLE
@@ -64,8 +52,3 @@ export const certifications = [
   'Govt. of India DPIIT Recognised Startup (June 2021)', 'Member, Women Entrepreneurship Platform', 'IIT Madras Research Park'
 ];
 
-export const testimonials = [ // SAMPLE
-  { quote: 'They found a critical IDOR in our UPI flow two weeks before go-live. The re-test certificate went straight into our RBI submission.', name: 'Sanjay Menon', role: 'CISO, Chennai payments startup', initials: 'SM' },
-  { quote: 'Our ISO 27001 certification came through in 14 weeks with zero major non-conformities. Practical, not paperwork-heavy.', name: 'Lakshmi Prabhu', role: 'Head of IT, Coimbatore manufacturer', initials: 'LP' },
-  { quote: 'The AI and cyber training for our cadre was hands-on and in Tamil where it mattered. Attendance stayed full all week.', name: 'R. Selvakumar', role: 'Training coordinator, state department', initials: 'RS' }
-];

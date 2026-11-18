@@ -23,7 +23,7 @@ const quick = [
 export default function ContactPage() {
   return (
     <>
-      <PageHero crumbs={[{ name: 'Contact', href: '/contact' }]} eyebrow="Get started" title="Let's secure" accent="what matters." lead="Tell us what you need. A senior consultant replies within one business day.">
+      <PageHero image="/media/contact.jpg" crumbs={[{ name: 'Contact', href: '/contact' }]} eyebrow="Get started" title="Let's secure" accent="what matters." lead="Tell us what you need. A senior consultant replies within one business day.">
         <div className="mt-2 grid gap-3 sm:grid-cols-3">
           {quick.map((q) => (
             <a

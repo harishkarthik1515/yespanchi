@@ -334,17 +334,17 @@ export function Magnetic({ children, className = '', strength = 0.28 }: { childr
 /* ==================================================================
  * Marquee row — infinite logo/word ticker.
  * ================================================================== */
-export function Ticker({ items, className = '' }: { items: string[]; className?: string }) {
+export function Ticker({ items, className = '' }: { items: { name: string; logo: string }[]; className?: string }) {
   return (
-    <div className={`marquee overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)] ${className}`}>
-      <ul className="flex w-max animate-marquee items-center gap-14 whitespace-nowrap">
+    <div className={`marquee overflow-hidden bg-white py-6 [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)] ${className}`}>
+      <ul className="flex w-max animate-marquee items-center gap-20">
         {[...items, ...items].map((c, i) => (
-          <li
-            key={`${c}-${i}`}
-            aria-hidden={i >= items.length ? 'true' : undefined}
-            className="text-lg font-medium text-muted transition-colors hover:text-cream md:text-xl"
-          >
-            {c}
+          <li key={`${c.name}-${i}`} aria-hidden={i >= items.length ? 'true' : undefined}>
+            {/* strip stays white so the logos keep their own colours in dark mode too */}
+            <span className="flex h-16 w-44 items-center justify-center">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={c.logo} alt={i >= items.length ? '' : c.name} loading="lazy" className="max-h-16 w-auto max-w-full object-contain" />
+            </span>
           </li>
         ))}
       </ul>

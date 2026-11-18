@@ -2,13 +2,11 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
-import { products, services, programs } from '@/lib/data';
+import { products } from '@/lib/data';
 
 const TOPICS = [
   { value: 'assessment', label: 'Free security assessment' },
   { value: 'product', label: 'Product demo' },
-  { value: 'service', label: 'Service enquiry' },
-  { value: 'training', label: 'Training programme' },
   { value: 'event', label: 'Event registration' },
   { value: 'other', label: 'Something else' }
 ];
@@ -37,8 +35,6 @@ export default function ContactForm() {
 
   const itemOptions =
     form.topic === 'product' ? products.map((p) => p.name)
-    : form.topic === 'service' ? services.map((s) => s.name)
-    : form.topic === 'training' ? programs.map((p) => p.title)
     : [];
 
   function validate(): Errors {

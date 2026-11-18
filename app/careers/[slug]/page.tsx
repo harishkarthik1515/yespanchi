@@ -43,7 +43,7 @@ export default function RolePage({ params }: Props) {
 
   return (
     <>
-      <PageHero crumbs={[{ name: 'Careers', href: '/careers' }, { name: r.title, href: `/careers/${r.slug}` }]} eyebrow={r.team} title={r.title} lead={r.about}>
+      <PageHero image="/media/team-meeting.jpg" crumbs={[{ name: 'Careers', href: '/careers' }, { name: r.title, href: `/careers/${r.slug}` }]} eyebrow={r.team} title={r.title} lead={r.about}>
         <ul className="flex flex-wrap gap-2 text-sm" aria-label="Role details">
           {[r.location, r.type, r.experience].map((t) => <li key={t} className="rounded-full border border-line3 px-4 py-1.5">{t}</li>)}
         </ul>

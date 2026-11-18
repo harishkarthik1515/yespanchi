@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { events, products, programs, services } from '@/lib/data';
+import { events, products } from '@/lib/data';
 import { roles } from '@/lib/mock/careers';
 import { insightTypes } from '@/lib/mock/insights';
 import { SITE } from '@/lib/site';
@@ -11,15 +11,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   });
   return [
     u('/', 1, 'weekly'),
-    u('/about', 0.8), u('/products', 0.9), u('/services', 0.9), u('/training', 0.8),
+    u('/about', 0.8), u('/products', 0.9),
     u('/events', 0.7, 'weekly'), u('/events/mous', 0.5), u('/events/gallery', 0.5), u('/contact', 0.8),
     u('/careers', 0.6, 'weekly'), u('/insights', 0.7, 'weekly'),
     ...roles.map((r) => u(`/careers/${r.slug}`, 0.5)),
     ...insightTypes.map((t) => u(`/insights/${t.slug}`, 0.5)),
     u('/privacy', 0.2, 'yearly'), u('/terms', 0.2, 'yearly'),
     ...products.map((p) => u(`/products/${p.slug}`, 0.8)),
-    ...services.map((s) => u(`/services/${s.slug}`, 0.8)),
-    ...programs.map((p) => u(`/training/${p.slug}`, 0.6)),
     ...events.map((e) => u(`/events/${e.slug}`, 0.5))
   ];
 }

@@ -34,7 +34,7 @@ export default function ProductPage({ params }: Props) {
 
   return (
     <>
-      <PageHero crumbs={[{ name: 'Products', href: '/products' }, { name: p.name, href: `/products/${p.slug}` }]} eyebrow={p.tag} title={p.name} lead={p.description}>
+      <PageHero image={p.slug === 'yp-raksha' ? '/media/hero-ai.jpg' : '/media/hero-quantum.jpg'} crumbs={[{ name: 'Products', href: '/products' }, { name: p.name, href: `/products/${p.slug}` }]} eyebrow={p.tag} title={p.name} lead={p.description}>
         <ul className="flex flex-wrap gap-2 text-sm" aria-label="Core technologies">
           {p.coreTechnologies.slice(0, 3).map((t) => (
             <li key={t} className="rounded-full border border-line2 px-3 py-1 text-muted">{t}</li>

@@ -6,7 +6,7 @@ import { benefits, careersFaqs, employeeQuotes, hiringSteps, reasons } from '@/l
 import { SITE } from '@/lib/site';
 import { Button, Container, PageHero, SectionHeading } from '@/components/ui';
 import { IconTile } from '@/components/Icon';
-import { Faq } from '@/components/services/Faq';
+import { Faq } from '@/components/careers/Faq';
 import { ApplyForm, RoleList } from '@/components/careers/client';
 
 export const metadata: Metadata = {
@@ -21,6 +21,7 @@ export default function CareersPage() {
   return (
     <>
       <PageHero
+        image="/media/team-office.jpg"
         crumbs={[{ name: 'Careers', href: '/careers' }]}
         eyebrow="Careers · Chennai & Bengaluru"
         title="Build the future of"

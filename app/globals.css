@@ -138,6 +138,7 @@
 @keyframes sheen { 0%, 58% { background-position: 100% 0; } 100% { background-position: -150% 0; } }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(-6px) scale(.98); } to { opacity: 1; transform: none; } }
 @keyframes grow { from { width: 0; } to { width: 100%; } }
+@keyframes heroIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 @keyframes pulseRing {
   0%   { transform: scale(.82); opacity: .75; }
   70%  { transform: scale(1.5); opacity: 0; }
@@ -206,3 +207,6 @@
 .book-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; overflow: hidden; }
 .book-face.back { transform: rotateY(180deg); }
 @media (prefers-reduced-motion: reduce) { .book-leaf { transition: none; } }
+
+/* in-page anchors land below the floating header and pill nav */
+section[id], h2[id] { scroll-margin-top: 9rem; }

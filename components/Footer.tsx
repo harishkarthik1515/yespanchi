@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { products, services } from '@/lib/data';
+import { products } from '@/lib/data';
 import { SITE } from '@/lib/site';
 import { Container } from './ui';
 import { Icon } from './Icon';
@@ -48,10 +48,9 @@ export default function Footer() {
           <nav aria-label="Footer" className="flex flex-wrap gap-x-16 gap-y-10">
             <FooterCol
               title="Company"
-              links={[['About Us', '/about'], ['Training', '/training'], ['Events', '/events'], ['MoUs', '/events/mous'], ['Gallery', '/events/gallery'], ['Insights', '/insights'], ['Careers', '/careers'], ['Contact', '/contact']]}
+              links={[['About Us', '/about'], ['Events', '/events'], ['MoUs', '/events/mous'], ['Gallery', '/events/gallery'], ['Insights', '/insights'], ['Careers', '/careers'], ['Contact', '/contact']]}
             />
-            <FooterCol title="Services" links={services.slice(4).map((s) => [s.name, `/services/${s.slug}`] as [string, string])} />
-            <FooterCol title="Products" links={products.map((p) => [p.name, `/products/${p.slug}`] as [string, string])} />
+            <FooterCol title="Products" links={products.map((p) => [p.name, p.externalUrl ?? `/products/${p.slug}`] as [string, string])} />
             <address className="flex flex-col gap-3 not-italic">
               <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-dim">Reach us</span>
               <span className="max-w-[220px] text-muted">{SITE.address}</span>

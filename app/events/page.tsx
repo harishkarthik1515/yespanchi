@@ -19,7 +19,7 @@ export default function EventsPage() {
   const totalAttendees = past.reduce((s, e) => s + (e.recap?.attendees ?? 0), 0);
   return (
     <>
-      <PageHero crumbs={[{ name: 'Events', href: '/events' }]} eyebrow="Events & highlights" title="Conferences, workshops" accent="& community." lead="Join our sessions on cybersecurity, post-quantum readiness and responsible AI — in Chennai, Bengaluru and online.">
+      <PageHero image="/gallery/isaca-conference-2025.jpg" crumbs={[{ name: 'Events', href: '/events' }]} eyebrow="Events & highlights" title="Conferences, workshops" accent="& community." lead="Join our sessions on cybersecurity, post-quantum readiness and responsible AI — in Chennai, Bengaluru and online.">
         <div className="mt-2 flex flex-wrap gap-3 text-sm">
           <Link href="/events/mous" className="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-line2 px-4 hover:border-accent"><Icon name="hands" size={16} className="text-accent" />MoUs &amp; Collaborations</Link>
           <Link href="/events/gallery" className="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-line2 px-4 hover:border-accent"><Icon name="photo" size={16} className="text-accent" />Photo Gallery</Link>

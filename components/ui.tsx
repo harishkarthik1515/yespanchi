@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { absoluteUrl } from '@/lib/site';
@@ -80,8 +81,29 @@ export function Breadcrumbs({ items }: { items: { name: string; href: string }[]
 }
 
 export function PageHero({
-  eyebrow, title, accent, lead, crumbs, children
-}: { eyebrow: string; title: string; accent?: string; lead?: string; crumbs: { name: string; href: string }[]; children?: ReactNode }) {
+  eyebrow, title, accent, lead, crumbs, children, image
+}: { eyebrow: string; title: string; accent?: string; lead?: string; crumbs: { name: string; href: string }[]; children?: ReactNode; image?: string }) {
+  if (image) {
+    // Full-bleed photo banner, dark in both themes; pulled up under the floating header.
+    return (
+      <section className="theme-dark relative isolate -mt-[76px] flex min-h-[min(640px,82svh)] items-end overflow-hidden bg-ink">
+        <Image src={image} alt="" fill priority sizes="100vw" className="-z-10 object-cover" />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-black/85 via-black/55 to-black/10" />
+        <div aria-hidden="true" className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-b from-transparent to-black/60" />
+        <Container className="relative flex w-full flex-col gap-6 pb-16 pt-40 md:pb-20">
+          <div data-reveal><Breadcrumbs items={crumbs} /></div>
+          <div data-reveal style={{ ['--d' as string]: '80ms' }}><Eyebrow>{eyebrow}</Eyebrow></div>
+          <h1 data-reveal style={{ ['--d' as string]: '140ms' }} className="max-w-[20ch] text-d1 font-light text-white">
+            {title} {accent && <span className="text-accent">{accent}</span>}
+          </h1>
+          {lead && (
+            <p data-reveal style={{ ['--d' as string]: '220ms' }} className="max-w-[62ch] text-lead text-white/80">{lead}</p>
+          )}
+          {children}
+        </Container>
+      </section>
+    );
+  }
   return (
     <section className="theme-light relative isolate overflow-hidden border-b border-line">
       <ThreatField intensity={0.6} />

@@ -14,6 +14,7 @@ export default function ProductsPage() {
   return (
     <>
       <PageHero
+        image="/media/viz-cube.jpg"
         crumbs={[{ name: 'Products', href: '/products' }]}
         eyebrow="Our Next-Gen Products"
         title="Intelligent security"

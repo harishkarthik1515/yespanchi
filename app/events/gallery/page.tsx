@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function GalleryPage() {
   return (
     <>
-      <PageHero crumbs={[{ name: 'Events', href: '/events' }, { name: 'Photo Gallery', href: '/events/gallery' }]} eyebrow="Community" title="Moments from" accent="the field." lead="Talks, conferences, media appearances, campus sessions and award evenings. Select any photo to view it larger — arrow keys move between them." />
+      <PageHero image="/gallery/isaca-conference-2025-2.jpg" crumbs={[{ name: 'Events', href: '/events' }, { name: 'Photo Gallery', href: '/events/gallery' }]} eyebrow="Community" title="Moments from" accent="the field." lead="Talks, conferences, media appearances, campus sessions and award evenings. Select any photo to view it larger — arrow keys move between them." />
       <section aria-label="Gallery" className="theme-light py-16 md:py-20">
         <Container>
           <MasonryGallery items={gallery} />

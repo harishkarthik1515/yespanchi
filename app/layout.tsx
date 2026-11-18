@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
   description: SITE.description,
   applicationName: SITE.name,
-  keywords: ['cybersecurity Chennai', 'VAPT', 'ISO 27001 audit', 'PCI DSS audit', 'post-quantum cryptography', 'PQ-SSL', 'cyber forensics', 'enterprise AI', 'corporate training', 'IITM Research Park'],
+  keywords: ['cybersecurity Chennai', 'VAPT', 'ISO 27001 audit', 'PCI DSS audit', 'post-quantum cryptography', 'PQ-SSL', 'cyber forensics', 'enterprise AI', 'IITM Research Park'],
   authors: [{ name: SITE.legalName }],
   alternates: { canonical: '/' },
   openGraph: {

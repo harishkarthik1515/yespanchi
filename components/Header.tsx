@@ -4,137 +4,173 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
-import { nav } from '@/lib/data';
-import { Icon, IconTile } from './Icon';
+import { products } from '@/lib/data';
+import { coreExpertise, industries } from '@/lib/mock/about';
+import { insightItems, insightTypes } from '@/lib/mock/insights';
+import { Icon } from './Icon';
 import { useCommandPalette } from './CommandPalette';
+import { useSaved } from './insights/experiences';
 
-type MenuKey = 'products' | 'events' | null;
+/* ------------------------------------------------------------------
+ * Header — floating rounded bar with click-to-open mega panels:
+ * text-link columns under accent headings, plus a spotlight carousel.
+ * ------------------------------------------------------------------ */
+type Col = { title: string; href: string; links: [string, string][] };
+type Spot = { eyebrow: string; title: string; text: string; href: string; image: string };
+type Menu = { key: string; label: string; cols: Col[]; spots: Spot[] };
 
-const links = [
-  { name: 'Overview', href: '/' },
-  { name: 'Who We Are', href: '/about' },
-  { name: 'What We Build', href: '/products', menu: 'products' as const },
-  /* Services and Training live inside the "What We Build" menu on desktop; the mobile drawer lists them directly. */
-  { name: 'Services', href: '/services', mobileOnly: true },
-  { name: 'Training', href: '/training', mobileOnly: true },
-  { name: 'Insights', href: '/insights' },
-  { name: 'Newsroom', href: '/events', menu: 'events' as const },
-  { name: 'Careers', href: '/careers' },
-  { name: 'Connect', href: '/contact' }
+const MENUS: Menu[] = [
+  {
+    key: 'what',
+    label: 'What we do',
+    cols: [
+      { title: 'Platforms', href: '/products', links: [...products.map((p) => [p.name, p.externalUrl ?? `/products/${p.slug}`] as [string, string]), ['All products', '/products']] },
+      // shortcut: expertise and industries share one About anchor each; give them their own pages if they grow content
+      { title: 'Expertise', href: '/about#expertise', links: coreExpertise.map((e) => [e.title, '/about#expertise']) },
+      { title: 'Industries', href: '/about#industries', links: industries.map((i) => [i, '/about#industries']) }
+    ],
+    spots: [
+      { eyebrow: 'Launch', title: 'QSecura PQ-SSL is live', text: 'Quantum-safe security for websites, web apps and mobile platforms — built on NIST post-quantum cryptography.', href: 'https://qsecura.com', image: '/qsecura-launch.jpg' },
+      { eyebrow: 'Platform', title: 'YP-PRAKAAR', text: 'Quantum-secure payment infrastructure for banks, gateways and fintechs preparing for the post-quantum era.', href: '/products/yp-prakaar', image: '/media/hero-quantum.jpg' },
+      { eyebrow: 'Free offer', title: 'Book a security assessment', text: 'A no-obligation review of your posture with the key risks and next steps from our team.', href: '/contact?topic=assessment', image: '/media/analyst.jpg' }
+    ]
+  },
+  {
+    key: 'who',
+    label: 'Who we are',
+    cols: [
+      { title: 'About YesPanchi', href: '/about', links: [['Our story', '/about#mission'], ['Our journey', '/about#journey'], ['Leadership', '/about#team'], ['Core values', '/about#values'], ['Awards & partners', '/about#awards']] },
+      { title: 'Newsroom', href: '/events', links: [['Events & conferences', '/events'], ['MoUs & collaborations', '/events/mous'], ['Photo gallery', '/events/gallery']] },
+      { title: 'Work with us', href: '/careers', links: [['Careers', '/careers'], ['Contact us', '/contact'], ['Request a product demo', '/contact?topic=product']] }
+    ],
+    spots: [
+      { eyebrow: 'Recognition', title: 'FICCI Start-Up Stars', text: 'Recognised by FICCI among India’s promising technology start-ups.', href: '/about#awards', image: '/gallery/ficci-start-up-stars-awards-2022.jpg' },
+      { eyebrow: 'Collaboration', title: 'YesPanchi × CyberFIT', text: 'Joining hands to provide secure data erasure services.', href: '/events/mous', image: '/gallery/yespanchi-and-cyberfit-join-hands-to-provide-secure-data-erasure-services.jpg' },
+      { eyebrow: 'Careers', title: 'Build what keeps India secure', text: 'Open roles across post-quantum engineering, AI platforms and audit.', href: '/careers', image: '/media/team-office.jpg' }
+    ]
+  },
+  {
+    key: 'insights',
+    label: 'Insights',
+    cols: insightTypes.map((t) => ({
+      title: t.title,
+      href: `/insights/${t.slug}`,
+      links: t.experiences.map((e) => [e.title, `/insights/${t.slug}#${e.id}`] as [string, string])
+    })),
+    spots: insightItems.slice(0, 3).map((i) => ({
+      eyebrow: insightTypes.find((t) => t.slug === i.type)!.title,
+      title: i.title,
+      text: i.excerpt,
+      href: `/insights/${i.type}`,
+      image: i.image
+    }))
+  }
+];
+
+const LINKS = [
+  { name: 'News', href: '/events' },
+  { name: 'Careers', href: '/careers' }
 ];
 
 export default function Header() {
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
-  const [menu, setMenu] = useState<MenuKey>(null);
+  const [open, setOpen] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const navRef = useRef<HTMLElement>(null);
+  const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const { saved } = useSaved();
+  const triggers = useRef<Record<string, HTMLButtonElement | null>>({});
   const palette = useCommandPalette();
+  const menu = MENUS.find((m) => m.key === open);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    let last = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 24);
+      // hide while scrolling down, reveal on scroll up; in-page sticky bars read --hdr-offset
+      const hide = y > 400 && y > last;
+      if (Math.abs(y - last) > 6) setHidden(hide);
+      last = y;
+    };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   useEffect(() => {
-    setMenu(null);
+    setOpen(null);
     setMobileOpen(false);
   }, [pathname]);
-
-  useEffect(() => {
-    const onDown = (e: MouseEvent) => {
-      if (navRef.current && !navRef.current.contains(e.target as Node)) setMenu(null);
-    };
-    document.addEventListener('mousedown', onDown);
-    return () => document.removeEventListener('mousedown', onDown);
-  }, []);
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : '';
   }, [mobileOpen]);
 
-  const isActive = (href: string) => (href === '/' ? pathname === '/' : pathname.startsWith(href));
+  const close = () => {
+    if (open) triggers.current[open]?.focus();
+    setOpen(null);
+  };
+
+  const isActive = (href: string) => pathname.startsWith(href.split('#')[0]);
+  const solid = scrolled || open || mobileOpen;
+  const tucked = hidden && !open && !mobileOpen;
+
+  useEffect(() => {
+    document.documentElement.style.setProperty('--hdr-offset', tucked ? '12px' : '88px');
+  }, [tucked]);
 
   return (
-    <header className="sticky top-0 z-50">
-      <nav
-        ref={navRef}
-        aria-label="Primary"
-        onMouseLeave={() => setMenu(null)}
-        onKeyDown={(e) => e.key === 'Escape' && setMenu(null)}
-        className={`relative border-b border-line bg-ink/95 backdrop-blur-xl transition-shadow duration-300 ${scrolled ? 'shadow-md' : ''}`}
-      >
-        <div className={`mx-auto flex w-full max-w-wide items-center justify-between gap-4 px-6 transition-all duration-300 ${scrolled ? 'py-2' : 'py-3'}`}>
+    <header className={`sticky top-0 z-50 px-3 pt-3 transition-transform duration-300 sm:px-4 ${tucked ? '-translate-y-[120%]' : ''}`} onKeyDown={(e) => e.key === 'Escape' && close()}>
+      {open && <div aria-hidden="true" onClick={close} className="fixed inset-0 -z-10 bg-black/40 backdrop-blur-[3px]" />}
+
+      <div className="relative mx-auto max-w-wide">
+        <nav
+          aria-label="Primary"
+          className={`flex h-16 items-center gap-6 rounded-xl border px-4 transition-[background-color,border-color,box-shadow] duration-300 sm:px-6 ${
+            solid ? 'border-line bg-ink shadow-lg' : 'theme-dark border-white/10 bg-[#0b1424]/55 backdrop-blur-xl'
+          }`}
+        >
           <Link href="/" aria-label="YesPanchi — Group of Companies, home" className="flex shrink-0 items-center">
-            <Image
-              src="/logo.png"
-              alt="YesPanchi — Group of Companies"
-              width={1107}
-              height={345}
-              priority
-              className={`w-auto transition-all duration-300 ${scrolled ? 'h-9' : 'h-12'}`}
-            />
+            <Image src="/logo.png" alt="YesPanchi — Group of Companies" width={1107} height={345} priority className="h-8 w-auto sm:h-10" />
           </Link>
 
-          {/* Desktop links */}
-          <ul className="hidden items-center gap-0.5 text-[15px] font-medium xl:flex">
-            {links.filter((l) => !l.mobileOnly).map((l) =>
-              l.menu ? (
-                <li key={l.name}>
-                  <button
-                    type="button"
-                    aria-haspopup="true"
-                    aria-expanded={menu === l.menu}
-                    aria-controls={`menu-${l.menu}`}
-                    onClick={() => setMenu(menu === l.menu ? null : l.menu)}
-                    onMouseEnter={() => setMenu(l.menu)}
-                    className={`relative flex min-h-[44px] items-center gap-1.5 px-3.5 py-2.5 transition-colors ${
-                      isActive(l.href) || menu === l.menu ? 'text-accent' : 'text-cream hover:text-accent'
-                    }`}
-                  >
-                    {l.name}
-                    <Icon name="chevron" size={13} className={`transition-transform duration-300 ${menu === l.menu ? 'rotate-180' : ''}`} />
-                    <span
-                      aria-hidden="true"
-                      className={`absolute inset-x-3 bottom-1 h-[2px] origin-left rounded-full bg-accent transition-transform duration-300 ease-out ${
-                        isActive(l.href) ? 'scale-x-100' : 'scale-x-0'
-                      }`}
-                    />
-                  </button>
-                </li>
-              ) : (
-                <li key={l.name}>
-                  <Link
-                    href={l.href}
-                    onMouseEnter={() => setMenu(null)}
-                    aria-current={isActive(l.href) ? 'page' : undefined}
-                    className={`relative block px-3.5 py-2.5 transition-colors ${isActive(l.href) ? 'text-accent' : 'text-cream hover:text-accent'}`}
-                  >
-                    {l.name}
-                    <span
-                      aria-hidden="true"
-                      className={`absolute inset-x-3 bottom-1 h-[2px] origin-left rounded-full bg-accent transition-transform duration-300 ease-out ${
-                        isActive(l.href) ? 'scale-x-100' : 'scale-x-0'
-                      }`}
-                    />
-                  </Link>
-                </li>
-              )
-            )}
+          <ul className="hidden items-center gap-1 text-[15px] font-medium xl:flex">
+            {MENUS.map((m) => (
+              <li key={m.key}>
+                <button
+                  ref={(el) => { triggers.current[m.key] = el; }}
+                  type="button"
+                  aria-expanded={open === m.key}
+                  aria-controls={`menu-${m.key}`}
+                  onClick={() => setOpen(open === m.key ? null : m.key)}
+                  className={`flex min-h-[40px] items-center gap-2 rounded-md px-3 transition-colors ${
+                    open === m.key ? 'bg-raised text-cream' : 'text-cream hover:bg-raised/60'
+                  }`}
+                >
+                  {m.label}
+                  <span aria-hidden="true" className={`text-[9px] transition-transform duration-200 ${open === m.key ? 'rotate-180 text-accent' : ''}`}>▼</span>
+                </button>
+              </li>
+            ))}
+            {LINKS.map((l) => (
+              <li key={l.href}>
+                <Link
+                  href={l.href}
+                  aria-current={isActive(l.href) ? 'page' : undefined}
+                  className={`flex min-h-[40px] items-center rounded-md px-3 transition-colors hover:bg-raised/60 ${isActive(l.href) ? 'text-accent' : 'text-cream'}`}
+                >
+                  {l.name}
+                </Link>
+              </li>
+            ))}
           </ul>
 
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={palette.open}
-              aria-label="Search the site (Ctrl K)"
-              className="flex h-11 items-center gap-2 rounded-full border border-line2 px-3.5 text-muted transition-colors hover:border-accent hover:text-accent"
-            >
-              <Icon name="search" size={18} />
-              <kbd className="hidden rounded border border-line2 px-1.5 text-[10px] 2xl:inline">⌘K</kbd>
-            </button>
+          <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
+            <Link href="/contact" className="hidden px-2 text-[13px] font-medium text-muted transition-colors hover:text-accent lg:block">
+              Contact us
+            </Link>
+            <span aria-hidden="true" className="hidden h-4 w-px bg-line2 lg:block" />
             <button
               type="button"
               aria-label="Switch between light and dark theme"
@@ -142,17 +178,27 @@ export default function Header() {
                 const dark = document.documentElement.classList.toggle('dark');
                 try { localStorage.theme = dark ? 'dark' : 'light'; } catch {}
               }}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-line2 text-muted transition-colors hover:border-accent hover:text-accent"
+              className="flex h-10 w-10 items-center justify-center rounded-full text-muted transition-colors hover:bg-raised hover:text-accent"
             >
               <Icon name="moon" size={18} className="dark:hidden" />
               <Icon name="sun" size={18} className="hidden dark:block" />
             </button>
             <Link
-              href="/contact"
-              className="hidden min-h-[44px] items-center rounded-full bg-accent px-5 text-[15px] font-semibold text-accent-contrast transition-all duration-300 hover:text-accent-contrast hover:brightness-110 sm:inline-flex"
+              href="/insights#desk"
+              aria-label={`Reading Desk, ${saved.length} saved`}
+              className="hidden h-11 items-center gap-2 rounded-full border border-line2 px-3.5 text-cream transition-colors hover:border-accent hover:text-accent sm:flex"
             >
-              Get Started
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z" /></svg>
+              <span className="min-w-[1.25rem] rounded-full bg-raised px-1.5 text-center text-xs font-semibold">{saved.length}</span>
             </Link>
+            <button
+              type="button"
+              onClick={palette.open}
+              aria-label="Search the site (Ctrl K)"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-line2 text-cream transition-colors hover:border-accent hover:text-accent"
+            >
+              <Icon name="search" size={18} />
+            </button>
             <button
               type="button"
               className="flex h-11 w-11 items-center justify-center rounded-full border border-line2 xl:hidden"
@@ -163,125 +209,119 @@ export default function Header() {
               <Icon name={mobileOpen ? 'close' : 'menu'} />
             </button>
           </div>
-        </div>
+        </nav>
 
-        {/* Mega menus */}
-        {menu === 'products' && (
-          <Panel id="menu-products" width="w-[min(900px,calc(100vw-32px))]" title="Products & services" sub="Platforms, audits, security services & training" allHref="/products" allLabel="All products">
-            <ul className="grid gap-1 p-3 sm:grid-cols-3">
-              {nav.products.map((p) => (
-                <li key={p.href}>
-                  <Link
-                    href={p.href}
-                    target={p.external ? '_blank' : undefined}
-                    rel={p.external ? 'noopener noreferrer' : undefined}
-                    className="flex items-center gap-3.5 rounded-2xl p-3 transition-colors hover:bg-raised"
-                  >
-                    <IconTile name={p.icon} />
-                    <span className="flex min-w-0 flex-col">
-                      <span className="font-medium text-cream">{p.name}</span>
-                      <span className="text-[13px] text-dim">{p.sub}</span>
-                    </span>
+        {menu && (
+          <div
+            id={`menu-${menu.key}`}
+            role="region"
+            aria-label={menu.label}
+            className="absolute left-1/2 top-[calc(100%+6px)] hidden max-h-[calc(100dvh-100px)] w-full -translate-x-1/2 animate-fadeDown overflow-y-auto rounded-xl border border-line bg-ink shadow-2xl xl:block"
+          >
+            <button
+              type="button"
+              onClick={close}
+              aria-label="Close menu"
+              className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full text-cream transition-colors hover:bg-raised"
+            >
+              <Icon name="close" size={20} />
+            </button>
+            <div className="grid gap-10 px-12 pb-10 pt-12" style={{ gridTemplateColumns: `repeat(${menu.cols.length}, minmax(0,1fr)) 340px` }}>
+              {menu.cols.map((c) => (
+                <div key={c.title} className="flex flex-col gap-6">
+                  <Link href={c.href} className="group flex items-center gap-2 text-xl font-medium text-accent">
+                    {c.title}
+                    <span aria-hidden="true" className="text-[10px] transition-transform group-hover:translate-x-1">▶</span>
                   </Link>
-                </li>
-              ))}
-            </ul>
-            <div className="grid gap-3 p-3.5 sm:grid-cols-2">
-              {nav.services.map((g) => (
-                <div key={g.title} className="rounded-2xl border border-line bg-ink px-2.5 pb-2 pt-3.5">
-                  <p className="mx-2.5 mb-1.5 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-accent">
-                    <span aria-hidden="true" className="h-1.5 w-1.5 rotate-45 bg-accent" />
-                    {g.title}
-                  </p>
-                  <ul>
-                    {g.items.map((s) => (
-                      <li key={s.href}>
-                        <Link href={s.href} className="flex items-center gap-3 rounded-xl p-2.5 transition-colors hover:bg-raised">
-                          <IconTile name={s.icon} size="sm" />
-                          <span className="flex flex-col">
-                            <span className="text-[15px] font-medium text-cream">{s.name}</span>
-                            <span className="text-[13px] text-dim">View details ›</span>
-                          </span>
+                  <ul className="flex flex-col gap-3">
+                    {c.links.map(([name, href]) => (
+                      <li key={name}>
+                        <Link href={href} className="text-[15px] text-muted transition-colors hover:text-cream hover:underline hover:underline-offset-4">
+                          {name}
                         </Link>
                       </li>
                     ))}
                   </ul>
                 </div>
               ))}
+              <Spotlight key={menu.key} spots={menu.spots} />
             </div>
-            <div className="flex flex-wrap gap-x-8 gap-y-2 border-t border-line px-6 py-4 text-sm font-medium">
-              <Link href="/services" className="text-accent">All services →</Link>
-              <Link href="/training" className="text-accent">Training programmes →</Link>
-            </div>
-          </Panel>
+          </div>
         )}
-        {menu === 'events' && (
-          <Panel id="menu-events" width="w-[min(420px,calc(100vw-32px))]" title="Newsroom" sub="Conferences, MoUs & photo galleries">
-            <ul className="p-3">
-              {nav.events.map((e) => (
-                <li key={e.href}>
-                  <Link href={e.href} className="flex items-center gap-3.5 rounded-2xl p-3 transition-colors hover:bg-raised">
-                    <IconTile name={e.icon} />
-                    <span className="flex flex-col">
-                      <span className="font-medium text-cream">{e.name}</span>
-                      <span className="text-[13px] text-dim">{e.sub}</span>
-                    </span>
-                  </Link>
+
+        {/* Mobile drawer */}
+        {mobileOpen && (
+          <div className="absolute inset-x-0 top-[calc(100%+6px)] h-[calc(100dvh-100px)] overflow-y-auto rounded-xl border border-line bg-ink px-6 pb-10 pt-2 shadow-2xl xl:hidden">
+            <ul className="flex flex-col">
+              {MENUS.map((m) => (
+                <li key={m.key} className="border-b border-line">
+                  <details className="group">
+                    <summary className="flex cursor-pointer list-none items-center justify-between py-4 text-xl font-medium [&::-webkit-details-marker]:hidden">
+                      {m.label}
+                      <Icon name="chevron" size={18} className="transition-transform group-open:rotate-180" />
+                    </summary>
+                    {m.cols.map((c) => (
+                      <div key={c.title} className="mb-5">
+                        <Link href={c.href} className="text-sm font-semibold uppercase tracking-[0.14em] text-accent">{c.title}</Link>
+                        <ul className="mt-2 grid grid-cols-2 gap-x-4">
+                          {c.links.map(([name, href]) => (
+                            <li key={name}><Link href={href} className="block py-1.5 text-muted">{name}</Link></li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </details>
+                </li>
+              ))}
+              {[...LINKS, { name: 'Contact us', href: '/contact' }].map((l) => (
+                <li key={l.href} className="border-b border-line">
+                  <Link href={l.href} className={`block py-4 text-xl font-medium ${isActive(l.href) ? 'text-accent' : ''}`}>{l.name}</Link>
                 </li>
               ))}
             </ul>
-          </Panel>
+            <Link href="/contact" className="mt-6 flex min-h-[52px] items-center justify-center rounded-full bg-accent font-semibold text-accent-contrast hover:text-accent-contrast">
+              Contact us
+            </Link>
+          </div>
         )}
-      </nav>
-
-      {/* Mobile drawer */}
-      {mobileOpen && (
-        <div className="absolute inset-x-0 top-full z-40 h-[calc(100dvh-72px)] overflow-y-auto border-t border-line bg-ink px-6 pb-10 pt-4 xl:hidden">
-          <ul className="flex flex-col">
-            {links.map((l) => (
-              <li key={l.name} className="border-b border-line">
-                <Link href={l.href} className={`block py-4 text-xl font-medium ${isActive(l.href) ? 'text-accent' : ''}`}>{l.name}</Link>
-                {l.menu === 'products' && (
-                  <ul className="mb-3 grid grid-cols-2 gap-2">
-                    {nav.products.map((p) => <li key={p.href}><Link href={p.href} className="block py-1.5 text-muted">{p.name}</Link></li>)}
-                  </ul>
-                )}
-                {l.href === '/services' && (
-                  <ul className="mb-3 grid grid-cols-2 gap-2">
-                    {nav.services.flatMap((g) => g.items).map((s) => <li key={s.href}><Link href={s.href} className="block py-1.5 text-muted">{s.name}</Link></li>)}
-                  </ul>
-                )}
-                {l.menu === 'events' && (
-                  <ul className="mb-3 grid grid-cols-2 gap-2">
-                    {nav.events.map((e) => <li key={e.href}><Link href={e.href} className="block py-1.5 text-muted">{e.name}</Link></li>)}
-                  </ul>
-                )}
-              </li>
-            ))}
-          </ul>
-          <Link href="/contact" className="mt-6 flex min-h-[52px] items-center justify-center rounded-full bg-accent font-semibold text-accent-contrast hover:text-accent-contrast">Get Started</Link>
-        </div>
-      )}
+      </div>
     </header>
   );
 }
 
-function Panel({ id, width, title, sub, allHref, allLabel, children }: { id: string; width: string; title: string; sub: string; allHref?: string; allLabel?: string; children: React.ReactNode }) {
+function Spotlight({ spots }: { spots: Spot[] }) {
+  const [i, setI] = useState(0);
+  const s = spots[i];
+  const go = (d: number) => setI((i + d + spots.length) % spots.length);
   return (
-    <div
-      id={id}
-      className={`absolute left-1/2 top-[calc(100%+8px)] -translate-x-1/2 animate-fadeDown rounded-2xl border border-line bg-ink shadow-2xl ${width}`}
-    >
-      {/* invisible bridge over the gap so the pointer doesn't "leave" the nav on the way down */}
-      <span aria-hidden="true" className="absolute inset-x-0 -top-[12px] h-[12px]" />
-      <div className="flex items-center justify-between gap-4 border-b border-line px-6 py-4">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">{title}</p>
-          <p className="text-sm text-dim">{sub}</p>
-        </div>
-        {allHref && <Link href={allHref} className="text-sm font-medium text-accent">{allLabel} →</Link>}
+    <div className="flex flex-col gap-4">
+      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-cream">Spotlight</p>
+      <Link href={s.href} className="theme-dark group flex flex-col overflow-hidden rounded-xl bg-[#0F1F38]">
+        <span className="relative aspect-[16/9] overflow-hidden">
+          <Image src={s.image} alt="" fill sizes="340px" className="object-cover transition-transform duration-500 group-hover:scale-105" />
+        </span>
+        <span className="flex min-h-[200px] flex-col gap-3 p-6">
+          <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/70">{s.eyebrow}</span>
+          <span className="text-lg font-medium leading-snug text-white">{s.title}</span>
+          <span className="text-sm leading-relaxed text-white/85">{s.text}</span>
+        </span>
+      </Link>
+      <div className="flex items-center justify-center gap-3">
+        <button type="button" onClick={() => go(-1)} aria-label="Previous spotlight" className="flex h-8 w-8 items-center justify-center text-[10px] text-cream">◀</button>
+        {spots.map((_, n) => (
+          <button
+            key={n}
+            type="button"
+            onClick={() => setI(n)}
+            aria-label={`Spotlight ${n + 1} of ${spots.length}`}
+            aria-current={n === i}
+            className="flex h-6 w-4 items-center justify-center"
+          >
+            <span className={`h-1.5 w-1.5 rounded-full transition-colors ${n === i ? 'bg-accent' : 'bg-line3'}`} />
+          </button>
+        ))}
+        <button type="button" onClick={() => go(1)} aria-label="Next spotlight" className="flex h-8 w-8 items-center justify-center text-[10px] text-cream">▶</button>
       </div>
-      {children}
     </div>
   );
 }

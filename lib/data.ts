@@ -180,59 +180,6 @@ export const products: Product[] = [
   }
 ];
 
-/* ---------------- Services ---------------- */
-export type Service = {
-  slug: string;
-  name: string;
-  division: 'General services' | 'Audit services';
-  icon: IconName;
-  summary: string;
-  deliverables: string[]; // SAMPLE
-  process: string[]; // SAMPLE
-};
-
-export const services: Service[] = [
-  { slug: 'ai-movie-clips', name: 'AI Movie Clips', division: 'General services', icon: 'film', summary: 'AI-generated video and marketing clips for launches, campaigns and training.', deliverables: ['Script & storyboard', 'AI-generated scenes', 'Voice-over & captions', 'Social-ready cuts'], process: ['Brief', 'Storyboard', 'Generate', 'Review', 'Deliver'] },
-  { slug: 'digital-marketing', name: 'Digital Marketing', division: 'General services', icon: 'chart', summary: 'Performance marketing, SEO and content that turns attention into pipeline.', deliverables: ['SEO audit & roadmap', 'Paid campaigns', 'Content calendar', 'Monthly reporting'], process: ['Audit', 'Strategy', 'Launch', 'Optimise', 'Report'] },
-  { slug: 'cyber-forensics', name: 'Cyber Forensic Services', division: 'General services', icon: 'search', summary: 'Evidence-grade investigation of breaches, fraud and insider incidents.', deliverables: ['Evidence acquisition', 'Timeline reconstruction', 'Root-cause analysis', 'Expert report'], process: ['Contain', 'Acquire', 'Analyse', 'Report', 'Testify'] },
-  { slug: 'cyber-insurance', name: 'Cyber Insurance', division: 'General services', icon: 'umbrella', summary: 'Risk assessment and advisory to get the right cyber cover at the right premium.', deliverables: ['Risk questionnaire support', 'Control gap report', 'Insurer readiness pack', 'Claims support'], process: ['Assess', 'Remediate', 'Submit', 'Renew'] },
-  { slug: 'iaap-audit', name: 'IAAP Audit', division: 'Audit services', icon: 'list', summary: 'Structured information assurance audits against your policies and regulators.', deliverables: ['Scope & control matrix', 'Fieldwork', 'Findings report', 'Remediation plan'], process: ['Scope', 'Fieldwork', 'Report', 'Re-test'] },
-  { slug: 'vapt', name: 'VAPT', division: 'Audit services', icon: 'target', summary: 'Vulnerability Assessment & Penetration Testing for apps, networks, cloud and mobile.', deliverables: ['Automated + manual testing', 'Exploit validation', 'Risk-rated findings', 'Re-test certificate'], process: ['Scope', 'Recon', 'Exploit', 'Report', 'Re-test'] },
-  { slug: 'forensic-audit', name: 'Forensic Audit Services', division: 'Audit services', icon: 'doc', summary: 'Financial and digital forensic audits to uncover fraud and misconduct.', deliverables: ['Transaction analysis', 'Data analytics', 'Interviews support', 'Forensic report'], process: ['Plan', 'Collect', 'Analyse', 'Report'] },
-  { slug: 'iso-27001', name: 'ISO 27001', division: 'Audit services', icon: 'lock', summary: 'Gap assessment, implementation support and internal audits for ISO/IEC 27001.', deliverables: ['Gap assessment', 'ISMS documentation', 'Internal audit', 'Certification support'], process: ['Gap', 'Implement', 'Audit', 'Certify'] },
-  { slug: 'pci-dss', name: 'PCI DSS', division: 'Audit services', icon: 'card', summary: 'PCI DSS readiness, scoping and compliance audits for card-data environments.', deliverables: ['CDE scoping', 'Readiness assessment', 'Remediation guidance', 'Compliance reporting'], process: ['Scope', 'Assess', 'Remediate', 'Validate'] }
-];
-
-/* Home page service tabs — matches "WHAT WE DO" on the home page */
-export const serviceAreas = [
-  { name: 'Cyber Defense & Threat Intelligence', tag: 'Detect · Respond · Recover', href: '/services/cyber-forensics', desc: 'Advanced cybersecurity solutions, threat detection and response, managed security operations, and enterprise cyber defense to protect your business against evolving cyber threats.', points: ['Threat detection & monitoring', 'Incident response', 'Cloud security', 'Managed security operations'] },
-  { name: 'Security Audits & VAPT', tag: 'Audit · Assess · Comply', href: '/services/vapt', desc: 'Comprehensive cybersecurity audits, VAPT, risk assessments, and regulatory compliance audits tailored to your industry and security requirements.', points: ['VAPT', 'ISO 27001 audit', 'PCI-DSS audit', 'Risk assessments'] },
-  { name: 'AI Security & Intelligent Automation', tag: 'Automate · Transform', href: '/products/yp-raksha', desc: 'AI security solutions, intelligent workflow automation, AI-powered business processes, and digital transformation consulting to enhance operational efficiency, strengthen security, and accelerate business growth.', points: ['AI security solutions', 'Intelligent workflow automation', 'Digital transformation consulting', 'AI-powered business processes'] },
-  { name: 'Corporate Training & Emerging Technologies', tag: 'Upskill · Certify', href: '/training', desc: 'Corporate training and workforce upskilling in artificial intelligence (AI), cybersecurity, blockchain technology, and quantum computing to build future-ready teams and strengthen organizational capabilities.', points: ['Artificial intelligence', 'Cyber security', 'Blockchain technology', 'Quantum computing'] }
-];
-
-/* ---------------- Training (SAMPLE programs) ---------------- */
-export type Program = {
-  slug: string;
-  title: string;
-  track: string;
-  level: 'Beginner' | 'Intermediate' | 'Advanced';
-  duration: string;
-  mode: string;
-  audience: string;
-  summary: string;
-  modules: string[];
-};
-
-export const programs: Program[] = [
-  { slug: 'certified-ethical-hacking-bootcamp', title: 'Ethical Hacking Bootcamp', track: 'Cyber Security', level: 'Intermediate', duration: '6 weeks', mode: 'Hybrid', audience: 'Professionals', summary: 'Hands-on offensive security: recon, exploitation and reporting in live labs.', modules: ['Recon & OSINT', 'Web app attacks', 'Network exploitation', 'Privilege escalation', 'Reporting'] },
-  { slug: 'ai-for-business-leaders', title: 'AI for Business Leaders', track: 'Artificial Intelligence', level: 'Beginner', duration: '2 days', mode: 'In-person', audience: 'Enterprises', summary: 'Strategy, risk and ROI of AI adoption for decision makers.', modules: ['AI fundamentals', 'Use-case discovery', 'Governance & risk', 'Build vs buy', 'Roadmapping'] },
-  { slug: 'post-quantum-cryptography-essentials', title: 'Post-Quantum Cryptography Essentials', track: 'Quantum Technologies', level: 'Advanced', duration: '3 weeks', mode: 'Online', audience: 'Professionals', summary: 'Understand quantum threats and plan your migration to PQC.', modules: ['Quantum threat model', 'PQC algorithms', 'Crypto inventory', 'Hybrid TLS', 'Migration planning'] },
-  { slug: 'blockchain-developer-foundations', title: 'Blockchain Developer Foundations', track: 'Blockchain', level: 'Beginner', duration: '4 weeks', mode: 'Online', audience: 'Students', summary: 'Smart contracts, wallets and dApps from first principles.', modules: ['Ledgers & consensus', 'Solidity basics', 'Wallets & keys', 'dApp project', 'Security pitfalls'] },
-  { slug: 'digital-forensics-investigation', title: 'Digital Forensics & Investigation', track: 'Digital Investigation', level: 'Intermediate', duration: '5 weeks', mode: 'Hybrid', audience: 'Professionals', summary: 'Acquire, analyse and present digital evidence that stands up.', modules: ['Evidence handling', 'Disk & memory forensics', 'Mobile forensics', 'Log analysis', 'Expert reporting'] },
-  { slug: 'secure-enterprise-development', title: 'Secure Enterprise Development', track: 'Enterprise Development', level: 'Intermediate', duration: '4 weeks', mode: 'Online', audience: 'Enterprises', summary: 'Build secure software with DevSecOps from day one.', modules: ['Threat modelling', 'OWASP Top 10', 'Secure CI/CD', 'Secrets management', 'Code review'] }
-];
-
 /* ---------------- Events (SAMPLE) ---------------- */
 export type EventItem = {
   slug: string;
@@ -265,30 +212,39 @@ export const gallery = [ // SAMPLE captions
 ];
 
 /* ---------------- Shared ---------------- */
-export const clients = ['Tamil Nadu Government', 'Tamil Nadu Police', 'Nasscom Foundation', 'NPST', 'REC', 'Odyssey', 'Global Software Solutions', 'Innoventory Solutions', 'Muthu Softlabs', 'CPS', 'Skills Da', 'SysMan', 'V Connect Management Services', 'Voltech'];
-
-/* 3-stat strip used in the home-page hero ("500+ clients Served · 5+ years of Excellence · 20+ Service Offerings") */
-export const heroStats = [
-  { value: '500+', label: 'Clients Served' },
-  { value: '5+', label: 'Years of Excellence' },
-  { value: '20+', label: 'Service Offerings' }
+/* Client logos — from the clientele strip on yespanchi.com. */
+export const clients = [
+  { name: 'Tamil Nadu Government', logo: '/clients/tn-government.png' },
+  { name: 'Tamil Nadu Police', logo: '/clients/tn-police.png' },
+  { name: 'Nasscom Foundation', logo: '/clients/nasscom-foundation.png' },
+  { name: 'NPST', logo: '/clients/npst.png' },
+  { name: 'REC', logo: '/clients/rec.png' },
+  { name: 'Odyssey', logo: '/clients/odyssey.png' },
+  { name: 'Global Software Solutions', logo: '/clients/global-software-solutions.png' },
+  { name: 'Innoventory Solutions', logo: '/clients/innoventory-solutions.png' },
+  { name: 'Muthu Softlabs', logo: '/clients/muthu-softlabs.png' },
+  { name: 'CPS', logo: '/clients/cps.png' },
+  { name: 'Skills Da', logo: '/clients/skills-da.png' },
+  { name: 'SysMan', logo: '/clients/sysman.png' },
+  { name: 'V Connect Management Services', logo: '/clients/v-connect.png' },
+  { name: 'Voltech', logo: '/clients/voltech.png' }
 ];
 
 /* Stats band used further down the home page and on the About page */
 export const stats = [
-  { value: '5+', label: 'Years of excellence', note: 'Founded in 2021, Chennai' },
-  { value: '10', label: 'Core service offerings', note: 'VAPT, ISO 27001, PCI-DSS, cloud security & more' },
-  { value: '3', label: 'Proprietary products', note: 'YP-PRAKAAR, YP-RAKSHA, QSecura PQ-SSL' },
+  { value: '2021', label: 'Founded at IIT Madras Research Park', note: 'Chennai, India' },
+  { value: '3', label: 'Proprietary platforms', note: 'YP-PRAKAAR, YP-RAKSHA, QSecura PQ-SSL' },
+  { value: '14+', label: 'Clients across government & enterprise', note: 'Logos in the clientele strip on the home page' },
   { value: '12', label: 'Industries served', note: 'Government, enterprise & startups' }
 ];
 
 export const awards = [
-  { title: 'FICCI Start-Up STARS', by: 'FICCI', year: '2022' },
-  { title: 'Visionary Woman Leader', by: 'Redington, Microsoft & Check Point', year: '2023' },
-  { title: 'Best Speaker of the Year', by: 'ISACA Chennai', year: '2022' },
-  { title: 'Professional of the Year', by: 'MSME India', year: '2021' },
-  { title: 'Promising Start-Up of the Year', by: 'Indian Achievers’ Award', year: '2021' },
-  { title: 'Woman Business Leader of the Year', by: 'Women Entrepreneur India', year: '2021' }
+  { title: 'FICCI Start-Up STARS', by: 'FICCI', year: '2022', image: '/gallery/ficci-start-up-stars-awards-2022.jpg' },
+  { title: 'Visionary Woman Leader', by: 'Redington, Microsoft & Check Point', year: '2023', image: '/gallery/visionary-woman-leader-award-from-redington-microsoft-and-check-point-software.jpg' },
+  { title: 'Best Speaker of the Year', by: 'ISACA Chennai', year: '2022', image: '/gallery/best-speaker-of-the-year-award-2022-by-isaca-chennai.jpg' },
+  { title: 'Professional of the Year', by: 'MSME India', year: '2021', image: '/gallery/professional-of-the-year-2021-by-msme-india-business-awards.jpg' },
+  { title: 'Promising Start-Up of the Year', by: 'Indian Achievers’ Award', year: '2021', image: '/gallery/promising-start-up-for-the-year-2021-by-indian-achievers-award.jpg' },
+  { title: 'Woman Business Leader of the Year', by: 'Women Entrepreneur India', year: '2021', image: '/gallery/woman-business-leader-of-the-year-2021-by-women-entrepreneur-india-magazine.jpg' }
 ];
 
 /* Partners — from the 2025 company brochure and supplied material. */
@@ -324,22 +280,16 @@ export const readinessChecks = [
 ];
 
 export const faqs = [
-  { q: 'What does YesPanchi do?', a: 'YesPanchi is a Chennai-based technology company at IIT Madras Research Park, delivering cybersecurity, security audits, AI and automation, enterprise products and corporate training.' },
+  { q: 'What does YesPanchi do?', a: 'YesPanchi is a Chennai-based technology company at IIT Madras Research Park, delivering cybersecurity, security audits, AI and automation and enterprise products for post-quantum security and governed AI.' },
   { q: 'What is VAPT and why do we need it?', a: 'Vulnerability Assessment and Penetration Testing finds and safely exploits weaknesses in your applications, networks and cloud before attackers do, and gives you a prioritised remediation plan.' },
   { q: 'Do you conduct ISO 27001 and PCI-DSS audits?', a: 'Yes. We run ISO 27001 and PCI-DSS compliance audits and help you close the gaps they reveal.' },
   { q: 'What is YP-PRAKAAR?', a: 'YP-PRAKAAR is our post-quantum security platform, designed to protect payment gateways and financial infrastructure against future quantum-computing attacks.' },
   { q: 'How does the free security assessment work?', a: 'Book a slot through our contact page. Our team reviews your current posture and shares the key risks and next steps — no obligation.' }
 ];
 
-export const trainingTopics = ['Artificial Intelligence', 'Cyber Security', 'Quantum Technologies', 'Blockchain', 'Digital Investigation', 'Enterprise Development', 'Innovation Skills'];
-
 /* ---------------- Navigation ---------------- */
 export const nav = {
   products: products.map((p) => ({ name: p.name, sub: p.short, href: p.externalUrl ?? `/products/${p.slug}`, icon: p.icon, external: !!p.externalUrl })),
-  services: (['General services', 'Audit services'] as const).map((division) => ({
-    title: division,
-    items: services.filter((s) => s.division === division).map((s) => ({ name: s.name, href: `/services/${s.slug}`, icon: s.icon }))
-  })),
   events: [
     { name: 'Events & Conferences', sub: 'Upcoming & past sessions', href: '/events', icon: 'cal' as IconName },
     { name: 'MoUs & Collaborations', sub: 'Institutional & research tie-ups', href: '/events/mous', icon: 'hands' as IconName },

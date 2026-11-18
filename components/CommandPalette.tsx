@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { events, products, programs, services } from '@/lib/data';
+import { events, products } from '@/lib/data';
 import { Icon, type IconName } from './Icon';
 
 type Item = { title: string; group: string; href: string; icon: IconName; keywords?: string };
@@ -11,8 +11,6 @@ const INDEX: Item[] = [
   { title: 'Home', group: 'Pages', href: '/', icon: 'arrow' },
   { title: 'About Us', group: 'Pages', href: '/about', icon: 'eye' },
   { title: 'All products', group: 'Pages', href: '/products', icon: 'ai' },
-  { title: 'All services', group: 'Pages', href: '/services', icon: 'list' },
-  { title: 'Training programmes', group: 'Pages', href: '/training', icon: 'graduation' },
   { title: 'Events & conferences', group: 'Pages', href: '/events', icon: 'cal' },
   { title: 'MoUs & collaborations', group: 'Pages', href: '/events/mous', icon: 'hands' },
   { title: 'Photo gallery', group: 'Pages', href: '/events/gallery', icon: 'photo' },
@@ -22,8 +20,6 @@ const INDEX: Item[] = [
   { title: 'Book a free security assessment', group: 'Actions', href: '/contact?topic=assessment', icon: 'shield', keywords: 'audit consult' },
   { title: 'Request a product demo', group: 'Actions', href: '/contact?topic=product', icon: 'board' },
   ...products.map((p) => ({ title: p.name, group: 'Products', href: `/products/${p.slug}`, icon: p.icon, keywords: `${p.tag} ${p.description}` })),
-  ...services.map((s) => ({ title: s.name, group: 'Services', href: `/services/${s.slug}`, icon: s.icon, keywords: `${s.division} ${s.summary}` })),
-  ...programs.map((p) => ({ title: p.title, group: 'Training', href: `/training/${p.slug}`, icon: 'graduation' as IconName, keywords: `${p.track} ${p.level}` })),
   ...events.map((e) => ({ title: e.title, group: 'Events', href: `/events/${e.slug}`, icon: 'cal' as IconName, keywords: `${e.city} ${e.type}` }))
 ];
 
@@ -93,7 +89,7 @@ function Palette({ onClose }: { onClose: () => void }) {
             ref={inputRef}
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="Search products, services, training, events…"
+            placeholder="Search products, insights, events…"
             aria-label="Search"
             role="combobox"
             aria-expanded="true"

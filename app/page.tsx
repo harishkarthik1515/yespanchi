@@ -1,217 +1,231 @@
+import Image from 'next/image';
 import Link from 'next/link';
-import { awards, clients, faqs, stats, trainingTopics, whyUs } from '@/lib/data';
+import { awards, clients, faqs } from '@/lib/data';
+import { caseStudies } from '@/lib/mock/home';
+import { insightItems, typeOf } from '@/lib/mock/insights';
 import { JsonLd } from '@/components/ui';
-import { Faq, Newsletter, ReadinessCheck } from '@/components/interactive';
-import { Icon } from '@/components/Icon';
+import { Faq } from '@/components/interactive';
 import { Hero } from '@/components/Hero';
-import { ArrowLink, MaskLines, Ticker } from '@/components/motion';
-import { SectionNav } from '@/components/SectionNav';
-import { PlatformTabs, ProofBand, ServiceGrid, ThreatPanel } from '@/components/home/panels';
-import { CaseStudies, Insights, Testimonials } from '@/components/home/sections';
+import { Ticker } from '@/components/motion';
+import { BrandFilm, PillNav, Recognition, Stories, Voices } from '@/components/home/kyndryl';
 
 const SECTIONS = [
-  { id: 'threat', label: 'Why YesPanchi?' },
-  { id: 'platforms', label: 'Platforms' },
-  { id: 'services', label: 'Services' },
-  { id: 'proven', label: 'Proven Success' },
-  { id: 'engage', label: 'Engage with Us' }
+  { id: 'who-we-are', label: 'Who we are' },
+  { id: 'customer-stories', label: 'Customer stories' },
+  { id: 'how-we-help', label: 'How we help' },
+  { id: 'our-expertise', label: 'Our expertise' },
+  { id: 'faq', label: 'FAQ' }
 ];
 
-const engagement = [
-  { step: 'Discover', text: 'A 30-minute call to understand your systems, regulators and risk appetite.' },
-  { step: 'Assess', text: 'VAPT, configuration and compliance review against ISO 27001, PCI DSS and your policies.' },
-  { step: 'Harden', text: 'Prioritised fixes with your team — from quick wins to post-quantum migration.' },
-  { step: 'Assure', text: 'Re-tests, audit evidence and ongoing monitoring so posture doesn’t drift.' }
+const HELP = [
+  { title: 'Find the gaps first', text: 'VAPT, configuration reviews and red-team exercises that show you what an attacker would find — before they do.', cta: 'Book a free assessment', href: '/contact?topic=assessment' },
+  { title: 'Stay audit-ready', text: 'ISO 27001, PCI DSS and DPDP readiness with evidence packs your regulators and auditors accept.', cta: 'Talk to our auditors', href: '/contact?topic=assessment' },
+  { title: 'Go quantum-safe', text: 'Crypto-inventory, hybrid TLS and NIST post-quantum algorithms with YP-PRAKAAR and QSecura PQ-SSL.', cta: 'Discover YP-PRAKAAR', href: '/products/yp-prakaar' },
+  { title: 'Govern enterprise AI', text: 'Private LLMs, agents and retrieval in one auditable platform with YP-RAKSHA — secure by design.', cta: 'Discover YP-RAKSHA', href: '/products/yp-raksha' }
 ];
+
+const STORY_IMAGES = ['/media/team-meeting.jpg', '/media/hero-defence.jpg', '/media/story-textile.jpg'];
+
+function Watermark({ children, tone = 'ink' }: { children: string; tone?: 'ink' | 'surface' }) {
+  return (
+    <div aria-hidden="true" className={`select-none overflow-hidden whitespace-nowrap ${tone === 'surface' ? 'bg-ink' : ''}`}>
+      <p className="-mb-[0.1em] text-center text-[clamp(2.5rem,10.8vw,14rem)] font-bold leading-none tracking-[-0.04em] text-raised">{children}</p>
+    </div>
+  );
+}
+
+const label = 'flex flex-col gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-cream';
+const bar = <span aria-hidden="true" className="h-[3px] w-5 bg-accent" />;
 
 export default function HomePage() {
+  const ideas = [
+    insightItems.find((i) => i.slug === 'technology-outlook-2026')!,
+    insightItems.find((i) => i.slug === 'dpdp-act-ai-agents')!,
+    insightItems.find((i) => i.slug === 'pqc-readiness-bfsi')!
+  ];
+  const voices = [
+    { item: insightItems.find((i) => i.slug === 'pqc-migration-checklist-2027')!, role: 'Lead, Post-quantum lab', image: '/media/consultant.jpg' },
+    { item: insightItems.find((i) => i.slug === 'vapt-reports-boards-read')!, role: 'Head of offensive security', image: '/media/team-office.jpg' },
+    { item: insightItems.find((i) => i.slug === 'dpdp-act-ai-agents')!, role: 'AI governance practice', image: '/media/analyst.jpg' }
+  ].map(({ item, role, image }) => ({ title: item.title, text: item.excerpt, by: item.author, role, image, href: `/insights/${item.type}` }));
+
   return (
     <>
       <Hero />
 
-      <SectionNav items={SECTIONS} railOnly />
+      <div className="relative">
+        <PillNav items={SECTIONS} />
 
-      {/* Clients ticker */}
-      <section aria-labelledby="trusted" className="border-b border-line py-10">
-        <h2 id="trusted" className="mb-7 text-center text-[11px] uppercase tracking-[0.26em] text-dim">
-          Trusted by government, enterprise &amp; startups
-        </h2>
-        <Ticker items={[...clients]} />
-      </section>
-
-      <ThreatPanel />
-
-      <PlatformTabs />
-
-      <ServiceGrid />
-
-      <ProofBand stats={[...stats]} />
-
-      {/* Engagement process */}
-      <section id="engage" aria-labelledby="process" className="border-b border-line py-24 md:py-32">
-        <div className="mx-auto w-full max-w-wide px-6">
-          <div className="mb-16 flex max-w-[32ch] flex-col gap-5">
-            <p data-reveal className="text-[13px] font-semibold uppercase tracking-[0.22em] text-accent">How we engage</p>
-            <MaskLines as="h2" id="process" className="text-d2" lines={[<>From first call to</>, <>lasting assurance.</>]} />
-          </div>
-          <ol className="relative grid gap-12 md:grid-cols-4 md:gap-8">
-            <span aria-hidden="true" className="absolute left-0 right-0 top-6 hidden h-px bg-gradient-to-r from-accent via-line2 to-transparent md:block" />
-            {engagement.map((e, i) => (
-              <li key={e.step} data-reveal style={{ ['--d' as string]: `${i * 110}ms` }} className="relative flex flex-col gap-3.5">
-                <span className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border border-accent bg-ink font-mono text-sm text-accent">
-                  0{i + 1}
-                </span>
-                <h3 className="mt-2 text-2xl">{e.step}</h3>
-                <p className="text-muted">{e.text}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      <div id="proven">
-        <CaseStudies />
-        <Testimonials />
-      </div>
-
-      {/* Why us + awards */}
-      <section aria-labelledby="why" className="theme-light border-b border-line py-24 md:py-32">
-        <div className="mx-auto flex w-full max-w-wide flex-col gap-16 px-6">
-          <div className="flex flex-wrap gap-12">
-            <div className="flex min-w-0 flex-1 basis-80 flex-col gap-5">
-              <p data-reveal className="text-[13px] font-semibold uppercase tracking-[0.22em] text-accent">Why us</p>
-              <MaskLines as="h2" id="why" className="text-d2" lines={[<>Judged on the</>, <>incidents that</>, <>never happen.</>]} />
-              <p data-reveal style={{ ['--d' as string]: '260ms' }} className="max-w-[46ch] text-lead text-muted">
-                Security partners earn trust quietly. Here is how we do it.
+        {/* Who we are */}
+        <section id="who-we-are" aria-labelledby="who-h" className="scroll-mt-32 pt-28">
+          <div className="mx-auto grid max-w-[1920px] items-center gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
+            <div className="flex flex-col gap-6 px-6 md:pl-16 lg:pl-[max(4rem,calc((100vw-1480px)/2+1.5rem))]">
+              <p className={label}>Who we are{bar}</p>
+              <h2 id="who-h" className="max-w-[24ch] text-[clamp(1.6rem,2.2vw,2rem)] font-normal leading-snug">Where security-first innovation meets digital trust</h2>
+              <p className="max-w-[52ch] text-muted">
+                YesPanchi helps banks, government and enterprises keep their essential systems secure — from VAPT and
+                compliance audits to post-quantum cryptography and governed enterprise AI. Headquartered at IIT Madras
+                Research Park, Chennai, since 2021.
               </p>
+              <ul className="mt-6 flex flex-wrap divide-x divide-line2 text-[15px]">
+                {[['Our story', '/about#mission'], ['Awards and recognition', '/about#awards'], ['Leadership', '/about#team']].map(([t, h]) => (
+                  <li key={h} className="px-4 first:pl-0"><Link href={h} className="text-muted hover:text-accent">{t}</Link></li>
+                ))}
+              </ul>
             </div>
-            <div className="grid min-w-0 flex-[999_1_600px] gap-4 sm:grid-cols-3">
-              {whyUs.map((w, i) => (
-                <article
-                  key={w.title}
-                  data-reveal
-                  style={{ ['--d' as string]: `${i * 100}ms` }}
-                  className="spotlight edge-glow flex flex-col gap-3.5 rounded-2xl border border-line bg-surface/60 p-7 transition-colors hover:border-line2"
-                >
-                  <span className="font-mono text-[13px] text-accent">0{i + 1}</span>
-                  <h3 className="text-[21px]">{w.title}</h3>
-                  <p className="text-[15px] text-muted">{w.text}</p>
-                </article>
+            <BrandFilm />
+          </div>
+        </section>
+
+        {/* Industry recognition */}
+        <section aria-label="Industry recognition" className="py-24">
+          <div className="mx-auto w-full max-w-wide px-6"><Recognition items={awards.slice(0, 4)} /></div>
+        </section>
+
+        {/* Customer stories */}
+        <section id="customer-stories" aria-labelledby="stories-h" className="scroll-mt-32 bg-surface pb-24">
+          <Watermark tone="surface">stories that inspire</Watermark>
+          <div className="mx-auto flex w-full max-w-wide flex-col gap-4 px-6 py-20">
+            <h2 id="stories-h" className="text-[clamp(2rem,3vw,3rem)] font-light">Progress, one customer at a time</h2>
+            <p className="max-w-[60ch] text-lg text-muted">We work hand-in-hand with banks, government departments and manufacturers to secure and modernise their essential systems.</p>
+          </div>
+          <Stories items={caseStudies.map((c, n) => ({ ...c, image: STORY_IMAGES[n], href: '/insights/case-studies#solution-journey' }))} />
+          <p className="mx-auto mt-6 w-full max-w-wide px-6 text-sm text-dim">Client stories are anonymised samples.</p>
+        </section>
+
+        {/* How we help */}
+        <section id="how-we-help" aria-labelledby="help-h" className="scroll-mt-32">
+          <div className="bg-surface"><Watermark>how yespanchi helps</Watermark></div>
+          <div className="mx-auto flex w-full max-w-wide flex-col gap-12 px-6 py-20">
+            <h2 id="help-h" className="border-b border-line pb-10 text-[clamp(1.75rem,2.6vw,2.5rem)] font-light leading-tight text-accent">
+              Continuous protection<br />+ operational trust
+            </h2>
+            <ol className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
+              {HELP.map((h, n) => (
+                <li key={h.title} className="flex flex-col gap-5">
+                  <span aria-hidden="true" className="text-[5rem] font-light leading-none text-transparent [-webkit-text-stroke:1.5px_rgb(var(--c-accent))]">0{n + 1}</span>
+                  <h3 className="text-2xl font-normal leading-snug">{h.title}</h3>
+                  <p className="text-[15px] text-muted">{h.text}</p>
+                  <Link href={h.href} className="mt-auto text-sm font-medium text-cream hover:text-accent">{h.cta} ›</Link>
+                </li>
               ))}
+            </ol>
+          </div>
+
+          {/* Promo strip */}
+          <div className="bg-surface">
+            <div className="mx-auto grid w-full max-w-wide items-center gap-8 px-6 py-10 md:grid-cols-[320px_1fr]">
+              <div className="relative aspect-[16/10] overflow-hidden"><Image src="/media/team-office.jpg" alt="" fill sizes="320px" className="object-cover" /></div>
+              <div className="flex flex-col gap-2">
+                <p className="text-2xl font-medium text-accent">Unlock quantum-safe confidence</p>
+                <p className="max-w-[70ch] text-muted">Harvest-now-decrypt-later attacks make today’s encrypted data tomorrow’s breach. Our playbook shows where to start.</p>
+                <Link href="/insights/white-papers#flipbook" className="mt-2 text-sm font-medium text-cream hover:text-accent">Read the migration playbook ›</Link>
+              </div>
             </div>
           </div>
 
-          <div data-reveal className="flex flex-col gap-5">
-            <h3 className="text-[11px] uppercase tracking-[0.26em] text-dim">Awards &amp; recognition</h3>
-            <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {awards.map((a) => (
-                <li key={a.title + a.year} className="spotlight flex flex-col gap-1.5 rounded-2xl border border-line p-5 transition-colors hover:border-line3">
-                  <span className="font-mono text-xs text-accent">{a.year}</span>
-                  <span className="font-medium">{a.title}</span>
-                  <span className="text-sm text-dim">{a.by}</span>
+          {/* Trends and insights */}
+          <div className="mx-auto flex w-full max-w-wide flex-col gap-10 px-6 py-24">
+            <div className="flex flex-col gap-2">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-cream">Trends and insights</p>
+              <h2 className="text-[clamp(1.75rem,2.6vw,2.5rem)] font-light text-accent">Discover ideas that drive transformation</h2>
+            </div>
+            <ul className="grid gap-8 lg:grid-cols-[2fr_1fr_1fr]">
+              {ideas.map((i, n) => (
+                <li key={i.slug} className="group flex flex-col gap-4">
+                  <Link href={`/insights/${i.type}`} className={`relative block overflow-hidden ${n === 0 ? 'aspect-[16/9] lg:aspect-[2/1]' : 'aspect-[16/9] lg:aspect-square'}`}>
+                    <Image src={i.image} alt="" fill sizes="(min-width:1024px) 40vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                  </Link>
+                  <p className={label}>{typeOf(i.type).title}{bar}</p>
+                  <h3 className="text-xl font-normal leading-snug">{i.title}</h3>
+                  <p className="text-[15px] text-muted">{i.excerpt}</p>
+                  <Link href={`/insights/${i.type}`} className="text-sm font-medium text-cream hover:text-accent">Read the {typeOf(i.type).title.toLowerCase().replace(/s$/, '')} ›</Link>
                 </li>
               ))}
             </ul>
           </div>
-        </div>
-      </section>
 
-      {/* Readiness check */}
-      <section aria-labelledby="check" className="border-b border-line py-24 md:py-32">
-        <div className="mx-auto flex w-full max-w-wide flex-wrap items-start gap-14 px-6">
-          <div className="flex min-w-0 flex-1 basis-[360px] flex-col gap-5 lg:sticky lg:top-32">
-            <p data-reveal className="text-[13px] font-semibold uppercase tracking-[0.22em] text-accent">60-second self-check</p>
-            <MaskLines as="h2" id="check" className="text-d2" lines={[<>How ready is your</>, <>organisation?</>]} />
-            <p data-reveal style={{ ['--d' as string]: '240ms' }} className="max-w-[44ch] text-lead text-muted">
-              Tick what’s already in place for an instant readiness score — then let our team turn the gaps into a roadmap.
-            </p>
+          {/* Split banner */}
+          <div className="mx-auto grid w-full max-w-site px-6 pb-24 md:grid-cols-2">
+            <p className="bg-surface p-8 text-[clamp(1.6rem,2.4vw,2.2rem)] font-light leading-snug text-accent md:p-10">Delivering resilient, outcome-focused security for regulated enterprises</p>
+            <div className="theme-dark flex flex-col justify-center gap-4 bg-[#2b3440] p-8 md:p-10">
+              <p className="text-lg text-white">YesPanchi recognised as a FICCI Start-Up STAR and a DPIIT-recognised start-up</p>
+              <Link href="/about#awards" className="text-sm font-semibold text-white hover:underline">See our recognition</Link>
+            </div>
           </div>
-          <ReadinessCheck />
-        </div>
-      </section>
+        </section>
 
-      {/* Training band */}
-      <section aria-labelledby="training" className="relative overflow-hidden border-b border-line">
-        <div aria-hidden="true" className="grid-lines pointer-events-none absolute inset-0" />
-        <div aria-hidden="true" className="pointer-events-none absolute -right-[8%] top-0 h-[36vw] max-h-[460px] w-[36vw] max-w-[460px] rounded-full bg-accent/[0.1] blur-[110px]" />
-        <div className="relative mx-auto flex w-full max-w-wide flex-wrap items-center justify-between gap-10 px-6 py-24">
-          <div className="flex min-w-0 flex-[999_1_520px] flex-col gap-5">
-            <p data-reveal className="text-[13px] font-semibold uppercase tracking-[0.22em] text-accent">
-              Training for students, professionals &amp; enterprises
-            </p>
-            <MaskLines as="h2" id="training" className="text-d2" lines={[<>Learning. Innovation.</>, <>Workforce transformation.</>]} />
-            <ul data-reveal style={{ ['--d' as string]: '260ms' }} className="mt-3 flex flex-wrap gap-2.5 text-[15px]">
-              {trainingTopics.map((t) => (
-                <li key={t} className="rounded-full border border-line2 px-4 py-2 text-muted">{t}</li>
-              ))}
-            </ul>
+        {/* Our expertise */}
+        <section id="our-expertise" aria-labelledby="expertise-h" className="scroll-mt-32 bg-surface">
+          <Watermark tone="surface">yespanchi expertise</Watermark>
+          <div className="mx-auto flex w-full max-w-wide flex-col gap-3 px-6 py-20">
+            <h2 id="expertise-h" className="text-[clamp(2rem,3vw,3rem)] font-light">Trusted. Experienced. Skilled.</h2>
+            <p className="max-w-[60ch] text-lg text-muted">People are YesPanchi’s strength. Our engineers, auditors and researchers bring deep domain knowledge and relentless curiosity to every engagement.</p>
           </div>
-          <Link
-            href="/training"
-            className="group inline-flex min-h-[54px] items-center gap-2.5 rounded-full bg-accent px-7 font-semibold text-accent-contrast transition-all duration-300 hover:text-accent-contrast hover:brightness-110"
-          >
-            Explore training programs
-            <Icon name="arrow" size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
-          </Link>
-        </div>
-      </section>
+          <Voices items={voices} />
+        </section>
 
-      <Insights />
-
-      {/* FAQ */}
-      <section aria-labelledby="faq" className="border-b border-line py-24 md:py-32">
-        <div className="mx-auto flex w-full max-w-wide flex-wrap gap-14 px-6">
-          <div className="flex min-w-0 flex-1 basis-80 flex-col gap-5">
-            <p data-reveal className="text-[13px] font-semibold uppercase tracking-[0.22em] text-accent">FAQ</p>
-            <MaskLines as="h2" id="faq" className="text-d2" lines={[<>Questions,</>, <>answered.</>]} />
-            <p data-reveal style={{ ['--d' as string]: '240ms' }} className="mt-2 text-lead text-muted">
-              Can&apos;t find what you need?{' '}
-              <Link href="/contact" className="text-accent underline underline-offset-[3px]">Talk to our team</Link> — or press{' '}
-              <kbd className="rounded border border-line2 px-1.5 font-mono text-sm">⌘K</kbd> to search.
-            </p>
+        {/* Trusted by */}
+        <section aria-labelledby="trusted-h" className="py-20">
+          <div className="mx-auto mb-10 flex w-full max-w-wide flex-col gap-2 px-6">
+            <h2 id="trusted-h" className="text-2xl font-normal">Trusted by government, enterprise &amp; startups</h2>
+            <Link href="/about#awards" className="text-sm text-accent hover:underline">Learn more about our partners ›</Link>
           </div>
-          <Faq />
-        </div>
-        <JsonLd
-          data={{
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } }))
-          }}
-        />
-      </section>
+          <Ticker items={clients} />
+        </section>
 
-      {/* CTA + newsletter */}
-      <section aria-labelledby="cta" className="py-24 md:py-28">
-        <div className="mx-auto w-full max-w-wide px-6">
-          <div data-reveal className="theme-dark relative flex flex-wrap items-end justify-between gap-12 overflow-hidden rounded-2xl bg-ink p-8 md:p-16">
-            <div aria-hidden="true" className="hatch pointer-events-none absolute inset-0 opacity-60" />
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0"
-              style={{ background: 'radial-gradient(80% 90% at 85% 20%, rgb(var(--c-accent) / .18), transparent 60%)' }}
-            />
-            <div className="relative flex min-w-0 flex-[999_1_480px] flex-col gap-5">
-              <MaskLines as="h2" id="cta" className="max-w-[18ch] text-d2" lines={[<>Ready to secure your</>, <>digital future?</>]} />
-              <p className="max-w-xl text-lead text-muted">
-                Partner with YesPanchi to strengthen cybersecurity, streamline compliance and accelerate
-                innovation with AI security and quantum-ready solutions.
-              </p>
-              <div className="mt-3 flex flex-wrap items-center gap-5">
-                <Link
-                  href="/contact?topic=assessment"
-                  className="group inline-flex min-h-[54px] items-center gap-2.5 rounded-full bg-accent px-7 font-semibold text-accent-contrast transition-all duration-300 hover:text-accent-contrast hover:brightness-110"
-                >
-                  Schedule a free assessment
-                  <Icon name="arrow" size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
-                </Link>
-                <ArrowLink href="/about" className="text-cream">Discover YesPanchi</ArrowLink>
+        {/* Let's get there together */}
+        <section aria-labelledby="together-h" className="pb-24">
+          <h2 id="together-h" className="py-14 text-center text-[clamp(2rem,3.4vw,3.25rem)] font-light text-accent">Let’s get there together</h2>
+          <div className="grid lg:grid-cols-2">
+            <div className="grid grid-cols-2">
+              <div className="relative aspect-square"><Image src="/media/team-meeting.jpg" alt="" fill sizes="25vw" className="object-cover" /></div>
+              <div className="flex aspect-square items-center justify-center bg-[#1F4E79] p-8">
+                <Image src="/logo.png" alt="YesPanchi" width={1107} height={345} className="h-auto w-full max-w-[220px] brightness-0 invert" />
               </div>
             </div>
-            <div className="relative flex min-w-0 flex-1 basis-[340px]">
-              <Newsletter />
+            <div className="flex flex-col justify-center gap-10 px-6 py-12 md:px-16">
+              <div className="flex flex-col gap-3 border-b border-line pb-10">
+                <h3 className="text-2xl font-normal text-accent">Recognised for innovation</h3>
+                <p className="text-muted">FICCI Start-Up STARS, Indian Achievers’ Award and MSME India honours for our work in digital trust.</p>
+                <Link href="/about#awards" className="inline-flex min-h-[44px] items-center self-start border border-cream px-4 text-sm font-semibold hover:border-accent hover:text-accent">Learn more</Link>
+              </div>
+              <div className="flex flex-col gap-3">
+                <h3 className="text-2xl font-normal text-accent">Careers</h3>
+                <p className="text-muted">Join our engineers, researchers and auditors building post-quantum and AI-security products in Chennai.</p>
+                <Link href="/careers" className="inline-flex min-h-[44px] items-center self-start border border-cream px-4 text-sm font-semibold hover:border-accent hover:text-accent">Explore jobs</Link>
+              </div>
             </div>
           </div>
+        </section>
+
+        {/* FAQ */}
+        <section id="faq" aria-labelledby="faq-h" className="scroll-mt-32 pb-24">
+          <div className="mx-auto grid w-full max-w-site gap-10 border-t border-line px-6 pt-12 lg:grid-cols-[300px_1fr]">
+            <h2 id="faq-h" className="text-xl font-normal">Answers to questions about<br /><span className="text-accent">YesPanchi</span></h2>
+            <Faq />
+          </div>
+          <JsonLd
+            data={{
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } }))
+            }}
+          />
+        </section>
+      </div>
+
+      {/* Connect with us */}
+      <section aria-labelledby="connect-h" className="relative overflow-hidden bg-surface">
+        <svg aria-hidden="true" className="absolute inset-y-0 right-[8%] hidden h-full w-[40%] md:block" viewBox="0 0 480 240" preserveAspectRatio="none">
+          {Array.from({ length: 18 }, (_, k) => (
+            <path key={k} d={`M${k * 26} 120 L${k * 26 + 26} 0 M${k * 26} 120 L${k * 26 + 26} 240`} stroke="rgb(var(--c-accent))" strokeOpacity=".45" strokeWidth="1" fill="none" />
+          ))}
+        </svg>
+        <div className="relative mx-auto flex w-full max-w-wide flex-col items-start gap-4 px-6 py-20">
+          <h2 id="connect-h" className="text-[2rem] font-normal">Connect with us</h2>
+          <p className="max-w-[46ch] text-muted">Do you have a specific security challenge, interest in a career at YesPanchi, or just want to get in touch?</p>
+          <Link href="/contact" className="mt-2 inline-flex min-h-[44px] items-center rounded-full border border-cream px-5 text-sm font-semibold hover:border-accent hover:text-accent">Let’s talk ›</Link>
         </div>
       </section>
     </>

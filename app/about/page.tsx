@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
-import { awards, stats, values } from '@/lib/data';
-import { certifications, coreExpertise, culture, differentiators, industries, leadership, milestones, testimonials } from '@/lib/mock/about';
-import { Container, CtaBand, PageHero, SectionHeading } from '@/components/ui';
-import { SectionNav } from '@/components/SectionNav';
-import { Icon } from '@/components/Icon';
-import { Avatar } from '@/components/about/Avatar';
+import Image from 'next/image';
+import Link from 'next/link';
+import { awards, clients, stats, values } from '@/lib/data';
+import { certifications, coreExpertise, industries, leadership } from '@/lib/mock/about';
+import { Container, CtaBand, PageHero } from '@/components/ui';
+import { Ticker } from '@/components/motion';
+import { PillNav } from '@/components/home/kyndryl';
+import { LeaderCards } from '@/components/about/LeaderCards';
 
 export const metadata: Metadata = {
   title: 'About Us — Enterprise AI, Quantum Security & Digital Trust',
@@ -13,212 +15,177 @@ export const metadata: Metadata = {
 };
 
 const subnav = [
-  { id: 'mission', label: 'Mission' },
+  { id: 'who-we-are', label: 'Who we are' },
   { id: 'expertise', label: 'Expertise' },
-  { id: 'journey', label: 'Journey' },
   { id: 'team', label: 'Leadership' },
   { id: 'industries', label: 'Industries' },
   { id: 'values', label: 'Values' },
-  { id: 'voices', label: 'Clients' },
   { id: 'awards', label: 'Recognition' }
 ];
+
+const eyebrow = 'flex flex-col gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-cream';
+const bar = <span aria-hidden="true" className="h-[3px] w-5 bg-accent" />;
+const h2 = 'text-[clamp(2rem,3.2vw,3rem)] font-light leading-tight';
 
 export default function AboutPage() {
   return (
     <>
       <PageHero
+        image="/media/about.jpg"
         crumbs={[{ name: 'About Us', href: '/about' }]}
         eyebrow="Innovation & digital trust"
         title="Architecting the future of enterprise AI,"
         accent="quantum security & digital trust."
-        lead="YesPanchi Tech Services Pvt. Ltd. is an innovation-driven technology company headquartered in Chennai, India, specializing in Artificial Intelligence, Enterprise AI Platforms, Cybersecurity, Post-Quantum Cryptography, FinTech Innovation, Digital Transformation, and Corporate Governance."
+        lead="YesPanchi Tech Services Pvt. Ltd. is an innovation-driven technology company headquartered at IIT Madras Research Park, Chennai — building secure AI, post-quantum cryptography and governance platforms for regulated enterprises."
       >
-        <dl className="mt-4 grid max-w-3xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-4">
+        <dl className="mt-6 grid max-w-3xl grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-4">
           {stats.map((s) => (
-            <div key={s.label} className="flex flex-col gap-1 bg-ink/80 p-5 backdrop-blur">
-              <dt className="order-2 text-sm text-muted">{s.label}</dt>
-              <dd className="order-1 text-3xl font-medium text-accent">{s.value}</dd>
+            <div key={s.label} className="flex flex-col gap-1.5 border-t border-white/30 pt-4">
+              <dt className="order-2 text-sm text-white/75">{s.label}</dt>
+              <dd className="order-1 text-[2.75rem] font-light leading-none text-white">{s.value}</dd>
             </div>
           ))}
         </dl>
       </PageHero>
 
-      <SectionNav items={subnav} />
+      <div className="relative">
+        <PillNav items={subnav} />
 
-      {/* Mission —  band, bento */}
-      <section aria-labelledby="mission" className="theme-light scroll-mt-16 bg-ink py-24 text-cream">
-        <Container className="flex flex-col gap-12">
-          <SectionHeading id="mission" eyebrow="Why we exist" title="Founded in 2021," accent="grounded in trust." lead="By integrating intelligent security, automated compliance, robust governance, operational endurance, and business continuity into enterprise ecosystems, we enable businesses to innovate responsibly, manage evolving risks, and build a secure foundation for sustainable growth. We believe the future of technology must be built on more than innovation alone — it must be grounded in security, accountability, and trust." />
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-12">
-            {[
-              { icon: 'eye' as const, title: 'Our Vision', text: 'To become a global leader in intelligent, secure, and trusted digital technologies by empowering enterprise organizations with cutting-edge AI, robust cybersecurity, post-quantum innovation, and transparent corporate governance.', span: 'sm:col-span-2 lg:col-span-6' },
-              { icon: 'target' as const, title: 'Our Mission', text: 'To build intelligent, secure, and future-ready digital ecosystems by developing world-class technology platforms that enable enterprises to innovate confidently through secure AI, quantum-safe infrastructure, intelligent automation, and responsible digital transformation.', span: 'sm:col-span-2 lg:col-span-6' }
-            ].map((c) => (
-              <article key={c.title} className={`flex flex-col gap-5 rounded-2xl border border-line bg-surface p-8 md:p-10 ${c.span}`}>
-                <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-accent/15 text-accent"><Icon name={c.icon} size={26} /></span>
-                <h3 className="text-3xl">{c.title}</h3>
-                <p className="text-lg text-muted">{c.text}</p>
-              </article>
-            ))}
-            {culture.map((c) => (
-              <div key={c.label} className="flex flex-col gap-1 rounded-2xl border border-line bg-raised p-6 lg:col-span-3">
-                <span className="text-5xl font-medium leading-none text-accent">{c.value}</span>
-                <span className="mt-2 font-semibold">{c.label}</span>
-                <span className="text-sm text-muted">{c.note}</span>
+        {/* Who we are — purpose statement, then vision & mission as plain columns */}
+        <section id="who-we-are" aria-labelledby="who-h" className="pb-24 pt-32">
+          <Container className="flex flex-col gap-16">
+            <div className="grid gap-10 lg:grid-cols-[300px_1fr]">
+              <p className={eyebrow}>Who we are{bar}</p>
+              <h2 id="who-h" className="max-w-[30ch] text-[clamp(1.75rem,2.8vw,2.6rem)] font-light leading-snug">
+                Founded in 2021, we build intelligent security, automated compliance and governance into enterprise
+                ecosystems — so organisations can innovate responsibly and <span className="text-accent">grow on a foundation of trust.</span>
+              </h2>
+            </div>
+            <div className="grid gap-10 border-t border-line pt-10 lg:grid-cols-[300px_1fr_1fr]">
+              <div className="relative hidden aspect-[3/4] overflow-hidden lg:block">
+                <Image src="/media/team-office.jpg" alt="" fill sizes="300px" className="object-cover" />
               </div>
-            ))}
-          </div>
-          <p className="text-sm text-dim">Team and retention figures are sample content.</p>
-        </Container>
-      </section>
-
-      {/* Core expertise — dark */}
-      <section aria-labelledby="expertise" className="scroll-mt-16 py-24">
-        <Container className="flex flex-col gap-12">
-          <SectionHeading id="expertise" eyebrow="What we do" title="Our Core" accent="Expertise." lead="Delivering integrated capabilities across Enterprise AI, AI Security, Quantum-Ready Cryptography, Cybersecurity, Automated Compliance, and FinTech Innovation to help organizations operate securely, transform intelligently, and build lasting digital trust." />
-          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {coreExpertise.map((c) => (
-              <li key={c.title} className="flex flex-col gap-2 rounded-2xl border border-line bg-surface p-6">
-                <h3 className="font-semibold">{c.title}</h3>
-                <p className="text-sm text-muted">{c.text}</p>
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </section>
-
-      {/* Journey — dark */}
-      <section aria-labelledby="journey" className="scroll-mt-16 py-24">
-        <Container className="flex flex-col gap-14">
-          <SectionHeading id="journey" eyebrow="Our journey" title="From a Chennai start-up to" accent="quantum-ready products." />
-          <ol className="relative grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {milestones.map((m, i) => (
-              <li key={m.year} className="relative flex flex-col gap-3 rounded-2xl border border-line bg-surface p-7 transition-colors hover:border-accent">
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-sm text-dim">0{i + 1}</span>
-                  <span className="rounded-full border border-line2 px-3 py-1 text-xs font-semibold text-accent">{m.metric}</span>
+              {[
+                { t: 'Our vision', d: 'To become a global leader in intelligent, secure and trusted digital technologies — empowering enterprises with cutting-edge AI, robust cybersecurity, post-quantum innovation and transparent corporate governance.' },
+                { t: 'Our mission', d: 'To build intelligent, secure and future-ready digital ecosystems through world-class platforms that let enterprises innovate confidently with secure AI, quantum-safe infrastructure and responsible digital transformation.' }
+              ].map((c) => (
+                <div key={c.t} className="flex flex-col gap-4">
+                  <h3 className="text-2xl font-normal text-accent">{c.t}</h3>
+                  <p className="text-lg leading-relaxed text-muted">{c.d}</p>
                 </div>
-                <p className="text-4xl font-medium text-accent">{m.year}</p>
-                <h3 className="text-xl">{m.title}</h3>
-                <p className="text-muted">{m.text}</p>
-              </li>
-            ))}
-          </ol>
-          <p className="text-sm text-dim">Timeline milestones are sample content.</p>
-        </Container>
-      </section>
+              ))}
+            </div>
+          </Container>
+        </section>
 
-      {/* Leadership —  */}
-      <section aria-labelledby="team" className="theme-light scroll-mt-16 bg-ink py-24 text-cream">
-        <Container className="flex flex-col gap-12">
-          <SectionHeading id="team" eyebrow="Leadership & board" title="Our" accent="Leadership." />
-          <p className="text-muted">We’re hiring. <a href="/careers" className="font-semibold text-accent underline underline-offset-[3px]">See open roles →</a></p>
-          <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {leadership.map((p) => (
-              <li key={p.name} className="flex items-center gap-4 rounded-2xl border border-line bg-surface p-7">
-                <Avatar initials={p.initials} />
-                <div className="min-w-0">
-                  <h3 className="text-lg">{p.name}</h3>
-                  <p className="text-sm font-semibold text-accent">{p.role}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </section>
+        {/* Expertise — numbered editorial list, no cards */}
+        <section id="expertise" aria-labelledby="expertise-h" className="bg-surface py-24">
+          <Container className="grid gap-12 lg:grid-cols-[300px_1fr]">
+            <div className="flex flex-col gap-5 lg:sticky lg:top-40 lg:self-start">
+              <p className={eyebrow}>What we do{bar}</p>
+              <h2 id="expertise-h" className={h2}>Our core <span className="text-accent">expertise</span></h2>
+              <p className="text-muted">Integrated capabilities across enterprise AI, AI security, quantum-ready cryptography, cybersecurity and FinTech.</p>
+              <Link href="/products" className="text-sm font-semibold text-cream hover:text-accent">Explore our platforms ›</Link>
+            </div>
+            <ol className="grid gap-x-12 sm:grid-cols-2">
+              {coreExpertise.map((c, i) => (
+                <li key={c.title} className="flex gap-5 border-t border-line2 py-7">
+                  <span aria-hidden="true" className="font-mono text-sm text-accent">{String(i + 1).padStart(2, '0')}</span>
+                  <div className="flex flex-col gap-2">
+                    <h3 className="text-xl font-normal">{c.title}</h3>
+                    <p className="text-[15px] leading-relaxed text-muted">{c.text}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </Container>
+        </section>
 
-      {/* Industries — dark */}
-      <section aria-labelledby="industries" className="scroll-mt-16 py-24">
-        <Container className="flex flex-col gap-12">
-          <SectionHeading id="industries" eyebrow="Industry expertise" title="Industries We" accent="Empower." lead="Delivering secure, intelligent, and future-ready technology solutions for regulated industries, critical infrastructure, and enterprises navigating digital transformation." />
-          <ul className="flex flex-wrap gap-2.5">
-            {industries.map((i) => (
-              <li key={i} className="rounded-full border border-line2 bg-raised px-4 py-2 text-sm font-medium">{i}</li>
-            ))}
-          </ul>
-        </Container>
-      </section>
+        {/* Leadership */}
+        <section id="team" aria-labelledby="team-h" className="py-24">
+          <Container className="flex flex-col gap-12">
+            <div className="flex flex-wrap items-end justify-between gap-6">
+              <div className="flex flex-col gap-5">
+                <p className={eyebrow}>Leadership{bar}</p>
+                <h2 id="team-h" className={h2}>Our <span className="text-accent">board</span></h2>
+              </div>
+              <Link href="/careers" className="text-sm font-semibold text-cream hover:text-accent">We’re hiring — see open roles ›</Link>
+            </div>
+            <LeaderCards leaders={leadership} />
+          </Container>
+        </section>
 
-      {/* Differentiators —  */}
-      <section aria-labelledby="differentiators" className="theme-light scroll-mt-16 bg-ink py-24 text-cream">
-        <Container className="flex flex-col gap-12">
-          <SectionHeading id="differentiators" eyebrow="Why YesPanchi?" title="What Sets Our Innovation" accent="and Engineering Apart." />
-          <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {differentiators.map((d, i) => (
-              <li key={d.title} className="flex flex-col gap-3 rounded-2xl border border-line bg-surface p-7">
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent font-semibold text-accent-contrast">{i + 1}</span>
-                <h3 className="text-lg">{d.title}</h3>
-                <p className="text-sm text-muted">{d.text}</p>
-              </li>
-            ))}
-          </ol>
-        </Container>
-      </section>
-
-      {/* Values — dark */}
-      <section aria-labelledby="values" className="scroll-mt-16 py-24">
-        <Container className="grid gap-12 lg:grid-cols-[1fr_1.4fr]">
-          <div className="lg:sticky lg:top-24 lg:self-start">
-            <SectionHeading id="values" eyebrow="What guides us" title="Our Core Values" lead="The principles that guide our every decision and action." />
-          </div>
-          <ol className="grid gap-4 sm:grid-cols-2">
-            {values.map((v, i) => (
-              <li key={v.title} className="flex flex-col gap-3 rounded-2xl border border-line bg-surface p-7">
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent font-semibold text-accent-contrast">{i + 1}</span>
-                <h3 className="text-xl">{v.title}</h3>
-                <p className="text-muted">{v.text}</p>
-              </li>
-            ))}
-          </ol>
-        </Container>
-      </section>
-
-      {/* Testimonials —  */}
-      <section aria-labelledby="voices" className="theme-light scroll-mt-16 bg-ink py-24 text-cream">
-        <Container className="flex flex-col gap-12">
-          <SectionHeading id="voices" eyebrow="Client voices" title="What our clients" accent="say." />
-          <ul className="grid gap-5 lg:grid-cols-3">
-            {testimonials.map((t) => (
-              <li key={t.name}>
-                <figure className="flex h-full flex-col gap-6 rounded-2xl border border-line bg-surface p-8">
-                  <span aria-hidden="true" className="text-6xl font-medium leading-none text-accent">“</span>
-                  <blockquote className="-mt-6 text-lg">{t.quote}</blockquote>
-                  <figcaption className="mt-auto flex items-center gap-3">
-                    <Avatar initials={t.initials} size="sm" />
-                    <span className="flex flex-col"><span className="font-semibold">{t.name}</span><span className="text-sm text-muted">{t.role}</span></span>
-                  </figcaption>
-                </figure>
-              </li>
-            ))}
-          </ul>
-          <p className="text-sm text-dim">Testimonials are sample content.</p>
-        </Container>
-      </section>
-
-      {/* Recognition & certifications — dark */}
-      <section aria-labelledby="awards" className="scroll-mt-16 py-24">
-        <Container className="flex flex-col gap-12">
-          <SectionHeading id="awards" eyebrow="Recognition" title="Awards, certifications" accent="& partners." />
-          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {awards.map((a) => (
-              <li key={a.title + a.year} className="flex items-start gap-4 rounded-2xl border border-line bg-surface p-6">
-                <span className="flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-raised text-accent"><Icon name="shield" size={22} /></span>
-                <span className="flex flex-col gap-1"><span className="font-semibold">{a.title}</span><span className="text-sm text-dim">{a.by} · {a.year}</span></span>
-              </li>
-            ))}
-          </ul>
-          <div className="flex flex-col gap-4">
-            <h3 className="text-sm uppercase tracking-[0.18em] text-muted">Certifications & memberships</h3>
-            <ul className="flex flex-wrap gap-2">
-              {certifications.map((c) => (
-                <li key={c} className="flex items-center gap-2 rounded-full border border-line2 bg-surface px-4 py-2 text-sm font-medium">
-                  <span className="text-accent"><Icon name="check" size={16} /></span>{c}
+        {/* Industries — dark band, plain list */}
+        <section id="industries" aria-labelledby="industries-h" className="theme-dark bg-[#0F1F38] py-24">
+          <Container className="grid gap-12 lg:grid-cols-[300px_1fr]">
+            <div className="flex flex-col gap-5">
+              <p className="flex flex-col gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-white">Industry expertise<span aria-hidden="true" className="h-[3px] w-5 bg-[#7DB8E8]" /></p>
+              <h2 id="industries-h" className={`${h2} text-white`}>Industries we <span className="text-[#7DB8E8]">empower</span></h2>
+              <p className="text-white/70">Secure, intelligent technology for regulated industries, critical infrastructure and enterprises in transformation.</p>
+            </div>
+            <ul className="grid sm:grid-cols-2 lg:grid-cols-3">
+              {industries.map((name, i) => (
+                <li key={name} className="flex items-baseline gap-4 border-t border-white/15 py-5 text-lg text-white">
+                  <span aria-hidden="true" className="font-mono text-xs text-[#7DB8E8]">{String(i + 1).padStart(2, '0')}</span>
+                  {name}
                 </li>
               ))}
             </ul>
-          </div>
-        </Container>
-      </section>
+          </Container>
+        </section>
+
+        {/* Values — outlined numerals */}
+        <section id="values" aria-labelledby="values-h" className="py-24">
+          <Container className="flex flex-col gap-12">
+            <div className="flex flex-col gap-5">
+              <p className={eyebrow}>What guides us{bar}</p>
+              <h2 id="values-h" className={h2}>Our core <span className="text-accent">values</span></h2>
+            </div>
+            <ol className="grid gap-10 border-t border-line pt-10 sm:grid-cols-2 lg:grid-cols-4">
+              {values.map((v, i) => (
+                <li key={v.title} className="flex flex-col gap-4">
+                  <span aria-hidden="true" className="text-[4.5rem] font-light leading-none text-transparent [-webkit-text-stroke:1.5px_rgb(var(--c-accent))]">0{i + 1}</span>
+                  <h3 className="text-2xl font-normal">{v.title}</h3>
+                  <p className="text-muted">{v.text}</p>
+                </li>
+              ))}
+            </ol>
+          </Container>
+        </section>
+
+        {/* Recognition — real award photos, then certifications */}
+        <section id="awards" aria-labelledby="awards-h" className="bg-surface py-24">
+          <Container className="flex flex-col gap-12">
+            <div className="flex flex-col gap-5">
+              <p className={eyebrow}>Recognition{bar}</p>
+              <h2 id="awards-h" className={h2}>Industry recognition. <span className="text-accent">Customer trust.</span></h2>
+            </div>
+            <ul className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+              {awards.map((a) => (
+                <li key={a.title} className="group flex flex-col gap-4">
+                  <span className="relative block aspect-[4/3] overflow-hidden bg-raised">
+                    <Image src={a.image} alt={`${a.title} — ${a.by}, ${a.year}`} fill sizes="(min-width:1024px) 30vw, (min-width:640px) 45vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                  </span>
+                  <span className="flex flex-col gap-1 border-l-[3px] border-accent pl-4">
+                    <span className="text-lg font-medium text-cream">{a.title}</span>
+                    <span className="text-sm text-muted">{a.by} · {a.year}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <ul className="flex flex-wrap gap-x-10 gap-y-3 border-t border-line pt-8 text-sm text-muted">
+              {certifications.map((c) => (
+                <li key={c} className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent" />{c}</li>
+              ))}
+            </ul>
+          </Container>
+        </section>
+
+        <section aria-labelledby="clients-h" className="py-16">
+          <h2 id="clients-h" className="mx-auto mb-8 w-full max-w-wide px-6 text-2xl font-normal">Trusted by government, enterprise &amp; startups</h2>
+          <Ticker items={clients} />
+        </section>
+      </div>
 
       <CtaBand />
     </>
