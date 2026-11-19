@@ -211,6 +211,8 @@ function SectionManager({ section, user, notify }: { section: Section; user: Use
 
   useEffect(() => { load().catch(() => notify('Could not load. Check your connection or permissions.', 'err')); }, [load, notify]);
 
+  const imgField = section.fields.find((f) => f.type === 'image' || f.type === 'images');
+
   const seedRows = useMemo(() => {
     const all = seed[section.collection] as unknown as Record<string, unknown>[];
     return all.filter((r) => Object.entries(section.fixed ?? {}).every(([k, v]) => r[k] === v));
@@ -286,11 +288,13 @@ function SectionManager({ section, user, notify }: { section: Section; user: Use
       {!rows ? <p className="text-slate-500">Loading…</p> : (
         <ul className="divide-y divide-slate-200 overflow-hidden rounded-xl border border-slate-200 bg-white">
           {shown.map((r) => {
-            const img = (r.image ?? r.src ?? (Array.isArray(r.images) ? r.images[0] : '')) as string;
+            // thumbnail = the section's first image field, whatever it is called (image, src, logo, images…)
+            const v = r[imgField?.key ?? ''];
+            const img = (Array.isArray(v) ? v[0] : v ?? '') as string;
             return (
               <li key={r.id} className="flex items-center gap-4 p-3">
                 <span className="relative h-14 w-20 flex-none overflow-hidden rounded-md bg-slate-100">
-                  {img && <Image src={img} alt="" fill sizes="80px" className="object-cover" unoptimized />}
+                  {img && <Image src={img} alt="" fill sizes="80px" className={imgField?.key === 'logo' ? 'bg-white object-contain p-1' : 'object-cover'} unoptimized />}
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="block truncate font-medium">{String(r[section.titleField] ?? '(untitled)')}</span>
