@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { useRef, useState, type ReactNode } from 'react';
 import type { Role } from '@/lib/mock/careers';
+import { btnClass } from '@/components/ui';
+import { Icon } from '@/components/Icon';
 
 const field = 'w-full rounded-2xl border border-line2 bg-ink px-4 py-3.5 text-cream placeholder:text-dim transition-colors focus:border-accent focus:outline-none focus:ring-4 focus:ring-accent/15';
 const uniq = (xs: string[]) => Array.from(new Set(xs));
@@ -35,32 +36,71 @@ export function RoleList({ roles }: { roles: Role[] }) {
       <p className="text-sm text-dim" aria-live="polite">{list.length} of {roles.length} roles shown</p>
       <ul className="flex flex-col gap-3">
         {list.map((r) => (
-          <li key={r.slug}>
-            <Link href={`/careers/${r.slug}`} className="group flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-line bg-surface p-6 transition-colors hover:border-accent">
-              <span className="flex min-w-0 flex-col gap-2">
-                <span className="text-xl font-semibold text-heading">{r.title}</span>
-                <span className="flex flex-wrap gap-2 text-sm text-muted">
-                  {[r.team, r.location, r.type, r.experience].map((t) => <span key={t} className="rounded-full border border-line2 px-3 py-1">{t}</span>)}
-                </span>
+          <li key={r.slug} className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-line bg-surface p-6 transition-colors hover:border-accent">
+            <span className="flex min-w-0 flex-col gap-2">
+              <Link href={`/careers/${r.slug}`} className="text-xl font-semibold text-heading hover:text-accent">{r.title}</Link>
+              <span className="flex flex-wrap gap-2 text-sm text-muted">
+                {[r.team, r.location, r.type, r.experience].map((t) => <span key={t} className="rounded-full border border-line2 px-3 py-1">{t}</span>)}
               </span>
-              <span className="font-semibold text-accent group-hover:underline">Apply now →</span>
-            </Link>
+            </span>
+            <span className="flex flex-wrap items-center gap-5">
+              <Link href={`/careers/${r.slug}`} className="font-semibold text-muted hover:text-cream">View role</Link>
+              <ApplyButton roles={roles} role={r.slug} className="min-h-[44px] px-6 py-2.5">Apply now</ApplyButton>
+            </span>
           </li>
         ))}
-        {list.length === 0 && <li className="rounded-2xl border border-line p-6 text-muted">No roles match these filters. Send us your profile below, we read every application.</li>}
+        {list.length === 0 && <li className="rounded-2xl border border-line p-6 text-muted">No roles match these filters. Join the talent pool, we read every application.</li>}
       </ul>
     </div>
+  );
+}
+
+/* ---------- "Apply" button: opens the application form in a native <dialog> ---------- */
+export function ApplyButton({ roles, role = '', variant = 'primary', className = '', children }: {
+  roles: Role[]; role?: string; variant?: 'primary' | 'outline'; className?: string; children: ReactNode;
+}) {
+  const dlg = useRef<HTMLDialogElement>(null);
+  const [opened, setOpened] = useState(0); // bumped on each open so the form starts fresh
+  const title = roles.find((r) => r.slug === role)?.title;
+  const open = () => { setOpened((n) => n + 1); dlg.current?.showModal(); };
+
+  return (
+    <>
+      <button type="button" onClick={open} className={btnClass(variant, className)}>
+        {children}
+        <Icon name="arrow" size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
+      </button>
+      <dialog
+        ref={dlg}
+        aria-label={title ? `Apply for ${title}` : 'Join the talent pool'}
+        onClick={(e) => e.target === dlg.current && dlg.current?.close()}
+        className="w-[min(760px,calc(100vw-32px))] max-h-[calc(100dvh-48px)] overflow-hidden rounded-2xl border border-line bg-surface p-0 text-cream shadow-2xl backdrop:bg-black/60 backdrop:backdrop-blur-sm"
+      >
+        <div className="max-h-[calc(100dvh-48px)] overflow-y-auto p-6 md:p-10">
+          <div className="mb-8 flex items-start justify-between gap-4">
+            <div className="flex flex-col gap-2">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">{title ? 'Apply for this role' : 'Talent pool'}</p>
+              <h2 className="text-3xl font-medium">{title ?? 'Send us your profile'}</h2>
+              <p className="text-sm text-muted">We only use your details to assess your application.</p>
+            </div>
+            <button type="button" onClick={() => dlg.current?.close()} aria-label="Close application form" className="flex h-10 w-10 flex-none items-center justify-center rounded-full hover:bg-raised">
+              <Icon name="close" size={20} />
+            </button>
+          </div>
+          {opened > 0 && <ApplyForm key={opened} roles={roles} role={role} />}
+        </div>
+      </dialog>
+    </>
   );
 }
 
 /* ---------- Application form (posts to the existing /api/contact endpoint) ---------- */
 type Errors = Partial<Record<'name' | 'email' | 'resume' | 'consent', string>>;
 
-export function ApplyForm({ roles }: { roles: Role[] }) {
-  const preset = useSearchParams().get('role');
+function ApplyForm({ roles, role }: { roles: Role[]; role: string }) {
   const [form, setForm] = useState({
     name: '', email: '', phone: '',
-    role: roles.find((r) => r.slug === preset)?.title ?? '',
+    role: roles.find((r) => r.slug === role)?.title ?? '',
     location: '', experience: '', profile: '', resume: '', note: '', consent: false
   });
   const [errors, setErrors] = useState<Errors>({});
@@ -101,7 +141,7 @@ export function ApplyForm({ roles }: { roles: Role[] }) {
 
   if (status === 'sent') {
     return (
-      <div role="status" className="flex flex-col gap-4 rounded-2xl border border-accent bg-surface p-8 md:p-10">
+      <div role="status" className="flex flex-col gap-4 rounded-2xl border border-accent p-8">
         <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">Application received</p>
         <h3 className="text-3xl">Thank you, {form.name.split(' ')[0]}.</h3>
         <p className="text-muted">We aim to reply within 7 working days. Your reference is <strong className="text-cream">{ref}</strong>.</p>
@@ -121,7 +161,7 @@ export function ApplyForm({ roles }: { roles: Role[] }) {
   };
 
   return (
-    <form onSubmit={submit} noValidate className="flex flex-col gap-6 rounded-2xl border border-line bg-surface p-6 md:p-10">
+    <form onSubmit={submit} noValidate className="flex flex-col gap-6">
       <div className="grid gap-5 sm:grid-cols-2">
         {input('name', 'Full name *', { autoComplete: 'name' })}
         {input('email', 'Email *', { type: 'email', autoComplete: 'email' })}

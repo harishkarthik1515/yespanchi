@@ -33,14 +33,18 @@ export function SectionHeading({
 }
 
 type BtnProps = { href: string; children: ReactNode; variant?: 'primary' | 'outline' | 'dark' | 'ghost'; className?: string; external?: boolean };
-export function Button({ href, children, variant = 'primary', className = '', external }: BtnProps) {
+export const btnClass = (variant: NonNullable<BtnProps['variant']> = 'primary', className = '') => {
   const styles = {
     primary: 'bg-accent text-accent-contrast hover:text-accent-contrast hover:brightness-110',
     outline: 'border border-line2 text-cream hover:border-cream',
     dark: 'bg-cream text-ink hover:bg-cream/90 hover:text-ink',
     ghost: 'border border-line2 text-cream hover:border-cream'
   }[variant];
-  const cls = `group inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-full px-7 py-3.5 font-semibold transition-all duration-300 ${styles} ${className}`;
+  return `group inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-full px-7 py-3.5 font-semibold transition-all duration-300 ${styles} ${className}`;
+};
+
+export function Button({ href, children, variant = 'primary', className = '', external }: BtnProps) {
+  const cls = btnClass(variant, className);
   const inner = (
     <>
       {children}

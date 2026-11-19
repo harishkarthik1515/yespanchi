@@ -332,22 +332,52 @@ export function Magnetic({ children, className = '', strength = 0.28 }: { childr
 }
 
 /* ==================================================================
- * Marquee row: infinite logo/word ticker.
+ * Client logos by sector: one moving row per sector, alternate rows run the other way.
  * ================================================================== */
-export function Ticker({ items, className = '' }: { items: { name: string; logo: string }[]; className?: string }) {
+type Sector = { sector: string; clients: { name: string; logo: string }[] };
+
+const MOVE_FROM = 6; // rows with fewer logos stay still; repeating two logos across the screen looks broken
+
+/* cards stay white so the logos keep their own colours in dark mode too */
+const LogoCard = ({ c, hidden }: { c: Sector['clients'][number]; hidden?: boolean }) => (
+  <span className="flex h-24 w-48 items-center justify-center rounded-xl border border-bronze/50 bg-white p-4">
+    {/* eslint-disable-next-line @next/next/no-img-element */}
+    <img src={c.logo} alt={hidden ? '' : c.name} loading="lazy" className="max-h-16 w-auto max-w-full object-contain" />
+  </span>
+);
+
+export function ClientSectors({ sectors }: { sectors: Sector[] }) {
+  const total = sectors.reduce((n, s) => n + s.clients.length, 0);
   return (
-    <div className={`marquee overflow-hidden bg-white py-6 [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)] ${className}`}>
-      <ul className="flex w-max animate-marquee items-center gap-20">
-        {[...items, ...items].map((c, i) => (
-          <li key={`${c.name}-${i}`} aria-hidden={i >= items.length ? 'true' : undefined}>
-            {/* strip stays white so the logos keep their own colours in dark mode too */}
-            <span className="flex h-16 w-44 items-center justify-center">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={c.logo} alt={i >= items.length ? '' : c.name} loading="lazy" className="max-h-16 w-auto max-w-full object-contain" />
-            </span>
-          </li>
-        ))}
-      </ul>
+    <div className="flex flex-col gap-10">
+      {sectors.map((s, r) => {
+        // repeat the list so one copy is wider than the screen, then double it for the seamless loop
+        const row = Array.from({ length: Math.ceil(10 / s.clients.length) }, () => s.clients).flat();
+        return (
+          <div key={s.sector} className="flex flex-col gap-4">
+            <h3 className="mx-auto w-full max-w-wide px-6 text-[13px] font-semibold uppercase tracking-[0.22em] text-bronze">{s.sector}</h3>
+            {s.clients.length < MOVE_FROM ? (
+              <ul className="mx-auto flex w-full max-w-wide flex-wrap gap-5 px-6">
+                {s.clients.map((c) => <li key={c.name}><LogoCard c={c} /></li>)}
+              </ul>
+            ) : (
+              <div className="marquee overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]">
+                <ul className={`flex w-max animate-marquee ${r % 2 ? '[animation-direction:reverse]' : ''}`}>
+                  {[...row, ...row].map((c, i) => (
+                    // padding, not gap, so the -50% loop lands exactly on the second copy
+                    <li key={i} aria-hidden={i >= s.clients.length ? 'true' : undefined} className="flex-none pr-5">
+                      <LogoCard c={c} hidden={i >= s.clients.length} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        );
+      })}
+      <p className="mx-auto w-full max-w-wide px-6">
+        <span className="block border-t border-bronze/40 pt-6 text-lg font-semibold italic text-bronze">{total}+ clients across banking, government, education and technology</span>
+      </p>
     </div>
   );
 }

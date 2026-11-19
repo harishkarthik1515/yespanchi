@@ -104,7 +104,7 @@ export const products: Product[] = [
     // [CONFIRM scope] per content doc D2
     slug: 'yp-raksha',
     name: 'YP-RAKSHA',
-    tag: 'Cybersecurity',
+    tag: 'AI Governance',
     short: 'Protection that never switches off',
     description:
       'YP-RAKSHA is YesPanchi cybersecurity platform for continuous protection, helping teams detect risk early, respond quickly and stay compliant.',
@@ -199,22 +199,23 @@ export const gallery = [ // SAMPLE captions
 ];
 
 /* ---------------- Shared ---------------- */
-/* Client logos: from the clientele strip on yespanchi.com. */
-export const clients = [
-  { name: 'Tamil Nadu Government', logo: '/clients/tn-government.png' },
-  { name: 'Tamil Nadu Police', logo: '/clients/tn-police.png' },
-  { name: 'Nasscom Foundation', logo: '/clients/nasscom-foundation.png' },
-  { name: 'NPST', logo: '/clients/npst.png' },
-  { name: 'REC', logo: '/clients/rec.png' },
-  { name: 'Odyssey', logo: '/clients/odyssey.png' },
-  { name: 'Global Software Solutions', logo: '/clients/global-software-solutions.png' },
-  { name: 'Innoventory Solutions', logo: '/clients/innoventory-solutions.png' },
-  { name: 'Muthu Softlabs', logo: '/clients/muthu-softlabs.png' },
-  { name: 'CPS', logo: '/clients/cps.png' },
-  { name: 'Skills Da', logo: '/clients/skills-da.png' },
-  { name: 'SysMan', logo: '/clients/sysman.png' },
-  { name: 'V Connect Management Services', logo: '/clients/v-connect.png' },
-  { name: 'Voltech', logo: '/clients/voltech.png' }
+/* Client logos, grouped into one moving row per sector. Editable in the admin console (Client logos). */
+export const clientSectorNames = ['Banking & finance', 'Government, education & research', 'Technology, industry & skills'];
+export const clients: { name: string; sector: string; logo: string }[] = [
+  { name: 'NPST', sector: 'Banking & finance', logo: '/clients/npst.png' },
+  { name: 'REC', sector: 'Banking & finance', logo: '/clients/rec.png' },
+  { name: 'Tamil Nadu Government', sector: 'Government, education & research', logo: '/clients/tn-government.png' },
+  { name: 'Tamil Nadu Police', sector: 'Government, education & research', logo: '/clients/tn-police.png' },
+  { name: 'Voltech', sector: 'Technology, industry & skills', logo: '/clients/voltech.png' },
+  { name: 'Innoventory Solutions', sector: 'Technology, industry & skills', logo: '/clients/innoventory-solutions.png' },
+  { name: 'Global Software Solutions', sector: 'Technology, industry & skills', logo: '/clients/global-software-solutions.png' },
+  { name: 'SysMan', sector: 'Technology, industry & skills', logo: '/clients/sysman.png' },
+  { name: 'Odyssey', sector: 'Technology, industry & skills', logo: '/clients/odyssey.png' },
+  { name: 'CPS', sector: 'Technology, industry & skills', logo: '/clients/cps.png' },
+  { name: 'Skills Da', sector: 'Technology, industry & skills', logo: '/clients/skills-da.png' },
+  { name: 'Nasscom Foundation', sector: 'Technology, industry & skills', logo: '/clients/nasscom-foundation.png' },
+  { name: 'Muthu Softlabs', sector: 'Technology, industry & skills', logo: '/clients/muthu-softlabs.png' },
+  { name: 'V Connect Management Services', sector: 'Technology, industry & skills', logo: '/clients/v-connect.png' }
 ];
 
 /* Stats band used further down the home page and on the About page */

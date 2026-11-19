@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { awards, clients, stats, values } from '@/lib/data';
+import { awards, stats, values } from '@/lib/data';
+import { getClientSectors } from '@/lib/cms';
 import { certifications, coreExpertise, industries, leadership } from '@/lib/mock/about';
 import { Container, CtaBand, PageHero } from '@/components/ui';
-import { Ticker } from '@/components/motion';
+import { ClientSectors } from '@/components/motion';
 import { PillNav } from '@/components/home/kyndryl';
 import { LeaderCards } from '@/components/about/LeaderCards';
 import { Icon, type IconName } from '@/components/Icon';
@@ -32,7 +33,8 @@ const h2 = 'text-[clamp(2rem,3.2vw,3rem)] font-light leading-tight';
 const HIDDEN_EXPERTISE = ['Enterprise AI Platforms', 'Cybersecurity & Digital Trust', 'Corporate Governance Platforms', 'Enterprise Digital Transformation'];
 const VALUE_ICONS: Record<string, IconName> = { Integrity: 'shield', Clarity: 'eye', Craftsmanship: 'badge', 'Continuous learning': 'graduation' };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const clientSectors = await getClientSectors();
   return (
     <>
       <PageHero
@@ -197,9 +199,12 @@ export default function AboutPage() {
           </Container>
         </section>
 
-        <section aria-labelledby="clients-h" className="py-16">
-          <h2 id="clients-h" className="mx-auto mb-8 w-full max-w-wide px-6 text-2xl font-normal">Trusted by government, enterprise &amp; startups</h2>
-          <Ticker items={clients} />
+        <section aria-labelledby="clients-h" className="theme-dark bg-ink py-20 text-cream">
+          <div className="mx-auto mb-10 flex w-full max-w-wide flex-col gap-3 px-6">
+            <p className="text-[13px] font-semibold uppercase tracking-[0.22em] text-bronze">Our clients</p>
+            <h2 id="clients-h" className="text-d2 font-medium">Trusted across sectors</h2>
+          </div>
+          <ClientSectors sectors={clientSectors} />
         </section>
       </div>
 

@@ -66,13 +66,6 @@ export const roles: Role[] = [
   }
 ];
 
-export const reasons = [
-  { icon: 'key', title: 'Real products', text: 'Work on shipping post-quantum and enterprise AI products, not slideware.' },
-  { icon: 'graduation', title: 'Learn beside researchers', text: 'Our office sits in IIT Madras Research Park, close to research groups and startups.' },
-  { icon: 'check', title: 'Certifications paid for', text: 'We fund the certifications that help you grow in your role.' },
-  { icon: 'shield', title: 'Clients that matter', text: 'Engagements across BFSI, government and enterprise.' }
-] as const;
-
 export const benefits = ['Health insurance', 'Learning budget', 'Certification support', 'Hybrid work', 'Flexible hours', 'Internal training seats'];
 
 export const hiringSteps = [
@@ -82,15 +75,3 @@ export const hiringSteps = [
   { title: 'Final conversation & offer', text: 'Meet the team lead and agree the details.' }
 ];
 
-export const employeeQuotes = [ // SAMPLE
-  { quote: 'I joined as an analyst and was leading client tests within a year. The certification support is real.', name: 'Team member', role: 'Audit services (sample)' },
-  { quote: 'Being inside the Research Park means the hard problems are a short walk away.', name: 'Team member', role: 'Product engineering (sample)' }
-];
-
-export const careersFaqs = [
-  { q: 'Can I work remotely?', a: 'Most roles are hybrid, based in Chennai or Bengaluru. Each role lists its location; ask us about flexibility during the intro call.' },
-  { q: 'Do you hire freshers?', a: 'Yes. Internships and early-career roles are open to students and recent graduates.' },
-  { q: 'What is the interview format?', a: 'An intro call, one technical or case round matched to the role, and a final conversation with the team lead.' },
-  { q: 'How long does hiring take?', a: 'We aim to reply within 7 working days of your application and keep you informed at every step.' },
-  { q: 'Can I apply to more than one role?', a: 'Yes. Submit one application per role, or tell us in your cover note which roles interest you.' }
-];

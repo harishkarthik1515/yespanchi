@@ -6,7 +6,7 @@ import { isAdminToken } from '@/lib/firebase/admin';
  * Signs a Cloudinary upload for a signed-in console admin. The API secret never leaves the server,
  * so nobody else can upload to the account.
  */
-const FOLDERS = ['insights', 'talks', 'events', 'roles', 'gallery', 'collaborations', 'settings'];
+const FOLDERS = ['insights', 'talks', 'events', 'roles', 'gallery', 'collaborations', 'clients', 'settings'];
 
 export async function POST(req: Request) {
   const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME ?? '';

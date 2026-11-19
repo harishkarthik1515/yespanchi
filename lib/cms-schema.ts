@@ -5,6 +5,7 @@ import { insightTypes, topics } from '@/lib/mock/insights';
 import type { Talk } from '@/lib/talks';
 import { talkKinds } from '@/lib/talks';
 import type { Role } from '@/lib/mock/careers';
+import { clientSectorNames } from '@/lib/data';
 
 /* ---------- Content types ---------- */
 export type Insight = InsightItem & { id?: string; body?: string; file?: string; featured?: boolean };
@@ -13,6 +14,7 @@ export type UpcomingEvent = { id?: string; title: string; date: string; time?: s
 export type CmsRole = Role & { id?: string; order?: number };
 export type GalleryItem = { id?: string; src: string; caption: string; event?: string; order?: number };
 export type Collaboration = { id?: string; partner: string; text: string; image: string; order?: number };
+export type Client = { id?: string; name: string; sector: string; logo: string; order?: number };
 export type SiteSettings = { announcementOn: boolean; announcementText: string; announcementLabel: string; announcementLink: string };
 
 export const defaultSettings: SiteSettings = {
@@ -25,7 +27,7 @@ export const defaultSettings: SiteSettings = {
 /* ---------- Form definitions ---------- */
 export type FieldType = 'text' | 'url' | 'textarea' | 'markdown' | 'date' | 'number' | 'select' | 'bool' | 'image' | 'images' | 'file' | 'list';
 export type Field = { key: string; label: string; type: FieldType; options?: readonly string[]; required?: boolean; help?: string };
-export type CollectionId = 'insights' | 'talks' | 'events' | 'roles' | 'gallery' | 'collaborations';
+export type CollectionId = 'insights' | 'talks' | 'events' | 'roles' | 'gallery' | 'collaborations' | 'clients';
 
 export type Section = {
   key: string;
@@ -135,6 +137,16 @@ export const sections: Section[] = [
       { key: 'doing', label: 'What you will do (one per line)', type: 'list' },
       { key: 'lookingFor', label: 'What we look for (one per line)', type: 'list' },
       { key: 'niceToHave', label: 'Nice to have (one per line)', type: 'list' },
+      { key: 'order', label: 'Order (smaller shows first)', type: 'number' }
+    ]
+  },
+  {
+    key: 'clients', label: 'Client logos', group: 'Website', collection: 'clients', titleField: 'name',
+    subtitle: (d) => String(d.sector ?? ''), sort: { field: 'order', dir: 'asc' },
+    fields: [
+      { key: 'name', label: 'Client name', type: 'text', required: true, help: 'Used as the logo alt text.' },
+      { key: 'sector', label: 'Sector (row on the website)', type: 'select', options: clientSectorNames, required: true },
+      { key: 'logo', label: 'Logo', type: 'image', required: true, help: 'PNG or SVG with a transparent or white background works best.' },
       { key: 'order', label: 'Order (smaller shows first)', type: 'number' }
     ]
   }

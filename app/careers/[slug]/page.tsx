@@ -6,6 +6,7 @@ import { getRoles } from '@/lib/cms';
 import { absoluteUrl } from '@/lib/site';
 import { Button, Container, PageHero } from '@/components/ui';
 import { Icon } from '@/components/Icon';
+import { ApplyButton } from '@/components/careers/client';
 
 type Props = { params: { slug: string } };
 
@@ -42,7 +43,6 @@ export default async function RolePage({ params }: Props) {
   const r = roles.find((x) => x.slug === params.slug);
   if (!r) notFound();
   const others = roles.filter((x) => x.slug !== r.slug).slice(0, 3);
-  const apply = `/careers?role=${r.slug}#apply`;
   const share = `mailto:?subject=${encodeURIComponent(`${r.title} at YesPanchi`)}&body=${encodeURIComponent(absoluteUrl(`/careers/${r.slug}`))}`;
 
   return (
@@ -52,7 +52,7 @@ export default async function RolePage({ params }: Props) {
           {[r.location, r.type, r.experience].map((t) => <li key={t} className="rounded-full border border-line3 px-4 py-1.5">{t}</li>)}
         </ul>
         <div className="mt-2 flex flex-wrap gap-3">
-          <Button href={apply}>Apply for this role</Button>
+          <ApplyButton roles={roles} role={r.slug}>Apply for this role</ApplyButton>
           <Button href={share} variant="outline" external>Share this role</Button>
         </div>
       </PageHero>
@@ -76,7 +76,7 @@ export default async function RolePage({ params }: Props) {
                 </li>
               ))}
             </ol>
-            <Button href={apply}>Apply now</Button>
+            <ApplyButton roles={roles} role={r.slug}>Apply now</ApplyButton>
           </aside>
         </Container>
       </section>

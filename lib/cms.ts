@@ -6,9 +6,10 @@ import { getApps, initializeApp } from 'firebase/app';
 import { collection, doc, getDoc, getDocs, getFirestore } from 'firebase/firestore/lite';
 import { firebaseConfig, firebaseConfigured } from '@/lib/firebase/config';
 import { seed } from '@/lib/cms-seed';
+import { clientSectorNames } from '@/lib/data';
 import {
   defaultSettings,
-  type CmsRole, type CmsTalk, type Collaboration, type CollectionId, type GalleryItem, type Insight, type SiteSettings, type UpcomingEvent
+  type Client, type CmsRole, type CmsTalk, type Collaboration, type CollectionId, type GalleryItem, type Insight, type SiteSettings, type UpcomingEvent
 } from '@/lib/cms-schema';
 
 const db = () => getFirestore(getApps()[0] ?? initializeApp(firebaseConfig));
@@ -55,6 +56,13 @@ export const getGallery = cache(async (): Promise<GalleryItem[]> => (((await rea
 
 export const getCollaborations = cache(async (): Promise<Collaboration[]> =>
   (((await read('collaborations')) as Collaboration[] | null) ?? seed.collaborations).sort(byOrder));
+
+/** Client logos grouped into sector rows, in the console's sector order; empty sectors are left out. */
+export const getClientSectors = cache(async () => {
+  const list = (((await read('clients')) as Client[] | null) ?? seed.clients).filter((c) => c.logo).sort(byOrder);
+  const names = Array.from(new Set([...clientSectorNames, ...list.map((c) => c.sector)]));
+  return names.map((sector) => ({ sector, clients: list.filter((c) => c.sector === sector) })).filter((s) => s.clients.length);
+});
 
 export const getSettings = cache(async (): Promise<SiteSettings> => {
   if (!firebaseConfigured) return defaultSettings;

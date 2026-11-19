@@ -4,8 +4,8 @@ import { insightItems } from '@/lib/mock/insights';
 import { highlights, talks } from '@/lib/talks';
 import { roles } from '@/lib/mock/careers';
 import { gallery } from '@/lib/gallery';
-import { collaborations } from '@/lib/data';
-import type { CmsRole, CmsTalk, Collaboration, GalleryItem, Insight, UpcomingEvent } from '@/lib/cms-schema';
+import { clients, collaborations } from '@/lib/data';
+import type { Client, CmsRole, CmsTalk, Collaboration, GalleryItem, Insight, UpcomingEvent } from '@/lib/cms-schema';
 
 const HOME_PICKS = ['technology-outlook-2026', 'dpdp-act-ai-agents', 'pqc-readiness-bfsi'];
 
@@ -15,5 +15,6 @@ export const seed = {
   events: [] as UpcomingEvent[],
   roles: roles.map((r, n): CmsRole => ({ ...r, order: n })),
   gallery: gallery.map((g, n): GalleryItem => ({ ...g, order: n })),
-  collaborations: collaborations.map((c, n): Collaboration => ({ ...c, order: n }))
+  collaborations: collaborations.map((c, n): Collaboration => ({ ...c, order: n })),
+  clients: clients.map((c, n): Client => ({ ...c, order: n }))
 };

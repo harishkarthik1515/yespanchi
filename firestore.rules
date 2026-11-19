@@ -10,8 +10,8 @@ service cloud.firestore {
 
     // Website content: public to read, only admins can change it.
     match /{col}/{id} {
-      allow read: if col in ['insights', 'talks', 'events', 'roles', 'gallery', 'collaborations', 'settings'];
-      allow write: if isAdmin() && col in ['insights', 'talks', 'events', 'roles', 'gallery', 'collaborations', 'settings'];
+      allow read: if col in ['insights', 'talks', 'events', 'roles', 'gallery', 'collaborations', 'clients', 'settings'];
+      allow write: if isAdmin() && col in ['insights', 'talks', 'events', 'roles', 'gallery', 'collaborations', 'clients', 'settings'];
     }
 
     // Form submissions are written by the server (Admin SDK bypasses rules). Only admins can read or delete them.

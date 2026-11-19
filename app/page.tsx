@@ -1,13 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { awards, clients, faqs } from '@/lib/data';
+import { awards, faqs } from '@/lib/data';
 import { caseStudies } from '@/lib/mock/home';
 import { typeOf } from '@/lib/mock/insights';
-import { getInsights } from '@/lib/cms';
+import { getClientSectors, getInsights } from '@/lib/cms';
 import { JsonLd } from '@/components/ui';
 import { Faq } from '@/components/interactive';
 import { Hero } from '@/components/Hero';
-import { Ticker } from '@/components/motion';
+import { ClientSectors } from '@/components/motion';
 import { BrandFilm, PillNav, Recognition, Stories, Voices } from '@/components/home/kyndryl';
 
 const SECTIONS = [
@@ -32,7 +32,7 @@ const label = 'flex flex-col gap-2 text-xs font-semibold uppercase tracking-[0.1
 const bar = <span aria-hidden="true" className="h-[3px] w-5 bg-accent" />;
 
 export default async function HomePage() {
-  const insightItems = await getInsights();
+  const [insightItems, clientSectors] = await Promise.all([getInsights(), getClientSectors()]);
   // Home picks are the entries ticked "Show on the home page" in the console (latest first), topped up with the newest.
   const ideas = [...insightItems.filter((i) => i.featured), ...insightItems.filter((i) => !i.featured && i.type !== 'newsletters')].slice(0, 3);
   const voices = [
@@ -138,12 +138,13 @@ export default async function HomePage() {
         </section>
 
         {/* Trusted by */}
-        <section aria-labelledby="trusted-h" className="py-20">
-          <div className="mx-auto mb-10 flex w-full max-w-wide flex-col gap-2 px-6">
-            <h2 id="trusted-h" className="text-2xl font-normal">Trusted by government, enterprise &amp; startups</h2>
+        <section aria-labelledby="trusted-h" className="theme-dark bg-ink py-20 text-cream">
+          <div className="mx-auto mb-10 flex w-full max-w-wide flex-col gap-3 px-6">
+            <p className="text-[13px] font-semibold uppercase tracking-[0.22em] text-bronze">Our clients</p>
+            <h2 id="trusted-h" className="text-d2 font-medium">Trusted across sectors</h2>
             <Link href="/about#awards" className="text-sm text-accent hover:underline">Learn more about our partners ›</Link>
           </div>
-          <Ticker items={clients} />
+          <ClientSectors sectors={clientSectors} />
         </section>
 
         {/* B8 Let’s get there together */}
