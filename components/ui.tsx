@@ -156,8 +156,8 @@ export function CtaBand() {
           <div className="relative flex max-w-2xl flex-col gap-5">
             <h2 id="cta-band" className="text-d2">Ready to secure your digital future?</h2>
             <p className="text-lead text-muted">
-              Partner with YesPanchi to strengthen cybersecurity, streamline compliance and accelerate
-              innovation with AI security and quantum-ready solutions.
+              Partner with YesPanchi to build cyber resilience, simplify compliance, and future-proof your
+              organisation with AI-driven security and quantum-ready solutions.
             </p>
           </div>
           <div className="relative flex flex-wrap gap-3">

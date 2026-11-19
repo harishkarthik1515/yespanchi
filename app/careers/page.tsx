@@ -4,20 +4,22 @@ import { values } from '@/lib/data';
 import { culture } from '@/lib/mock/about';
 import { benefits, careersFaqs, employeeQuotes, hiringSteps, reasons } from '@/lib/mock/careers';
 import { SITE } from '@/lib/site';
+import { getRoles } from '@/lib/cms';
 import { Button, Container, PageHero, SectionHeading } from '@/components/ui';
 import { IconTile } from '@/components/Icon';
 import { Faq } from '@/components/careers/Faq';
 import { ApplyForm, RoleList } from '@/components/careers/client';
 
 export const metadata: Metadata = {
-  title: 'Careers — Build the Future of Digital Trust',
+  title: { absolute: 'Careers | YesPanchi' },
   description: 'Join YesPanchi at IIT Madras Research Park: engineering, research, audit and consulting roles across security, enterprise AI and post-quantum products.',
   alternates: { canonical: '/careers' }
 };
 
 const band = 'scroll-mt-20 py-20 md:py-24';
 
-export default function CareersPage() {
+export default async function CareersPage() {
+  const roles = await getRoles();
   return (
     <>
       <PageHero
@@ -65,7 +67,7 @@ export default function CareersPage() {
             {employeeQuotes.map((q) => (
               <li key={q.quote}>
                 <figure className="flex h-full flex-col gap-4 rounded-2xl border border-line bg-surface p-7">
-                  <blockquote className="text-lg">“{q.quote}”</blockquote>
+                  <blockquote className="text-lg">"{q.quote}"</blockquote>
                   <figcaption className="mt-auto text-sm text-muted">{q.name} · {q.role}</figcaption>
                 </figure>
               </li>
@@ -100,7 +102,7 @@ export default function CareersPage() {
       <section id="roles" aria-labelledby="roles-title" className={`theme-light ${band}`}>
         <Container className="flex flex-col gap-10">
           <SectionHeading id="roles-title" eyebrow="Open roles" title="Find your" accent="place." lead="Roles listed here are placeholders until the hiring plan is confirmed." />
-          <RoleList />
+          <RoleList roles={roles} />
         </Container>
       </section>
 
@@ -130,7 +132,7 @@ export default function CareersPage() {
         <Container className="grid gap-12 lg:grid-cols-[.8fr_1.2fr]">
           <SectionHeading id="apply-title" eyebrow="Application form" title="Send us your" accent="profile." lead="Pick a role or join the talent pool. We only use your details to assess your application." />
           <Suspense fallback={<div className="h-[600px] rounded-2xl border border-line bg-surface" />}>
-            <ApplyForm />
+            <ApplyForm roles={roles} />
           </Suspense>
         </Container>
       </section>

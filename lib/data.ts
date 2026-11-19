@@ -1,6 +1,6 @@
 /**
  * Site content.
- * Items marked SAMPLE are placeholder/dummy content for the prototype —
+ * Items marked SAMPLE are placeholder/dummy content for the prototype  
  * replace with real copy before launch.
  */
 import type { IconName } from '@/components/Icon';
@@ -14,7 +14,7 @@ export type Product = {
   description: string;
   icon: IconName;
   builtFor: string[];
-  /** External product — links out to its own site instead of an in-site detail page (e.g. QSecura PQ-SSL at qsecura.com). */
+  /** External product: links out to its own site instead of an in-site detail page (e.g. QSecura PQ-SSL at qsecura.com). */
   externalUrl?: string;
   logo?: string;
   coreTechnologies?: string[];
@@ -34,76 +34,10 @@ export const products: Product[] = [
   {
     slug: 'yp-prakaar',
     name: 'YP-PRAKAAR',
-    tag: 'Post-Quantum Security',
-    short: 'Quantum-safe security & cryptography',
+    tag: 'Enterprise AI & Governance',
+    short: 'Enterprise intelligence, governed and trusted',
     description:
-      'Quantum-secure payment infrastructure powered by post-quantum cryptography (PQC), protecting financial transactions, payment gateways, and enterprise ledgers against evolving quantum threats with cryptographic agility.',
-    icon: 'shield',
-    builtFor: ['Payment gateways & FinTech platforms', 'Banking & digital infrastructure', 'Regulated financial enterprises'],
-    coreTechnologies: [
-      'NIST FIPS 204 — ML-DSA-65 digital signatures',
-      'NIST FIPS 203 — ML-KEM key encapsulation',
-      'Module Learning With Errors (MLWE) lattice-based cryptography',
-      'High-performance C++ and Rust cryptographic core'
-    ],
-    overview: [
-      'YP-PRAKAAR is a quantum-ready security layer designed to strengthen payment gateways, digital banking infrastructure, and enterprise financial transactions. It combines post-quantum cryptographic mechanisms with automated key management, transaction signing, signature verification, and cryptographic audit trails.',
-      'By supporting standardized post-quantum algorithms alongside existing payment infrastructure, YP-PRAKAAR aims to simplify the transition toward quantum-resistant security without requiring a complete redesign of established payment workflows.'
-    ],
-    challenge: {
-      title: 'The Emerging Quantum Threat',
-      lead: 'Prepare Today for Tomorrow’s Cryptographic Risks',
-      body: 'Advances in quantum computing could eventually undermine widely deployed public-key cryptographic algorithms, including RSA and elliptic-curve cryptography. Meanwhile, Harvest Now, Decrypt Later attacks create risks for sensitive information that must remain confidential for years. YP-PRAKAAR addresses these emerging risks through post-quantum cryptographic protection, crypto-agility, and forward-looking security architecture designed to support long-term data protection.'
-    },
-    pillars: [
-      { title: 'Intelligent Key Management', text: 'Automated cryptographic key generation, lifecycle management, scheduled rotation, and controlled deactivation to support secure and reliable key operations.' },
-      { title: 'Post-Quantum Transaction Signing', text: 'Applies ML-DSA digital signatures to transaction payloads to help establish authenticity and detect unauthorized modifications.' },
-      { title: 'Signature Verification', text: 'Validates post-quantum digital signatures before transaction processing or gateway dispatch, helping prevent tampered or improperly signed requests.' },
-      { title: 'Cryptographic Audit Trails', text: 'Maintains verifiable transaction records with cryptographic metadata to support traceability, integrity checks, and security investigations.' }
-    ],
-    keyFeatures: [
-      { title: 'NIST-standardized Post-Quantum Cryptography', text: 'Support for ML-DSA digital signatures and ML-KEM key establishment.' },
-      { title: 'Payment Gateway Integration', text: 'Designed to integrate with existing payment workflows through gateway-specific connectors and API wrappers.' },
-      { title: 'Automated Key Rotation', text: 'Configurable key lifecycles and rotation workflows designed to minimize service disruption.' },
-      { title: 'Transaction Integrity', text: 'Cryptographic signing and verification to detect unauthorized transaction modifications.' },
-      { title: 'Crypto-Agility', text: 'An architecture designed to support cryptographic transitions as algorithms, standards, and security requirements evolve.' },
-      { title: 'Compliance Support', text: 'Security controls and technical capabilities intended to support relevant assessments and evolving regulatory requirements.' }
-    ],
-    businessValue: [
-      { title: 'Quantum-Ready Protection', text: 'Prepare your cryptographic infrastructure for emerging quantum threats with standardized post-quantum algorithms.' },
-      { title: 'Integration-Focused Architecture', text: 'Modernize payment security while minimizing disruption to existing systems through appropriate gateway integrations.' },
-      { title: 'Operational Resilience', text: 'Support continuity through automated key lifecycle workflows, verification controls, and structured cryptographic operations.' },
-      { title: 'Auditability and Traceability', text: 'Strengthen transaction oversight through cryptographic evidence and detailed security records.' }
-    ],
-    comparisonTable: {
-      headers: ['Security capability', 'Conventional approach', 'YP-PRAKAAR approach'],
-      rows: [
-        ['Key establishment', 'RSA or elliptic-curve mechanisms', 'ML-KEM support'],
-        ['Digital signatures', 'RSA or ECDSA', 'ML-DSA-65 support'],
-        ['Key lifecycle', 'Implementation-dependent', 'Automated rotation capabilities'],
-        ['Cryptographic migration', 'Often requires coordinated upgrades', 'Crypto-agile transition architecture'],
-        ['Transaction integrity', 'Conventional signing and verification', 'Post-quantum signing and verification'],
-        ['Auditability', 'Application-dependent logging', 'Cryptographic audit-trail capabilities']
-      ]
-    },
-    useCases: [
-      { industry: 'FinTech & Payments', text: 'Digital payment gateways and FinTech platforms.' },
-      { industry: 'Banking', text: 'Banking and cross-border payment infrastructure.' },
-      { industry: 'Government', text: 'Central Bank Digital Currency (CBDC) initiatives.' },
-      { industry: 'Blockchain', text: 'Enterprise blockchain and digital asset platforms.' },
-      { industry: 'E-Commerce', text: 'E-commerce payment and merchant checkout systems.' },
-      { industry: 'Treasury', text: 'Treasury operations and high-value transaction authorization.' }
-    ],
-    techStack: 'NIST FIPS 203 (ML-KEM) · NIST FIPS 204 (ML-DSA) · Module-LWE lattice cryptography · C++ · Rust · Payment API integrations · OpenSSL-based cryptographic infrastructure',
-    ctaLine: 'Prepare your payment infrastructure for the next era of cryptographic security with YP-PRAKAAR.'
-  },
-  {
-    slug: 'yp-raksha',
-    name: 'YP-RAKSHA',
-    tag: 'Enterprise AI',
-    short: 'Unified Enterprise AI Platform',
-    description:
-      'YP-RAKSHA is the unified operating layer for enterprise AI, integrating 23+ LLM providers with intelligent routing, agent management, self-healing failover, MCP support, edge deployment, and centralized AI governance.',
+      'YP-PRAKAAR is YesPanchi platform for enterprise AI and governance, bringing AI agents, models and decisions under one trusted, auditable layer.',
     icon: 'ai',
     builtFor: ['Enterprise IT & platform engineering teams', 'Security & governance teams', 'Multi-agent AI operations'],
     coreTechnologies: [
@@ -114,19 +48,19 @@ export const products: Product[] = [
       'Grafana, New Relic, and Honeycomb integrations'
     ],
     overview: [
-      'YP-RAKSHA is a centralized operating layer for managing enterprise AI models, autonomous agents, tools, and workflows. It helps organizations reduce fragmented AI deployments by providing a common control plane for model access, agent coordination, usage policies, operational monitoring, and governance.',
-      'Designed for enterprise IT, security, and platform engineering teams, YP-RAKSHA supports AI adoption across departments while improving visibility, cost accountability, and operational resilience.'
+      'YP-PRAKAAR is a centralized operating layer for managing enterprise AI models, autonomous agents, tools, and workflows. It helps organizations reduce fragmented AI deployments by providing a common control plane for model access, agent coordination, usage policies, operational monitoring, and governance.',
+      'Designed for enterprise IT, security, and platform engineering teams, YP-PRAKAAR supports AI adoption across departments while improving visibility, cost accountability, and operational resilience.'
     ],
     challenge: {
       title: 'The Enterprise AI Challenge',
       lead: 'From Fragmented AI to Unified Intelligence',
-      body: 'Organizations increasingly deploy AI across customer support, finance, healthcare, legal, human resources, operations, and cybersecurity. Without centralized oversight, these deployments can create disconnected systems, inconsistent access controls, unpredictable costs, limited visibility, and operational dependencies. YP-RAKSHA addresses these challenges through a unified AI gateway and governance layer that brings models, agents, and enterprise workflows under centralized management.'
+      body: 'Organizations increasingly deploy AI across customer support, finance, healthcare, legal, human resources, operations, and cybersecurity. Without centralized oversight, these deployments can create disconnected systems, inconsistent access controls, unpredictable costs, limited visibility, and operational dependencies. YP-PRAKAAR addresses these challenges through a unified AI gateway and governance layer that brings models, agents, and enterprise workflows under centralized management.'
     },
     pillars: [
-      { title: 'CONNECT — Unified AI Access', text: 'Integrate multiple LLM providers, manage AI agents, and connect enterprise tools through a common API and centralized routing layer.' },
-      { title: 'CONTROL — Access and Cost Management', text: 'Apply virtual API keys, team-level budgets, usage policies, identity integration, and token consumption tracking to improve governance and financial accountability.' },
-      { title: 'GOVERN — Visibility and Policy Enforcement', text: 'Centralize audit logging, access policies, distributed tracing, and AI traffic oversight to support enterprise governance and responsible AI adoption.' },
-      { title: 'RECOVER — Operational Resilience', text: 'Use automated failure detection, execution-state analysis, dependency mapping, and recovery workflows to improve AI service continuity when agents or model providers fail.' }
+      { title: 'CONNECT: Unified AI Access', text: 'Integrate multiple LLM providers, manage AI agents, and connect enterprise tools through a common API and centralized routing layer.' },
+      { title: 'CONTROL: Access and Cost Management', text: 'Apply virtual API keys, team-level budgets, usage policies, identity integration, and token consumption tracking to improve governance and financial accountability.' },
+      { title: 'GOVERN: Visibility and Policy Enforcement', text: 'Centralize audit logging, access policies, distributed tracing, and AI traffic oversight to support enterprise governance and responsible AI adoption.' },
+      { title: 'RECOVER: Operational Resilience', text: 'Use automated failure detection, execution-state analysis, dependency mapping, and recovery workflows to improve AI service continuity when agents or model providers fail.' }
     ],
     workflow: [
       { title: 'Detect Failures', text: 'Monitor system telemetry and execution status to identify failed or unresponsive agents.' },
@@ -143,7 +77,7 @@ export const products: Product[] = [
       { title: 'Enterprise Governance', text: 'Centralized access controls, audit logging, policy enforcement, and usage oversight.' },
       { title: 'AI Cost Optimization', text: 'Virtual keys, budget controls, token analytics, and usage monitoring.' },
       { title: 'Observability and Tracing', text: 'Integrations with OpenTelemetry-based monitoring and observability platforms.' },
-      { title: 'YP-RAKSHA Edge', text: 'A desktop routing approach designed to bring supported AI application traffic under centralized enterprise oversight.' },
+      { title: 'YP-PRAKAAR Edge', text: 'A desktop routing approach designed to bring supported AI application traffic under centralized enterprise oversight.' },
       { title: 'Scalable Architecture', text: 'Worker-pool processing, load balancing, and caching capabilities designed for enterprise workloads.' }
     ],
     businessValue: [
@@ -164,15 +98,68 @@ export const products: Product[] = [
       { industry: 'Logistics & Supply Chain', text: 'Fleet coordination, route optimization, shipment tracking, and warehouse workflow automation.' }
     ],
     techStack: 'OpenAI-compatible APIs · Large Language Models (LLMs) · Model Context Protocol (MCP) · Agent Orchestration · OpenTelemetry (OTLP) · Grafana · New Relic · Honeycomb · Worker-Pool Architecture',
-    ctaLine: 'Bring AI models, agents, tools, and workflows into one governed operating environment with YP-RAKSHA.'
+    ctaLine: 'Bring AI models, agents, tools, and workflows into one governed operating environment with YP-PRAKAAR.'
+  },
+  {
+    // [CONFIRM scope] per content doc D2
+    slug: 'yp-raksha',
+    name: 'YP-RAKSHA',
+    tag: 'Cybersecurity',
+    short: 'Protection that never switches off',
+    description:
+      'YP-RAKSHA is YesPanchi cybersecurity platform for continuous protection, helping teams detect risk early, respond quickly and stay compliant.',
+    icon: 'shield',
+    builtFor: ['Banks & financial institutions', 'Government & public sector', 'Enterprise security & compliance teams'],
+    coreTechnologies: [
+      'Continuous vulnerability and exposure tracking',
+      'Risk dashboard for leadership',
+      'Compliance mapping (ISO 27001, PCI DSS, RBI)',
+      'Incident and evidence management',
+      'Role-based access and audit trail'
+    ],
+    overview: [
+      'YP-RAKSHA brings vulnerability findings, risk scores, compliance controls and incidents into one place, so security teams always know where they stand rather than finding out at audit time.',
+      'Leadership gets a clear risk view, auditors get evidence on demand, and engineers get a prioritised list of what to fix next.'
+    ],
+    challenge: {
+      title: 'The Challenge',
+      lead: 'Security that only happens before an audit',
+      body: 'Most organisations test once a year, fix what they can, and lose sight of their exposure in between. New systems, vendors and releases add risk every week. YP-RAKSHA keeps protection running all year, with findings, controls and evidence kept current.'
+    },
+    pillars: [
+      { title: 'Detect', text: 'Track vulnerabilities and exposure across applications, networks and cloud continuously, not once a year.' },
+      { title: 'Prioritise', text: 'Score risk by business impact so teams fix what matters first, with a dashboard leadership can read.' },
+      { title: 'Comply', text: 'Map controls and findings to ISO 27001, PCI DSS and RBI requirements, with evidence ready for auditors.' },
+      { title: 'Respond', text: 'Manage incidents and their evidence in one place, with role-based access and a full audit trail.' }
+    ],
+    keyFeatures: [
+      { title: 'Continuous Exposure Tracking', text: 'An always-current view of vulnerabilities and exposed assets.' },
+      { title: 'Leadership Risk Dashboard', text: 'Risk in business terms for boards and executives.' },
+      { title: 'Compliance Mapping', text: 'Controls mapped to ISO 27001, PCI DSS and RBI expectations.' },
+      { title: 'Incident & Evidence Management', text: 'Incidents, actions and evidence tracked together.' },
+      { title: 'Role-Based Access & Audit Trail', text: 'Every change recorded, every user scoped to their role.' }
+    ],
+    businessValue: [
+      { title: 'Know Your Risk Every Day', text: 'Replace point-in-time reports with a live view of your security posture.' },
+      { title: 'Stay Audit-Ready', text: 'Keep evidence, policies and checklists current all year, not only before an audit.' },
+      { title: 'Respond Faster', text: 'Detect issues early and close them before they become incidents.' }
+    ],
+    useCases: [
+      { industry: 'Banking & Financial Services', text: 'Continuous VAPT tracking and RBI-aligned compliance evidence.' },
+      { industry: 'FinTech & Digital Payments', text: 'PCI DSS readiness across fast-changing payment stacks.' },
+      { industry: 'Government & Public Sector', text: 'Exposure tracking and incident management for citizen-facing systems.' },
+      { industry: 'Enterprise IT', text: 'ISO 27001 control monitoring and audit trails across business units.' }
+    ],
+    techStack: 'Vulnerability and exposure tracking · Risk scoring · Compliance mapping (ISO 27001, PCI DSS, RBI) · Incident management · Role-based access control · Audit logging',
+    ctaLine: 'Keep protection running all year with YP-RAKSHA.'
   },
   {
     slug: 'qsecura-pq-ssl',
     name: 'QSecura PQ-SSL',
     tag: 'Post-Quantum Security',
-    short: 'Quantum-safe security for digital infrastructure',
+    short: 'Quantum-safe security for websites, web apps and mobile platforms',
     description:
-      'Quantum-safe security readiness for websites, web applications and mobile platforms — built on post-quantum cryptography to keep digital infrastructure protected against emerging quantum computing threats.',
+      'QSecura PQ-SSL protects your connections with post-quantum cryptography built on NIST standards, so data sent today stays private tomorrow.',
     icon: 'shield',
     logo: '/qsecura-shield.png',
     externalUrl: 'https://qsecura.com',
@@ -208,11 +195,11 @@ export const mous = [ // SAMPLE
 ];
 
 export const gallery = [ // SAMPLE captions
-  'Quantum-Safe Summit — keynote', 'VAPT lab session', 'MoU signing', 'Women in Cyber meetup', 'Student hackathon', 'Award ceremony', 'AI governance roundtable', 'Training graduation', 'Team at IITM Research Park'
+  'Quantum-Safe Summit, keynote', 'VAPT lab session', 'MoU signing', 'Women in Cyber meetup', 'Student hackathon', 'Award ceremony', 'AI governance roundtable', 'Training graduation', 'Team at IITM Research Park'
 ];
 
 /* ---------------- Shared ---------------- */
-/* Client logos — from the clientele strip on yespanchi.com. */
+/* Client logos: from the clientele strip on yespanchi.com. */
 export const clients = [
   { name: 'Tamil Nadu Government', logo: '/clients/tn-government.png' },
   { name: 'Tamil Nadu Police', logo: '/clients/tn-police.png' },
@@ -243,11 +230,11 @@ export const awards = [
   { title: 'Visionary Woman Leader', by: 'Redington, Microsoft & Check Point', year: '2023', image: '/gallery/visionary-woman-leader-award-from-redington-microsoft-and-check-point-software.jpg' },
   { title: 'Best Speaker of the Year', by: 'ISACA Chennai', year: '2022', image: '/gallery/best-speaker-of-the-year-award-2022-by-isaca-chennai.jpg' },
   { title: 'Professional of the Year', by: 'MSME India', year: '2021', image: '/gallery/professional-of-the-year-2021-by-msme-india-business-awards.jpg' },
-  { title: 'Promising Start-Up of the Year', by: 'Indian Achievers’ Award', year: '2021', image: '/gallery/promising-start-up-for-the-year-2021-by-indian-achievers-award.jpg' },
+  { title: 'Promising Start-Up of the Year', by: "Indian Achievers' Award", year: '2021', image: '/gallery/promising-start-up-for-the-year-2021-by-indian-achievers-award.jpg' },
   { title: 'Woman Business Leader of the Year', by: 'Women Entrepreneur India', year: '2021', image: '/gallery/woman-business-leader-of-the-year-2021-by-women-entrepreneur-india-magazine.jpg' }
 ];
 
-/* Partners — from the 2025 company brochure and supplied material. */
+/* Partners: from the 2025 company brochure and supplied material. */
 export const groupCompanies = [
   { name: 'Kriscon Global', logo: '/partners/kriscon-global.png' },
   { name: 'PaRiSu Charitable and Educational Trust', logo: '/partners/parisu-trust.png' },
@@ -259,10 +246,10 @@ export const collaborations = [
 ];
 
 export const values = [
-  { title: 'Security First', text: 'We prioritize the security and protection of our clients above everything else.' },
-  { title: 'Excellence', text: 'We strive for excellence in every project and deliver the highest quality solutions.' },
-  { title: 'Client Focus', text: 'Our clients are at the heart of everything we do, ensuring their success is our success.' },
-  { title: 'Innovation', text: 'We continuously innovate and adapt to the latest cybersecurity threats and technologies.' }
+  { title: 'Integrity', text: 'We do what we say, and we tell clients the truth about their risk.' },
+  { title: 'Clarity', text: 'Clear answers, not jargon, for leaders who need to make decisions.' },
+  { title: 'Craftsmanship', text: 'Careful, thorough work in every test, audit and product we ship.' },
+  { title: 'Continuous learning', text: "Security keeps moving, so we keep learning, from today’s systems to the quantum era." }
 ];
 
 export const whyUs = [
@@ -280,11 +267,11 @@ export const readinessChecks = [
 ];
 
 export const faqs = [
-  { q: 'What does YesPanchi do?', a: 'YesPanchi is a Chennai-based technology company at IIT Madras Research Park, delivering cybersecurity, security audits, AI and automation and enterprise products for post-quantum security and governed AI.' },
-  { q: 'What is VAPT and why do we need it?', a: 'Vulnerability Assessment and Penetration Testing finds and safely exploits weaknesses in your applications, networks and cloud before attackers do, and gives you a prioritised remediation plan.' },
-  { q: 'Do you conduct ISO 27001 and PCI-DSS audits?', a: 'Yes. We run ISO 27001 and PCI-DSS compliance audits and help you close the gaps they reveal.' },
-  { q: 'What is YP-PRAKAAR?', a: 'YP-PRAKAAR is our post-quantum security platform, designed to protect payment gateways and financial infrastructure against future quantum-computing attacks.' },
-  { q: 'How does the free security assessment work?', a: 'Book a slot through our contact page. Our team reviews your current posture and shares the key risks and next steps — no obligation.' }
+  { q: "What services does YesPanchi offer?", a: "YesPanchi offers a range of technology services, including:\n• Cybersecurity and Cyber Defense\n• Vulnerability Assessment and Penetration Testing (VAPT)\n• Security Audits and Compliance\n• Post-Quantum Cryptography Solutions\n• AI Development and Automation\n• AI Governance and Security\n• Enterprise Technology Consulting" },
+  { q: "Where is YesPanchi located?", a: "YesPanchi is headquartered in Chennai, Tamil Nadu, India, with its presence at IIT Madras Research Park, supporting technology innovation and enterprise solutions." },
+  { q: "Does YesPanchi provide AI governance and AI security solutions?", a: "Yes. YesPanchi focuses on AI security and governance solutions designed to help organizations manage AI-related risks, establish responsible AI practices, monitor AI agent activities and strengthen security controls across AI-driven workflows." },
+  { q: "Which industries does YesPanchi serve?", a: "YesPanchi provides technology and cybersecurity solutions for industries including:\n• Enterprise and Startup Ecosystems\n• Manufacturing\n• Information Technology\n• Government and Public Sector\n• FinTech and Payment Systems\n• Banking and Financial Services" },
+  { q: "How can YesPanchi help organizations adopt Post-Quantum Cryptography?", a: "YesPanchi helps organizations explore quantum-safe security through cryptographic readiness, Post-Quantum SSL solutions, quantum security technologies, migration planning and enterprise integration." }
 ];
 
 /* ---------------- Navigation ---------------- */

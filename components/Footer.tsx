@@ -19,9 +19,9 @@ export default function Footer() {
       <Container className="relative flex flex-col gap-14 pb-10 pt-20">
         <div className="flex flex-wrap justify-between gap-14">
           <div className="flex max-w-sm flex-1 basis-72 flex-col gap-5">
-            <Image src="/logo.png" alt="YesPanchi — Group of Companies" width={1107} height={345} className="h-14 w-auto self-start" />
+            <Image src="/logo.png" alt="YesPanchi, Group of Companies" width={1107} height={345} className="h-14 w-auto self-start" />
             <p className="text-muted">
-              {SITE.tagline}. {SITE.legalName} — IIT Madras Research Park, Chennai, India.
+              {SITE.tagline}. {SITE.legalName}, IIT Madras Research Park, Chennai, India.
             </p>
             <div className="flex gap-2.5">
               <a

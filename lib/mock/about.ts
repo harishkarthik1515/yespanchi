@@ -1,26 +1,42 @@
 export type Leader = { name: string; role: string; photo: string; linkedin: string; bio: string; highlights: string[] };
 
-/* "Our Board" — from the About page and profile pages on yespanchi.com. */
+/* "Our Board": from the About page and profile pages on yespanchi.com. */
 export const leadership: Leader[] = [
   {
     name: 'Panchi S',
-    role: 'Director',
-    photo: '/leadership/panchi-s.jpg',
+    role: 'Managing Director',
+    photo: '/leadership/panchi-s-portrait.jpg',
     linkedin: 'https://www.linkedin.com/in/yespanchi/',
-    bio: 'Ms. Panchi S has over two decades of experience in technology and financial services. She has been instrumental in driving one of the public sector bank’s most successful digital transformations, leading internet banking, mobile banking, and payment gateway operations. With postgraduate degrees in engineering and management, and credentials as a Certified Information Systems Auditor (CISA) and Cyber Law professional, she brings both technical and governance expertise. She also contributes regularly as an IT columnist and keynote speaker, and serves as a Qualified Independent Director recognized by the Ministry of Corporate Affairs, India.',
+    bio: "Ms. Panchi S has over two decades of experience in technology and financial services. She has been instrumental in driving one of the public sector bank’s most successful digital transformations, leading internet banking, mobile banking, and payment gateway operations. With postgraduate degrees in engineering and management, and credentials as a Certified Information Systems Auditor (CISA) and Cyber Law professional, she brings both technical and governance expertise. She also contributes regularly as an IT columnist and keynote speaker, and serves as a Qualified Independent Director recognized by the Ministry of Corporate Affairs, India.",
     highlights: ['Led the digital transformation of a major PSU bank’s internet, mobile, and payment systems.', 'Certified Information Systems Auditor (CISA) and Cyber Law professional.', 'Qualified Independent Director recognized by the Ministry of Corporate Affairs, India.', 'Writes for leading IT publications and speaks regularly on digital finance, cybersecurity, and innovation.']
   },
   {
     name: 'Paraman Pachaimuthu',
     role: 'Director',
-    photo: '/leadership/paraman-pachaimuthu.png',
+    photo: '/leadership/paraman-pachaimuthu.jpg',
     linkedin: 'https://www.linkedin.com/in/paraman-pachaimuthu-971aaa237/',
     bio: 'Mr. Paraman Pachaimuthu is a life-transforming speaker, writer, and founder of Malarchi, an initiative dedicated to uplifting lives within the Tamil-speaking community. Through coaching, programs, and his monthly magazine Valarchi, he has guided countless individuals toward personal growth and purpose.',
     highlights: ['Founder of Malarchi, focused on community empowerment and growth.', 'Publisher of Valarchi, a monthly magazine for Tamil-speaking audiences.', 'Conducts personal growth coaching and transformative programs.']
+  },
+  {
+    name: 'Selvaraj Veerachamy',
+    role: 'Chief Technology Officer',
+    photo: '/leadership/selvaraj-veerachamy.jpg',
+    linkedin: '', // [CONFIRM]
+    bio: 'Selvaraj Veerachamy leads technology at YesPanchi Tech Services, guiding the engineering behind our cybersecurity, AI governance and post-quantum platforms.', // [CONFIRM] full bio
+    highlights: []
+  },
+  {
+    name: 'Kumar MS',
+    role: 'Chief Business Officer',
+    photo: '/leadership/kumar-ms.jpg',
+    linkedin: '', // [CONFIRM]
+    bio: 'Kumar MS leads business at YesPanchi Tech Services, building partnerships with banks, government and enterprise customers.', // [CONFIRM] full bio
+    highlights: []
   }
 ];
 
-/* "Our Core Expertise" — About page */
+/* "Our Core Expertise": About page */
 export const coreExpertise = [
   { title: 'Artificial Intelligence & Agentic AI', text: 'Designing autonomous AI agents, multi-agent LLM systems, intelligent workflow orchestration, and generative AI solutions that streamline complex enterprise operations.' },
   { title: 'Enterprise AI Platforms', text: 'Building production-ready enterprise AI infrastructure with private LLM integration, retrieval-augmented generation (RAG), vector search, and scalable AI deployment.' },
@@ -32,7 +48,7 @@ export const coreExpertise = [
   { title: 'Corporate Governance Platforms', text: 'Streamlining corporate governance with board meeting automation, regulatory compliance tracking, audit management, and centralized governance workflows.' }
 ];
 
-/* "Industries We Empower" — About page */
+/* "Industries We Empower": About page */
 export const industries = [
   'Banking & Financial Services', 'FinTech & Digital Payments', 'Government & Public Sector',
   'Healthcare & Medical Technology', 'Manufacturing & Industry 4.0', 'Insurance & InsurTech',

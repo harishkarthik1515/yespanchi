@@ -48,7 +48,7 @@ export function SeatsBar({ seats, registered }: { seats: number; registered: num
   return (
     <div className="flex flex-col gap-1.5">
       <div className="flex justify-between text-sm">
-        <span className={low ? 'font-semibold text-accent' : 'text-muted'}>{left === 0 ? 'Sold out — waitlist open' : `${left} seats left`}</span>
+        <span className={low ? 'font-semibold text-accent' : 'text-muted'}>{left === 0 ? 'Sold out, waitlist open' : `${left} seats left`}</span>
         <span className="text-dim">{pct}% full</span>
       </div>
       <div className="h-1.5 overflow-hidden rounded-full bg-raised" role="progressbar" aria-label="Seats filled" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100}>

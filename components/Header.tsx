@@ -5,57 +5,41 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { products } from '@/lib/data';
-import { coreExpertise, industries } from '@/lib/mock/about';
 import { insightItems, insightTypes } from '@/lib/mock/insights';
-import { Icon } from './Icon';
+import { Icon, type IconName } from './Icon';
 import { useCommandPalette } from './CommandPalette';
 import { useSaved } from './insights/experiences';
 
 /* ------------------------------------------------------------------
- * Header — floating rounded bar with click-to-open mega panels:
+ * Header: floating rounded bar with click-to-open mega panels:
  * text-link columns under accent headings, plus a spotlight carousel.
  * ------------------------------------------------------------------ */
-type Col = { title: string; href: string; links: [string, string][] };
+type Col = { title: string; href: string; links: [string, string][]; desc?: string; icon?: IconName; image?: string };
 type Spot = { eyebrow: string; title: string; text: string; href: string; image: string };
-type Menu = { key: string; label: string; cols: Col[]; spots: Spot[] };
+type Menu = { key: string; label: string; href?: string; cols: Col[]; spots: Spot[] };
 
 const MENUS: Menu[] = [
   {
+    // Desktop renders this menu via PANELS/CardPanel; the cols feed the mobile drawer.
     key: 'what',
-    label: 'What we do',
+    label: 'Platforms',
     cols: [
-      { title: 'Platforms', href: '/products', links: [...products.map((p) => [p.name, p.externalUrl ?? `/products/${p.slug}`] as [string, string]), ['All products', '/products']] },
-      // shortcut: expertise and industries share one About anchor each; give them their own pages if they grow content
-      { title: 'Expertise', href: '/about#expertise', links: coreExpertise.map((e) => [e.title, '/about#expertise']) },
-      { title: 'Industries', href: '/about#industries', links: industries.map((i) => [i, '/about#industries']) }
+      { title: 'Platforms', href: '/products', links: [...products.map((p) => [p.name, p.externalUrl ?? `/products/${p.slug}`] as [string, string]), ['All products', '/products']] }
     ],
-    spots: [
-      { eyebrow: 'Launch', title: 'QSecura PQ-SSL is live', text: 'Quantum-safe security for websites, web apps and mobile platforms — built on NIST post-quantum cryptography.', href: 'https://qsecura.com', image: '/qsecura-launch.jpg' },
-      { eyebrow: 'Platform', title: 'YP-PRAKAAR', text: 'Quantum-secure payment infrastructure for banks, gateways and fintechs preparing for the post-quantum era.', href: '/products/yp-prakaar', image: '/media/hero-quantum.jpg' },
-      { eyebrow: 'Free offer', title: 'Book a security assessment', text: 'A no-obligation review of your posture with the key risks and next steps from our team.', href: '/contact?topic=assessment', image: '/media/analyst.jpg' }
-    ]
+    spots: []
   },
-  {
-    key: 'who',
-    label: 'Who we are',
-    cols: [
-      { title: 'About YesPanchi', href: '/about', links: [['Our story', '/about#mission'], ['Our journey', '/about#journey'], ['Leadership', '/about#team'], ['Core values', '/about#values'], ['Awards & partners', '/about#awards']] },
-      { title: 'Newsroom', href: '/events', links: [['Events & conferences', '/events'], ['MoUs & collaborations', '/events/mous'], ['Photo gallery', '/events/gallery']] },
-      { title: 'Work with us', href: '/careers', links: [['Careers', '/careers'], ['Contact us', '/contact'], ['Request a product demo', '/contact?topic=product']] }
-    ],
-    spots: [
-      { eyebrow: 'Recognition', title: 'FICCI Start-Up Stars', text: 'Recognised by FICCI among India’s promising technology start-ups.', href: '/about#awards', image: '/gallery/ficci-start-up-stars-awards-2022.jpg' },
-      { eyebrow: 'Collaboration', title: 'YesPanchi × CyberFIT', text: 'Joining hands to provide secure data erasure services.', href: '/events/mous', image: '/gallery/yespanchi-and-cyberfit-join-hands-to-provide-secure-data-erasure-services.jpg' },
-      { eyebrow: 'Careers', title: 'Build what keeps India secure', text: 'Open roles across post-quantum engineering, AI platforms and audit.', href: '/careers', image: '/media/team-office.jpg' }
-    ]
-  },
+  // plain link, no dropdown
+  { key: 'who', label: 'Who we are', href: '/about', cols: [], spots: [] },
   {
     key: 'insights',
     label: 'Insights',
     cols: insightTypes.map((t) => ({
       title: t.title,
       href: `/insights/${t.slug}`,
-      links: t.experiences.map((e) => [e.title, `/insights/${t.slug}#${e.id}`] as [string, string])
+      links: [],
+      desc: t.desc,
+      icon: t.icon,
+      image: t.image
     })),
     spots: insightItems.slice(0, 3).map((i) => ({
       eyebrow: insightTypes.find((t) => t.slug === i.type)!.title,
@@ -64,11 +48,20 @@ const MENUS: Menu[] = [
       href: `/insights/${i.type}`,
       image: i.image
     }))
+  },
+  {
+    key: 'events',
+    label: 'Events',
+    cols: [
+      { title: 'Events & conferences', href: '/events', links: [], icon: 'cal', image: '/gallery/isaca-conference-2025.jpg', desc: 'Upcoming sessions, webinars and the conferences where we speak.' },
+      { title: 'MoUs & collaborations', href: '/events/mous', links: [], icon: 'hands', image: '/gallery/yespanchi-and-cyberfit-join-hands-to-provide-secure-data-erasure-services.jpg', desc: 'Partnerships that move technology forward.' },
+      { title: 'Photo gallery', href: '/events/gallery', links: [], icon: 'photo', image: '/gallery/isaca-conference-2025-2.jpg', desc: 'Events, signings, awards and the people behind YesPanchi.' }
+    ],
+    spots: []
   }
 ];
 
 const LINKS = [
-  { name: 'News', href: '/events' },
   { name: 'Careers', href: '/careers' }
 ];
 
@@ -131,13 +124,22 @@ export default function Header() {
             solid ? 'border-line bg-ink shadow-lg' : 'theme-dark border-white/10 bg-[#0b1424]/55 backdrop-blur-xl'
           }`}
         >
-          <Link href="/" aria-label="YesPanchi — Group of Companies, home" className="flex shrink-0 items-center">
-            <Image src="/logo.png" alt="YesPanchi — Group of Companies" width={1107} height={345} priority className="h-8 w-auto sm:h-10" />
+          <Link href="/" aria-label="YesPanchi, Group of Companies, home" className="flex shrink-0 items-center">
+            <Image src="/logo.png" alt="YesPanchi, Group of Companies" width={1107} height={345} priority className="h-8 w-auto sm:h-10" />
           </Link>
 
           <ul className="hidden items-center gap-1 text-[15px] font-medium xl:flex">
             {MENUS.map((m) => (
               <li key={m.key}>
+                {m.href ? (
+                  <Link
+                    href={m.href}
+                    aria-current={isActive(m.href) ? 'page' : undefined}
+                    className={`flex min-h-[40px] items-center rounded-md px-3 transition-colors hover:bg-raised/60 ${isActive(m.href) ? 'text-accent' : 'text-cream'}`}
+                  >
+                    {m.label}
+                  </Link>
+                ) : (
                 <button
                   ref={(el) => { triggers.current[m.key] = el; }}
                   type="button"
@@ -151,6 +153,7 @@ export default function Header() {
                   {m.label}
                   <span aria-hidden="true" className={`text-[9px] transition-transform duration-200 ${open === m.key ? 'rotate-180 text-accent' : ''}`}>▼</span>
                 </button>
+                )}
               </li>
             ))}
             {LINKS.map((l) => (
@@ -226,26 +229,35 @@ export default function Header() {
             >
               <Icon name="close" size={20} />
             </button>
-            <div className="grid gap-10 px-12 pb-10 pt-12" style={{ gridTemplateColumns: `repeat(${menu.cols.length}, minmax(0,1fr)) 340px` }}>
-              {menu.cols.map((c) => (
-                <div key={c.title} className="flex flex-col gap-6">
-                  <Link href={c.href} className="group flex items-center gap-2 text-xl font-medium text-accent">
-                    {c.title}
-                    <span aria-hidden="true" className="text-[10px] transition-transform group-hover:translate-x-1">▶</span>
-                  </Link>
-                  <ul className="flex flex-col gap-3">
-                    {c.links.map(([name, href]) => (
-                      <li key={name}>
-                        <Link href={href} className="text-[15px] text-muted transition-colors hover:text-cream hover:underline hover:underline-offset-4">
-                          {name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-              <Spotlight key={menu.key} spots={menu.spots} />
+            {PANELS[menu.key] ? <CardPanel p={PANELS[menu.key]} /> : (
+            <div className={`grid gap-10 px-12 pb-10 pt-12 ${menu.spots.length ? "grid-cols-[minmax(0,1fr)_340px]" : "grid-cols-1"}`}>
+              <ul className={`grid gap-4 self-start ${menu.spots.length ? "grid-cols-2" : "grid-cols-3"}`}>
+                {menu.cols.map((c) => (
+                  <li key={c.title}>
+                    {/* full-bleed photo tile: text sits on a gradient so it reads over any image */}
+                    <Link href={c.href} className="theme-dark group relative flex aspect-[16/8] flex-col justify-end overflow-hidden rounded-xl bg-[#0F1F38] p-6">
+                      {c.image && <Image src={c.image} alt="" fill loading="eager" sizes="(min-width:1280px) 420px, 50vw" className="-z-0 object-cover transition-transform duration-700 group-hover:scale-110" />}
+                      <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#0b1424] via-[#0b1424]/70 to-[#0b1424]/10 transition-opacity duration-500 group-hover:from-[#0b1424] group-hover:via-[#0b1424]/80" />
+                      {c.icon && (
+                        <span aria-hidden="true" className="absolute left-5 top-5 flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white backdrop-blur-md transition-colors group-hover:border-white group-hover:bg-white group-hover:text-[#0F1F38]">
+                          <Icon name={c.icon} size={18} />
+                        </span>
+                      )}
+                      <span className="relative flex flex-col gap-1.5">
+                        <span className="flex items-center gap-2 text-xl font-medium text-white">
+                          {c.title}
+                          <Icon name="arrow" size={16} className="transition-transform duration-300 group-hover:translate-x-1.5" />
+                        </span>
+                        {c.desc && <span className="line-clamp-2 text-sm leading-relaxed text-white/75">{c.desc}</span>}
+                      </span>
+                      <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-[3px] origin-left scale-x-0 bg-[#7DB8E8] transition-transform duration-500 group-hover:scale-x-100" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              {menu.spots.length > 0 && <Spotlight key={menu.key} spots={menu.spots} />}
             </div>
+            )}
           </div>
         )}
 
@@ -255,22 +267,26 @@ export default function Header() {
             <ul className="flex flex-col">
               {MENUS.map((m) => (
                 <li key={m.key} className="border-b border-line">
+                  {m.href ? (
+                    <Link href={m.href} className={`block py-4 text-xl font-medium ${isActive(m.href) ? 'text-accent' : ''}`}>{m.label}</Link>
+                  ) : (
                   <details className="group">
                     <summary className="flex cursor-pointer list-none items-center justify-between py-4 text-xl font-medium [&::-webkit-details-marker]:hidden">
                       {m.label}
                       <Icon name="chevron" size={18} className="transition-transform group-open:rotate-180" />
                     </summary>
                     {m.cols.map((c) => (
-                      <div key={c.title} className="mb-5">
+                      <div key={c.title} className={c.links.length ? "mb-5" : "mb-3"}>
                         <Link href={c.href} className="text-sm font-semibold uppercase tracking-[0.14em] text-accent">{c.title}</Link>
-                        <ul className="mt-2 grid grid-cols-2 gap-x-4">
+                        {c.links.length > 0 && <ul className="mt-2 grid grid-cols-2 gap-x-4">
                           {c.links.map(([name, href]) => (
                             <li key={name}><Link href={href} className="block py-1.5 text-muted">{name}</Link></li>
                           ))}
-                        </ul>
+                        </ul>}
                       </div>
                     ))}
                   </details>
+                  )}
                 </li>
               ))}
               {[...LINKS, { name: 'Contact us', href: '/contact' }].map((l) => (
@@ -286,6 +302,92 @@ export default function Header() {
         )}
       </div>
     </header>
+  );
+}
+
+const PLATFORM_IMAGES: Record<string, string> = {
+  'yp-raksha': '/media/tablet-shield.jpg',
+  'yp-prakaar': '/media/hero-ai.jpg',
+  'qsecura-pq-ssl': '/media/hero-quantum.jpg'
+};
+
+type Card = { href: string; image: string; icon: IconName; tag: string; title: string; short: string; text: string; cta: string; external?: boolean };
+type Panel = { eyebrow: string; title: string; text: string; all: [string, string]; cards: Card[] };
+
+const PANELS: Record<string, Panel> = {
+  what: {
+    eyebrow: 'Our platforms',
+    title: 'Platforms built for digital trust',
+    text: 'Three platforms, one mission: secure, governed and future-ready technology.',
+    all: ['All products', '/products'],
+    cards: products.map((p) => ({
+      href: p.externalUrl ?? `/products/${p.slug}`,
+      external: !!p.externalUrl,
+      image: PLATFORM_IMAGES[p.slug] ?? '/media/viz-cube.jpg',
+      icon: p.icon,
+      tag: p.tag,
+      title: p.name,
+      short: p.short,
+      text: p.description,
+      cta: p.externalUrl ? 'Visit qsecura.com' : 'Explore platform'
+    }))
+  },
+  events: {
+    eyebrow: 'Events & community',
+    title: 'Where you will find us',
+    text: 'Conferences, campus talks, partnerships and the moments in between.',
+    all: ['All events', '/events'],
+    cards: [
+      { href: '/events', image: '/gallery/isaca-conference-2025.jpg', icon: 'cal', tag: 'Events', title: 'Events & conferences', short: 'Talks, conferences and appearances', text: 'Conferences, campus talks, banking forums, webinars and TV appearances by our team.', cta: 'Explore events' },
+      { href: '/events/mous', image: '/gallery/yespanchi-and-cyberfit-join-hands-to-provide-secure-data-erasure-services.jpg', icon: 'hands', tag: 'Partnerships', title: 'MoUs & collaborations', short: 'Partnerships that move technology forward', text: 'Agreements with institutions and industry partners to build, research and skill together.', cta: 'View MoUs' },
+      { href: '/events/gallery', image: '/gallery/isaca-conference-2025-2.jpg', icon: 'photo', tag: 'Gallery', title: 'Photo gallery', short: 'Moments from our journey', text: 'Events, signings, awards and the people behind YesPanchi.', cta: 'Open gallery' }
+    ]
+  }
+};
+
+/* Mega panel: intro column plus one image card per item (Platforms, Events). */
+function CardPanel({ p }: { p: Panel }) {
+  return (
+    <div className="grid gap-8 px-12 pb-10 pt-12 lg:grid-cols-[260px_1fr]">
+      <div className="flex flex-col gap-4">
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">{p.eyebrow}</p>
+        <p className="text-2xl font-medium leading-snug text-cream">{p.title}</p>
+        <p className="text-[15px] leading-relaxed text-muted">{p.text}</p>
+        <Link href={p.all[1]} className="group mt-auto inline-flex min-h-[44px] items-center gap-2 self-start rounded-full border border-line2 px-5 text-sm font-semibold text-cream transition-colors hover:border-accent hover:text-accent">
+          {p.all[0]} <Icon name="arrow" size={16} className="transition-transform group-hover:translate-x-1" />
+        </Link>
+      </div>
+      <ul className="grid grid-cols-3 gap-5">
+        {p.cards.map((c) => (
+          <li key={c.title}>
+            <Link
+              href={c.href}
+              target={c.external ? '_blank' : undefined}
+              rel={c.external ? 'noopener noreferrer' : undefined}
+              className="group flex h-full flex-col overflow-hidden rounded-xl border border-line bg-surface transition-[border-color,box-shadow] duration-300 hover:border-accent/60 hover:shadow-xl"
+            >
+              <span className="relative block aspect-[16/9] overflow-hidden bg-[#0F1F38]">
+                <Image src={c.image} alt="" fill loading="eager" sizes="300px" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#0F1F38]/80 via-[#0F1F38]/20 to-transparent" />
+                <span className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-lg bg-white/90 text-[#0F1F38] backdrop-blur">
+                  <Icon name={c.icon} size={20} />
+                </span>
+                <span className="absolute bottom-3 left-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/90">{c.tag}</span>
+              </span>
+              <span className="flex flex-1 flex-col gap-2 p-5">
+                <span className="text-lg font-semibold text-cream">{c.title}</span>
+                <span className="text-sm font-medium text-accent">{c.short}</span>
+                <span className="line-clamp-3 text-sm leading-relaxed text-muted">{c.text}</span>
+                <span className="mt-auto flex items-center gap-1.5 pt-3 text-sm font-semibold text-cream transition-colors group-hover:text-accent">
+                  {c.cta}
+                  <Icon name="arrow" size={16} className={`transition-transform group-hover:translate-x-1 ${c.external ? '-rotate-45' : ''}`} />
+                </span>
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 

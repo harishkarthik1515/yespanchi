@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { insightItems, insightTypes, typeOf } from '@/lib/mock/insights';
+import { insightTypes, typeOf } from '@/lib/mock/insights';
+import { getInsights } from '@/lib/cms';
 import { Container, PageHero, formatDate } from '@/components/ui';
 import { Icon } from '@/components/Icon';
 import { Newsletter } from '@/components/interactive';
@@ -9,8 +10,8 @@ import { PillNav } from '@/components/home/kyndryl';
 import { AskInsights, InsightCard, Library, ReadingDesk, SaveButton, TechRadar } from '@/components/insights/experiences';
 
 export const metadata: Metadata = {
-  title: 'YesPanchi Insights — Ideas · Intelligence · Innovation',
-  description: 'White papers, newsletters, blogs and case studies on post-quantum security, enterprise AI, payments security and compliance from the YesPanchi team.',
+  title: { absolute: 'Insights and White Papers | YesPanchi' },
+  description: 'White papers and blogs on post-quantum security, AI governance, payments security and compliance from the YesPanchi team.',
   alternates: { canonical: '/insights' }
 };
 
@@ -27,11 +28,12 @@ const SECTIONS = [
 const eyebrow = 'text-[13px] font-semibold uppercase tracking-[0.2em] text-accent';
 const band = 'scroll-mt-24 border-b border-line py-20 md:py-24';
 
-export default function InsightsPage() {
-  const featured = insightItems.find((i) => i.type === 'white-papers')!;
+export default async function InsightsPage() {
+  const insightItems = await getInsights();
+  const featured = insightItems.find((i) => i.type === 'white-papers') ?? insightItems[0];
   const secondary = insightItems.filter((i) => i !== featured && i.type !== 'newsletters').slice(0, 2);
   const latest = insightItems.slice(0, 6);
-  const month = insightItems.find((i) => i.slug === 'pqc-payment-infrastructure')!;
+  const month = insightItems.find((i) => i.slug === 'pqc-payment-infrastructure') ?? featured;
   const byMonth = insightItems.reduce<Record<string, typeof insightItems>>((acc, i) => {
     const k = i.date.slice(0, 7);
     (acc[k] ||= []).push(i);
@@ -43,12 +45,12 @@ export default function InsightsPage() {
       <PageHero
         image="/media/insights.jpg"
         crumbs={[{ name: 'Insights', href: '/insights' }]}
-        eyebrow="Ideas · Intelligence · Innovation"
-        title="YesPanchi Insights"
-        lead="Our digital knowledge and research platform: white papers, newsletters, blogs and case studies on post-quantum security, enterprise AI and digital trust."
+        eyebrow="Insights from the YesPanchi team"
+        title="Insights from the YesPanchi team"
+        lead="White papers and blogs on post-quantum security, AI governance, payments security and compliance."
       >
         <ul className="mt-2 flex flex-wrap gap-2">
-          {insightTypes.map((t) => (
+          {insightTypes.filter((t) => t.slug === 'white-papers' || t.slug === 'blogs').map((t) => (
             <li key={t.slug}>
               <Link href={`/insights/${t.slug}`} className="inline-flex min-h-[44px] items-center gap-2 border border-white/60 px-4 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-black">
                 <Icon name={t.icon} size={16} /> {t.title}
@@ -78,7 +80,7 @@ export default function InsightsPage() {
                   <span className="font-mono text-2xl font-light text-line3">{String(n + 1).padStart(2, '0')}</span>
                   <div className="flex min-w-0 flex-1 flex-col gap-1">
                     <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-dim">{typeOf(i.type).title}</span>
-                    <Link href={`/insights/${i.type}`} className="font-medium leading-snug text-cream hover:text-accent">{i.title}</Link>
+                    <Link href={`/insights/${i.type}/${i.slug}`} className="font-medium leading-snug text-cream hover:text-accent">{i.title}</Link>
                     <span className="text-xs text-dim">{formatDate(i.date)} · {i.read} min</span>
                   </div>
                   <SaveButton slug={i.slug} />
@@ -127,7 +129,6 @@ export default function InsightsPage() {
           <p className="max-w-[56ch] text-lead text-white/80">{month.excerpt}</p>
           <div className="flex flex-wrap gap-3">
             <Link href="/insights/white-papers#flipbook" className="inline-flex min-h-[52px] items-center border border-white px-6 font-semibold text-white transition-colors hover:bg-white hover:text-black">Read the flipbook</Link>
-            <Link href="/insights/white-papers#briefing-room" className="inline-flex min-h-[52px] items-center px-6 font-semibold text-white underline-offset-4 hover:underline">5-minute briefing →</Link>
           </div>
         </Container>
       </section>
@@ -139,7 +140,7 @@ export default function InsightsPage() {
             <p className={eyebrow}>Explore by topic · Research Library</p>
             <h2 id="library-h" className="text-d2 font-light">Everything we have published</h2>
           </div>
-          <Library />
+          <Library items={insightItems} />
         </Container>
       </section>
 
@@ -170,7 +171,7 @@ export default function InsightsPage() {
                 <ul className="grid gap-3 md:grid-cols-2">
                   {items.map((i) => (
                     <li key={i.slug}>
-                      <Link href={`/insights/${i.type}`} className="flex items-center gap-4 rounded-lg border border-line p-3 transition-colors hover:border-accent">
+                      <Link href={`/insights/${i.type}/${i.slug}`} className="flex items-center gap-4 rounded-lg border border-line p-3 transition-colors hover:border-accent">
                         <span className="relative h-14 w-20 flex-none overflow-hidden rounded"><Image src={i.image} alt="" fill sizes="80px" className="object-cover" /></span>
                         <span className="flex min-w-0 flex-col">
                           <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-dim">{typeOf(i.type).title}</span>
@@ -189,8 +190,8 @@ export default function InsightsPage() {
       {/* Ask Insights + Reading Desk + newsletter */}
       <section id="desk" aria-label="Ask Insights and Reading Desk" className={`${band} theme-light`}>
         <Container className="grid gap-6 lg:grid-cols-3">
-          <AskInsights />
-          <ReadingDesk />
+          <AskInsights items={insightItems} />
+          <ReadingDesk items={insightItems} />
           <div className="flex flex-col gap-4 rounded-xl border border-line bg-surface p-7">
             <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-accent"><Icon name="mail" size={16} /> Subscribe</p>
             <h3 className="text-2xl font-medium">Security Briefings, monthly</h3>

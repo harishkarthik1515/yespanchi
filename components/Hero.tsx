@@ -3,34 +3,32 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { events } from '@/lib/data';
 import { prefersReducedMotion } from './motion';
 
 /* ------------------------------------------------------------------
- * Hero — full-bleed video carousel (3 slides) under the floating header,
+ * Hero: full-bleed video carousel (3 slides) under the floating header,
  * then a strip of three timely highlights.
  * ------------------------------------------------------------------ */
 const SLIDES = [
   {
     media: 'hero-quantum',
+    eyebrow: 'POST-QUANTUM SECURITY, AI GOVERNANCE AND DIGITAL TRUST',
     title: 'Quantum-safe, starting today',
-    text: 'YP-PRAKAAR and QSecura PQ-SSL protect payment and digital infrastructure with NIST-standard post-quantum cryptography.',
-    cta: 'Explore YP-PRAKAAR',
-    href: '/products/yp-prakaar'
-  },
-  {
-    media: 'hero-defence',
-    title: 'Turning cyber threats into cyber confidence',
-    text: 'Security-first technology from IIT Madras Research Park — VAPT, compliance and cyber defence for organisations that cannot afford to fail.',
-    cta: 'Book a free assessment',
-    href: '/contact?topic=assessment'
+    text: 'YesPanchi helps banks, governments and enterprises find security gaps, stay audit-ready, and move to quantum-safe infrastructure before the threat arrives.',
+    cta: 'Talk to an expert',
+    href: '/contact?topic=expert',
+    cta2: 'Explore QSecura PQ-SSL',
+    href2: 'https://qsecura.com'
   },
   {
     media: 'hero-ai',
-    title: 'Enterprise AI, governed',
-    text: 'YP-RAKSHA brings private LLMs, agents and retrieval into one secure, auditable platform for regulated enterprises.',
-    cta: 'Discover YP-RAKSHA',
-    href: '/products/yp-raksha'
+    eyebrow: 'ENTERPRISE AI GOVERNANCE',
+    title: 'Enterprise AI, governed and trusted',
+    text: 'YP-PRAKAAR brings AI agents, models and decisions under one trusted, auditable layer, aligned with DPDP and responsible AI expectations.',
+    cta: 'See YP-PRAKAAR',
+    href: '/products/yp-prakaar',
+    cta2: 'Learn more',
+    href2: '/products'
   }
 ];
 
@@ -51,11 +49,10 @@ export function Hero() {
   }, [i, paused]);
 
   const s = SLIDES[i];
-  const upcoming = [...events].filter((e) => e.date >= new Date().toISOString().slice(0, 10)).sort((a, b) => a.date.localeCompare(b.date))[0] ?? events[0];
   const highlights = [
-    { label: 'Events', title: `${new Date(upcoming.date + 'T00:00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}: ${upcoming.title}, ${upcoming.city}`, cta: 'Learn more', href: `/events/${upcoming.slug}` },
-    { label: 'Launch', title: 'QSecura PQ-SSL brings quantum-safe security to websites and mobile platforms', cta: 'Learn more', href: 'https://qsecura.com' },
-    { label: 'White paper', title: 'Planning a post-quantum migration for payment infrastructure', cta: 'Read the flipbook', href: '/insights/white-papers#flipbook' }
+    { label: 'Blog', title: 'Read our next blog', cta: 'Read now', href: '/insights/blogs' },
+    { label: 'Launch', title: 'QSecura PQ-SSL brings quantum-safe security to websites and mobile platforms. Built on NIST post-quantum cryptography. Ready for deployment today.', cta: 'Learn more', href: 'https://qsecura.com' },
+    { label: 'White paper', title: 'Planning a post-quantum migration for payment infrastructure. A step-by-step approach for banks, UPI providers and payment gateways.', cta: 'Download', href: '/insights/white-papers#flipbook' }
   ];
 
   return (
@@ -89,14 +86,30 @@ export function Hero() {
 
         <div className="mx-auto w-full max-w-wide px-6 pb-28 md:px-16">
           <div key={i} aria-live={paused ? 'polite' : 'off'} className="flex max-w-[640px] animate-[heroIn_.9s_ease-out] flex-col gap-6">
+            {s.eyebrow && <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-accent/90">{s.eyebrow}</p>}
             <h1 className="text-[clamp(2.5rem,5vw,4.25rem)] font-light leading-[1.05] tracking-[-0.02em] text-white">{s.title}</h1>
             <p className="max-w-[52ch] text-lg leading-relaxed text-white/85">{s.text}</p>
-            <Link
-              href={s.href}
-              className="mt-2 inline-flex min-h-[52px] items-center self-start border border-white px-6 font-semibold text-white transition-colors hover:bg-white hover:text-black"
-            >
-              {s.cta}
-            </Link>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href={s.href}
+                className="inline-flex min-h-[52px] items-center border border-white px-6 font-semibold text-white transition-colors hover:bg-white hover:text-black"
+              >
+                {s.cta}
+              </Link>
+              {s.cta2 && (
+                <Link
+                  href={s.href2!}
+                  target={s.href2!.startsWith('http') ? '_blank' : undefined}
+                  rel={s.href2!.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  className="inline-flex min-h-[52px] items-center border border-white/50 px-6 font-semibold text-white/85 transition-colors hover:border-white hover:text-white"
+                >
+                  {s.cta2}
+                </Link>
+              )}
+            </div>
+            {i === 0 && (
+              <p className="text-[13px] text-white/60 tracking-wide">Harvest now, decrypt later is already happening.</p>
+            )}
           </div>
         </div>
 

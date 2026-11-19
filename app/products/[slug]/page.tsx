@@ -16,7 +16,7 @@ export function generateMetadata({ params }: Props): Metadata {
   const p = products.find((x) => x.slug === params.slug && !x.externalUrl);
   if (!p) return {};
   return {
-    title: `${p.name} — ${p.tag}`,
+    title: `${p.name} | ${p.tag}`,
     description: p.description,
     alternates: { canonical: `/products/${p.slug}` },
     openGraph: { title: `${p.name} | YesPanchi`, description: p.description, url: `/products/${p.slug}` }

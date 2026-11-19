@@ -1,0 +1,30 @@
+rules_version = '2';
+
+// Deploy with: firebase deploy --only firestore:rules
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // An admin is a signed-in user whose UID has a document in /admins (add it in the Firebase console).
+    function isAdmin() {
+      return request.auth != null && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    // Website content: public to read, only admins can change it.
+    match /{col}/{id} {
+      allow read: if col in ['insights', 'talks', 'events', 'roles', 'gallery', 'collaborations', 'settings'];
+      allow write: if isAdmin() && col in ['insights', 'talks', 'events', 'roles', 'gallery', 'collaborations', 'settings'];
+    }
+
+    // Form submissions are written by the server (Admin SDK bypasses rules). Only admins can read or delete them.
+    match /messages/{id} {
+      allow read, delete: if isAdmin();
+    }
+    match /subscribers/{id} {
+      allow read, delete: if isAdmin();
+    }
+
+    // Admin allowlist: managed only in the Firebase console. A user may check their own entry.
+    match /admins/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+    }
+  }
+}

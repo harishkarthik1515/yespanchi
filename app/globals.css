@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* ==================================================================
- * Colour tokens — Theme 05 "Executive Steel".
+ * Colour tokens   Theme 05 "Executive Steel".
  * LIGHT is the default; `html.dark` switches the whole page.
  * Token names are historical: `ink` = page background, `cream` = text.
  * `.theme-light` = alternating grey band, `.theme-dark` = midnight-navy
@@ -13,17 +13,17 @@
   --c-ink: 255 255 255;        /* Background      #FFFFFF */
   --c-surface: 244 247 250;    /* Surface         #F4F7FA */
   --c-raised: 233 238 245;
-  --c-line: 221 229 238;       /* Cool Mist       #DDE5EE — lines only */
+  --c-line: 221 229 238;       /* Cool Mist       #DDE5EE   lines only */
   --c-line2: 196 208 222;
   --c-line3: 150 165 184;
   --c-cream: 36 48 60;         /* Heading Text    #24303C */
   --c-heading: 15 31 56;       /* Midnight Navy   #0F1F38 */
   --c-muted: 90 104 120;       /* Body Text       #5A6878 */
   --c-dim: 98 111 127;
-  --c-accent: 31 78 121;       /* Steel Blue      #1F4E79 — text, links, icons */
+  --c-accent: 31 78 121;       /* Steel Blue      #1F4E79   text, links, icons */
   --c-accent-bg: 31 78 121;    /* solid fills; text on it is always white */
   --c-accent-contrast: 255 255 255;
-  --c-bronze: 138 90 34;       /* Logo Bronze     #8A5A22 — small accents */
+  --c-bronze: 138 90 34;       /* Logo Bronze     #8A5A22   small accents */
 }
 
 .theme-light {
@@ -66,7 +66,7 @@
     @apply bg-ink text-cream font-sans text-[17px] antialiased;
     line-height: 1.6;
   }
-  /* One heading system for the whole site — sections set size only. */
+  /* One heading system for the whole site   sections set size only. */
   h1, h2, h3, h4 { font-weight: 600; letter-spacing: -0.015em; line-height: 1.15; color: rgb(var(--c-heading)); }
   h1 { @apply text-d1; }
   h2 { @apply text-d2; }
@@ -150,7 +150,7 @@
 @keyframes drift { from { transform: translate3d(0,0,0); } to { transform: translate3d(-50%,0,0); } }
 
 /* ==================================================================
- * Ghost numerals — oversized watermark figures behind content
+ * Ghost numerals   oversized watermark figures behind content
  * ================================================================== */
 .ghost-figure {
   font-weight: 600;
@@ -195,7 +195,7 @@
 .marquee:hover .animate-marquee { animation-play-state: paused; }
 
 /* ==================================================================
- * Product book — CSS 3D page flip (/products)
+ * Product book   CSS 3D page flip (/products)
  * ================================================================== */
 .book { perspective: 2400px; }
 .book-leaf {

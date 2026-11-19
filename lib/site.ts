@@ -2,9 +2,9 @@ export const SITE = {
   name: 'YesPanchi',
   legalName: 'YesPanchi Tech Services Pvt. Ltd.',
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://yespanchi.com',
-  tagline: 'Turning Cyber Threats into Cyber Confidence',
+  tagline: 'Quantum-Safe Security and AI Governance',
   description:
-    'YesPanchi Tech Services, IITM Research Park, Chennai: cybersecurity, VAPT, ISO 27001 & PCI-DSS audits, post-quantum security (YP-PRAKAAR), enterprise AI (YP-RAKSHA) and QSecura PQ-SSL.',
+    'YesPanchi Tech Services, Chennai: cybersecurity, VAPT, ISO 27001 & PCI-DSS audits, post-quantum security (QSecura PQ-SSL), YP-RAKSHA continuous protection, and YP-PRAKAAR enterprise AI governance.',
   founded: '2021',
   locality: 'Chennai',
   region: 'Tamil Nadu',

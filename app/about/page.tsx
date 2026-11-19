@@ -7,10 +7,11 @@ import { Container, CtaBand, PageHero } from '@/components/ui';
 import { Ticker } from '@/components/motion';
 import { PillNav } from '@/components/home/kyndryl';
 import { LeaderCards } from '@/components/about/LeaderCards';
+import { Icon, type IconName } from '@/components/Icon';
 
 export const metadata: Metadata = {
-  title: 'About Us — Enterprise AI, Quantum Security & Digital Trust',
-  description: 'YesPanchi Tech Services is an innovation-driven technology enterprise headquartered at IIT Madras Research Park, Chennai, founded in 2021.',
+  title: { absolute: 'About YesPanchi | Cybersecurity, AI Governance and Post-Quantum Security' },
+  description: 'Founded in 2021 in Chennai, YesPanchi Tech Services builds cybersecurity, AI governance and post-quantum security solutions for banks, governments and enterprises.',
   alternates: { canonical: '/about' }
 };
 
@@ -27,16 +28,20 @@ const eyebrow = 'flex flex-col gap-2 text-xs font-semibold uppercase tracking-[0
 const bar = <span aria-hidden="true" className="h-[3px] w-5 bg-accent" />;
 const h2 = 'text-[clamp(2rem,3.2vw,3rem)] font-light leading-tight';
 
+// Client asked to drop these four from the About "What we do" list (still shown in the nav's Expertise column).
+const HIDDEN_EXPERTISE = ['Enterprise AI Platforms', 'Cybersecurity & Digital Trust', 'Corporate Governance Platforms', 'Enterprise Digital Transformation'];
+const VALUE_ICONS: Record<string, IconName> = { Integrity: 'shield', Clarity: 'eye', Craftsmanship: 'badge', 'Continuous learning': 'graduation' };
+
 export default function AboutPage() {
   return (
     <>
       <PageHero
         image="/media/about.jpg"
         crumbs={[{ name: 'About Us', href: '/about' }]}
-        eyebrow="Innovation & digital trust"
-        title="Architecting the future of enterprise AI,"
+        eyebrow="Revolution in Cyber Control"
+        title="Architecting the future of AI Governance,"
         accent="quantum security & digital trust."
-        lead="YesPanchi Tech Services Pvt. Ltd. is an innovation-driven technology company headquartered at IIT Madras Research Park, Chennai — building secure AI, post-quantum cryptography and governance platforms for regulated enterprises."
+        lead="YesPanchi Group of Companies, a Chennai-based technology and innovation-driven organization focused on cybersecurity, digital forensics, AI, fintech, governance platforms, and emerging quantum-safe solutions. It works closely with BFSI & Fintech industry, and government ecosystems to build future-ready platforms, Centers of Excellence, and digital transformation initiatives across sectors."
       >
         <dl className="mt-6 grid max-w-3xl grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-4">
           {stats.map((s) => (
@@ -51,23 +56,32 @@ export default function AboutPage() {
       <div className="relative">
         <PillNav items={subnav} />
 
-        {/* Who we are — purpose statement, then vision & mission as plain columns */}
+        {/* Who we are: purpose statement, then vision & mission as plain columns */}
         <section id="who-we-are" aria-labelledby="who-h" className="pb-24 pt-32">
           <Container className="flex flex-col gap-16">
             <div className="grid gap-10 lg:grid-cols-[300px_1fr]">
               <p className={eyebrow}>Who we are{bar}</p>
-              <h2 id="who-h" className="max-w-[30ch] text-[clamp(1.75rem,2.8vw,2.6rem)] font-light leading-snug">
-                Founded in 2021, we build intelligent security, automated compliance and governance into enterprise
-                ecosystems — so organisations can innovate responsibly and <span className="text-accent">grow on a foundation of trust.</span>
-              </h2>
+              <div className="flex max-w-[72ch] flex-col gap-6">
+                <h2 id="who-h" className="max-w-[32ch] text-[clamp(1.75rem,2.8vw,2.6rem)] font-light leading-snug">
+                  Founded in 2021, YesPanchi is a <span className="text-accent">women-led organisation</span> committed to advancing
+                  intelligent security, automated compliance, and governance across enterprise ecosystems.
+                </h2>
+                <p className="text-lg leading-relaxed text-muted">
+                  We empower organisations to navigate evolving digital complexities, strengthen their security posture, and
+                  embrace innovation with confidence and responsibility. Through a strategic approach grounded in expertise,
+                  integrity, and innovation, we enable enterprises to build resilient, compliant, and secure digital
+                  foundations. At YesPanchi, we believe that responsible innovation and strong governance are fundamental to
+                  sustainable growth and lasting trust.
+                </p>
+              </div>
             </div>
             <div className="grid gap-10 border-t border-line pt-10 lg:grid-cols-[300px_1fr_1fr]">
               <div className="relative hidden aspect-[3/4] overflow-hidden lg:block">
                 <Image src="/media/team-office.jpg" alt="" fill sizes="300px" className="object-cover" />
               </div>
               {[
-                { t: 'Our vision', d: 'To become a global leader in intelligent, secure and trusted digital technologies — empowering enterprises with cutting-edge AI, robust cybersecurity, post-quantum innovation and transparent corporate governance.' },
-                { t: 'Our mission', d: 'To build intelligent, secure and future-ready digital ecosystems through world-class platforms that let enterprises innovate confidently with secure AI, quantum-safe infrastructure and responsible digital transformation.' }
+                { t: 'Our vision', d: 'To become a global leader in intelligent, secure, and trusted digital technologies by empowering enterprise organizations with cutting-edge AI, robust cybersecurity, post-quantum innovation, and transparent corporate governance.' },
+                { t: 'Our mission', d: 'To build intelligent, secure, and future-ready digital ecosystems by developing world-class technology platforms that enable enterprises to innovate confidently through secure AI, quantum-safe infrastructure, intelligent automation, and responsible digital transformation.' }
               ].map((c) => (
                 <div key={c.t} className="flex flex-col gap-4">
                   <h3 className="text-2xl font-normal text-accent">{c.t}</h3>
@@ -78,7 +92,7 @@ export default function AboutPage() {
           </Container>
         </section>
 
-        {/* Expertise — numbered editorial list, no cards */}
+        {/* Expertise: numbered editorial list, no cards */}
         <section id="expertise" aria-labelledby="expertise-h" className="bg-surface py-24">
           <Container className="grid gap-12 lg:grid-cols-[300px_1fr]">
             <div className="flex flex-col gap-5 lg:sticky lg:top-40 lg:self-start">
@@ -88,7 +102,7 @@ export default function AboutPage() {
               <Link href="/products" className="text-sm font-semibold text-cream hover:text-accent">Explore our platforms ›</Link>
             </div>
             <ol className="grid gap-x-12 sm:grid-cols-2">
-              {coreExpertise.map((c, i) => (
+              {coreExpertise.filter((c) => !HIDDEN_EXPERTISE.includes(c.title)).map((c, i) => (
                 <li key={c.title} className="flex gap-5 border-t border-line2 py-7">
                   <span aria-hidden="true" className="font-mono text-sm text-accent">{String(i + 1).padStart(2, '0')}</span>
                   <div className="flex flex-col gap-2">
@@ -109,13 +123,13 @@ export default function AboutPage() {
                 <p className={eyebrow}>Leadership{bar}</p>
                 <h2 id="team-h" className={h2}>Our <span className="text-accent">board</span></h2>
               </div>
-              <Link href="/careers" className="text-sm font-semibold text-cream hover:text-accent">We’re hiring — see open roles ›</Link>
+              <Link href="/careers" className="text-sm font-semibold text-cream hover:text-accent">We’re hiring, see open roles ›</Link>
             </div>
             <LeaderCards leaders={leadership} />
           </Container>
         </section>
 
-        {/* Industries — dark band, plain list */}
+        {/* Industries: dark band, plain list */}
         <section id="industries" aria-labelledby="industries-h" className="theme-dark bg-[#0F1F38] py-24">
           <Container className="grid gap-12 lg:grid-cols-[300px_1fr]">
             <div className="flex flex-col gap-5">
@@ -124,7 +138,7 @@ export default function AboutPage() {
               <p className="text-white/70">Secure, intelligent technology for regulated industries, critical infrastructure and enterprises in transformation.</p>
             </div>
             <ul className="grid sm:grid-cols-2 lg:grid-cols-3">
-              {industries.map((name, i) => (
+              {industries.slice(0, 6).map((name, i) => (
                 <li key={name} className="flex items-baseline gap-4 border-t border-white/15 py-5 text-lg text-white">
                   <span aria-hidden="true" className="font-mono text-xs text-[#7DB8E8]">{String(i + 1).padStart(2, '0')}</span>
                   {name}
@@ -134,37 +148,39 @@ export default function AboutPage() {
           </Container>
         </section>
 
-        {/* Values — outlined numerals */}
+        {/* Values: outlined numerals */}
         <section id="values" aria-labelledby="values-h" className="py-24">
           <Container className="flex flex-col gap-12">
             <div className="flex flex-col gap-5">
-              <p className={eyebrow}>What guides us{bar}</p>
+              <p className={eyebrow}>What Inspires Us{bar}</p>
               <h2 id="values-h" className={h2}>Our core <span className="text-accent">values</span></h2>
             </div>
-            <ol className="grid gap-10 border-t border-line pt-10 sm:grid-cols-2 lg:grid-cols-4">
-              {values.map((v, i) => (
-                <li key={v.title} className="flex flex-col gap-4">
-                  <span aria-hidden="true" className="text-[4.5rem] font-light leading-none text-transparent [-webkit-text-stroke:1.5px_rgb(var(--c-accent))]">0{i + 1}</span>
+            <ul className="grid gap-10 border-t border-line pt-10 sm:grid-cols-2 lg:grid-cols-4">
+              {values.map((v) => (
+                <li key={v.title} className="group flex flex-col gap-4">
+                  <span aria-hidden="true" className="flex h-16 w-16 items-center justify-center rounded-2xl bg-accent/10 text-accent transition-colors duration-300 group-hover:bg-accent group-hover:text-accent-contrast">
+                    <Icon name={VALUE_ICONS[v.title] ?? 'check'} size={30} />
+                  </span>
                   <h3 className="text-2xl font-normal">{v.title}</h3>
                   <p className="text-muted">{v.text}</p>
                 </li>
               ))}
-            </ol>
+            </ul>
           </Container>
         </section>
 
-        {/* Recognition — real award photos, then certifications */}
+        {/* Recognition: real award photos, then certifications */}
         <section id="awards" aria-labelledby="awards-h" className="bg-surface py-24">
           <Container className="flex flex-col gap-12">
             <div className="flex flex-col gap-5">
               <p className={eyebrow}>Recognition{bar}</p>
-              <h2 id="awards-h" className={h2}>Industry recognition. <span className="text-accent">Customer trust.</span></h2>
+              <h2 id="awards-h" className={h2}>A Reputation for Excellence, <span className="text-accent">A Legacy of Trust</span></h2>
             </div>
             <ul className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
               {awards.map((a) => (
                 <li key={a.title} className="group flex flex-col gap-4">
                   <span className="relative block aspect-[4/3] overflow-hidden bg-raised">
-                    <Image src={a.image} alt={`${a.title} — ${a.by}, ${a.year}`} fill sizes="(min-width:1024px) 30vw, (min-width:640px) 45vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <Image src={a.image} alt={`${a.title} | ${a.by}, ${a.year}`} fill sizes="(min-width:1024px) 30vw, (min-width:640px) 45vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
                   </span>
                   <span className="flex flex-col gap-1 border-l-[3px] border-accent pl-4">
                     <span className="text-lg font-medium text-cream">{a.title}</span>

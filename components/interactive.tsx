@@ -108,7 +108,7 @@ export function Faq({ items = faqs }: { items?: { q: string; a: string }[] }) {
               style={{ gridTemplateRows: isOpen ? '1fr' : '0fr' }}
             >
               <div className="overflow-hidden">
-                <p className="mb-6 max-w-[70ch] text-muted">{f.a}</p>
+                <p className="mb-6 max-w-[70ch] whitespace-pre-line text-muted">{f.a}</p>
               </div>
             </div>
           </div>
@@ -136,7 +136,7 @@ export function Newsletter() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Something went wrong');
       setState('done');
-      setMsg('Thanks — you’re on the list.');
+      setMsg('Thanks, you are on the list.');
       setEmail('');
     } catch (err) {
       setState('error');
@@ -146,7 +146,7 @@ export function Newsletter() {
 
   return (
     <form onSubmit={submit} className="flex min-w-0 flex-1 basis-[340px] flex-col gap-3">
-      <label htmlFor="nl-email" className="font-medium">Security briefings, monthly</label>
+      <label htmlFor="nl-email" className="font-medium">Get one practical security insight every month.</label>
       <div className="flex w-full items-center gap-1.5 rounded-full border border-line2 bg-ink/70 p-1.5 backdrop-blur transition-colors focus-within:border-accent">
         <input
           id="nl-email"

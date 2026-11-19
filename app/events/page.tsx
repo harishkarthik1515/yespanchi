@@ -1,87 +1,146 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
-import { mockEvents } from '@/lib/mock/events';
-import { Button, Container, CtaBand, PageHero } from '@/components/ui';
+import { getEvents, getTalks } from '@/lib/cms';
+import { Button, Container, PageHero } from '@/components/ui';
 import { Icon } from '@/components/Icon';
-import { DateBadge, EventCard, isUpcoming, priceLabel, RecapCard, SeatsBar } from '@/components/events/parts';
-import { EventTabs } from '@/components/events/client';
+import { PillNav } from '@/components/home/kyndryl';
+import { Highlights, TalkArchive } from '@/components/events/Talks';
 
 export const metadata: Metadata = {
-  title: 'Events & Conferences',
-  description: 'Upcoming and past YesPanchi summits, webinars and workshops on cybersecurity, post-quantum security and AI governance.',
+  title: { absolute: 'Events and Webinars | YesPanchi' },
+  description: 'Conferences, campus talks, banking forums, webinars and TV appearances by the YesPanchi team on cybersecurity, payments, AI and digital safety.',
   alternates: { canonical: '/events' }
 };
 
-export default function EventsPage() {
-  const upcoming = mockEvents.filter(isUpcoming).sort((a, b) => a.date.localeCompare(b.date));
-  const past = mockEvents.filter((e) => !isUpcoming(e)).sort((a, b) => b.date.localeCompare(a.date));
-  const featured = upcoming.find((e) => e.featured) ?? upcoming[0];
-  const totalAttendees = past.reduce((s, e) => s + (e.recap?.attendees ?? 0), 0);
+const SECTIONS = [
+  { id: 'highlights', label: 'Highlights' },
+  { id: 'sessions', label: 'All sessions' },
+  { id: 'speak', label: 'Invite us' }
+];
+
+const eyebrow = 'flex flex-col gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-cream';
+const bar = <span aria-hidden="true" className="h-[3px] w-5 bg-accent" />;
+const h2 = 'text-[clamp(2rem,3.2vw,3rem)] font-light leading-tight';
+
+export default async function EventsPage() {
+  const allTalks = await getTalks();
+  const highlights = allTalks.filter((t) => t.highlight);
+  const talks = allTalks.filter((t) => !t.highlight);
+  const upcoming = await getEvents();
+  const by = (k: string) => allTalks.filter((t) => t.kind === k).length;
+  const stats = [
+    { v: `${allTalks.length}+`, l: 'Talks, sessions and appearances' },
+    { v: `${by('Campus')}+`, l: 'Universities and colleges' },
+    { v: `${by('TV & media')}+`, l: 'TV, radio and press features' },
+    { v: `${by('BFSI & industry') + by('Conferences')}+`, l: 'Industry forums and conferences' }
+  ];
   return (
     <>
-      <PageHero image="/gallery/isaca-conference-2025.jpg" crumbs={[{ name: 'Events', href: '/events' }]} eyebrow="Events & highlights" title="Conferences, workshops" accent="& community." lead="Join our sessions on cybersecurity, post-quantum readiness and responsible AI — in Chennai, Bengaluru and online.">
-        <div className="mt-2 flex flex-wrap gap-3 text-sm">
-          <Link href="/events/mous" className="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-line2 px-4 hover:border-accent"><Icon name="hands" size={16} className="text-accent" />MoUs &amp; Collaborations</Link>
-          <Link href="/events/gallery" className="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-line2 px-4 hover:border-accent"><Icon name="photo" size={16} className="text-accent" />Photo Gallery</Link>
-        </div>
+      <PageHero
+        image="/gallery/isaca-conference-2025.jpg"
+        crumbs={[{ name: 'Events', href: '/events' }]}
+        eyebrow="Events & appearances"
+        title="Sharing what we know,"
+        accent="where it matters."
+        lead="Conferences, campus talks, banking forums, webinars and TV appearances on cybersecurity, payment security, AI and digital safety, from Chennai to classrooms and living rooms across India."
+      >
+        <dl className="mt-6 grid max-w-3xl grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-4">
+          {stats.map((s) => (
+            <div key={s.l} className="flex flex-col gap-1.5 border-t border-white/30 pt-4">
+              <dt className="order-2 text-sm text-white/75">{s.l}</dt>
+              <dd className="order-1 text-[2.75rem] font-light leading-none text-white">{s.v}</dd>
+            </div>
+          ))}
+        </dl>
       </PageHero>
 
-      {featured && (
-        <section aria-labelledby="featured" className="theme-light py-16 md:py-20">
-          <Container>
-            <article className="relative grid overflow-hidden rounded-2xl border border-line bg-surface lg:grid-cols-[1.4fr_1fr]">
-              <div className="flex flex-col gap-5 p-7 md:p-12">
-                <div className="flex flex-wrap items-center gap-3">
-                  <span className="rounded-full bg-accent px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent-contrast">Featured</span>
-                  <span className="text-sm font-semibold uppercase tracking-wider text-accent">{featured.type}</span>
-                </div>
-                <h2 id="featured" className="text-[clamp(1.9rem,3.6vw,3rem)] leading-[1.04]">{featured.title}</h2>
-                <p className="max-w-xl text-lg text-muted">{featured.summary}</p>
-                <ul className="flex flex-wrap gap-2 text-sm">{featured.tags.map((t) => <li key={t} className="rounded-full border border-line2 px-3 py-1 text-muted">{t}</li>)}</ul>
-                <div className="mt-2 flex flex-wrap gap-3">
-                  <Button href={`/events/${featured.slug}`}>View agenda &amp; register</Button>
-                </div>
+      <div className="relative">
+        <PillNav items={upcoming.length ? [{ id: 'upcoming', label: 'Upcoming' }, ...SECTIONS] : SECTIONS} />
+
+        {upcoming.length > 0 && (
+          <section id="upcoming" aria-labelledby="upcoming-h" className="scroll-mt-32 pb-4 pt-28">
+            <Container className="flex flex-col gap-10">
+              <div className="flex flex-col gap-5">
+                <p className={eyebrow}>Upcoming{bar}</p>
+                <h2 id="upcoming-h" className={h2}>Join us <span className="text-accent">next</span></h2>
               </div>
-              <div className="flex flex-col gap-6 border-t border-line bg-raised p-7 md:p-10 lg:border-l lg:border-t-0">
-                <div className="flex items-center gap-5">
-                  <DateBadge iso={featured.date} size="lg" />
-                  <ul className="flex min-w-0 flex-col gap-2 text-[15px]">
-                    <li className="flex items-center gap-2"><Icon name="clock" size={16} className="text-accent" />{featured.start}–{featured.end} IST</li>
-                    <li className="flex items-start gap-2"><Icon name="pin" size={16} className="mt-1 flex-none text-accent" />{featured.venue}</li>
-                  </ul>
-                </div>
-                <SeatsBar seats={featured.seats} registered={featured.registered} />
-                <div className="flex items-baseline justify-between border-t border-line2 pt-5">
-                  <span className="text-sm text-dim">Delegate pass</span>
-                  <span className="text-3xl font-medium">{priceLabel(featured.price)}</span>
-                </div>
+              <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {upcoming.map((e) => {
+                  const d = new Date(e.date + 'T00:00:00');
+                  return (
+                    <li key={e.id ?? e.title} className="flex flex-col overflow-hidden rounded-2xl border border-line bg-surface">
+                      {e.image && <span className="relative block aspect-[16/9]"><Image src={e.image} alt="" fill sizes="(min-width:1024px) 33vw, 100vw" className="object-cover" /></span>}
+                      <div className="flex flex-1 flex-col gap-3 p-6">
+                        <p className="flex items-center gap-3 text-sm font-semibold text-accent">
+                          <Icon name="cal" size={16} />
+                          {d.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })}{e.time ? ` · ${e.time}` : ''}
+                        </p>
+                        <h3 className="text-xl font-medium leading-snug">{e.title}</h3>
+                        <p className="flex items-center gap-2 text-sm text-muted"><Icon name="pin" size={14} className="text-accent" />{e.venue}</p>
+                        <p className="text-[15px] text-muted">{e.summary}</p>
+                        {e.link && <div className="mt-auto pt-2"><Button href={e.link} external>Register</Button></div>}
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </Container>
+          </section>
+        )}
+
+        <section id="highlights" aria-labelledby="highlights-h" className="scroll-mt-32 pb-20 pt-28">
+          <Container className="flex flex-col gap-10">
+            <div className="flex flex-wrap items-end justify-between gap-6">
+              <div className="flex flex-col gap-5">
+                <p className={eyebrow}>Highlights{bar}</p>
+                <h2 id="highlights-h" className={h2}>Moments on <span className="text-accent">the big stage</span></h2>
               </div>
-            </article>
+              <p className="max-w-[42ch] text-muted">Open any event to browse its photos.</p>
+            </div>
+            <Highlights items={highlights} />
           </Container>
         </section>
-      )}
 
-      <section aria-labelledby="all-events" className="py-20">
-        <Container className="flex flex-col gap-8">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <h2 id="all-events" className="text-3xl">All events</h2>
-            <p className="text-sm text-dim">{totalAttendees.toLocaleString('en-IN')}+ people attended our recent events</p>
-          </div>
-          <EventTabs
-            upcomingCount={upcoming.length}
-            pastCount={past.length}
-            upcoming={upcoming.length === 0 ? <p className="text-muted">No upcoming events right now — check back soon.</p> : (
-              <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{upcoming.map((e) => <li key={e.slug} className="min-w-0"><EventCard e={e} /></li>)}</ul>
-            )}
-            past={<ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{past.map((e) => <li key={e.slug} className="min-w-0"><RecapCard e={e} /></li>)}</ul>}
-          />
-          <p className="text-sm text-dim">Events, speakers and figures shown are sample content.</p>
-        </Container>
-      </section>
-      <CtaBand />
+        <section id="sessions" aria-labelledby="sessions-h" className="scroll-mt-32 bg-surface py-24">
+          <Container className="flex flex-col gap-10">
+            <div className="flex flex-col gap-5">
+              <p className={eyebrow}>All sessions{bar}</p>
+              <h2 id="sessions-h" className={h2}>Talks, webinars <span className="text-accent">&amp; media</span></h2>
+              <p className="max-w-[60ch] text-muted">{talks.length} more sessions across campuses, banking and industry forums, webinars, television and community events.</p>
+            </div>
+            <TalkArchive items={talks} />
+          </Container>
+        </section>
+
+        <section id="speak" aria-labelledby="speak-h" className="scroll-mt-32 py-24">
+          <Container className="grid gap-6 lg:grid-cols-[1.4fr_1fr_1fr]">
+            <div className="theme-dark relative flex flex-col justify-end gap-5 overflow-hidden rounded-2xl bg-[#0F1F38] p-8 md:p-12">
+              <Image src="/gallery/digital-security-emerging-trends-and-increasing-threats-anna-university-6-jan-2024.jpg" alt="" fill sizes="(min-width:1024px) 45vw, 100vw" className="object-cover opacity-30" />
+              <div className="relative flex flex-col gap-5">
+                <h2 id="speak-h" className="text-[clamp(1.75rem,2.6vw,2.5rem)] font-light leading-tight text-white">Invite our team to speak</h2>
+                <p className="max-w-[46ch] text-white/80">Keynotes, panels, faculty programmes and awareness sessions on cybersecurity, payments, post-quantum security and responsible AI.</p>
+                <div><Button href={`/contact?topic=other&item=${encodeURIComponent('Speaking request')}`}>Send a speaking request</Button></div>
+              </div>
+            </div>
+            {[
+              { href: '/events/mous', icon: 'hands' as const, t: 'MoUs & collaborations', d: 'Partnerships that move technology forward.', img: '/gallery/yespanchi-and-cyberfit-join-hands-to-provide-secure-data-erasure-services.jpg' },
+              { href: '/events/gallery', icon: 'photo' as const, t: 'Photo gallery', d: 'Events, signings, awards and the people behind YesPanchi.', img: '/gallery/isaca-conference-2025-2.jpg' }
+            ].map((c) => (
+              <Link key={c.href} href={c.href} className="group flex flex-col overflow-hidden rounded-2xl border border-line bg-surface transition-shadow hover:shadow-xl">
+                <span className="relative block aspect-[16/10] overflow-hidden">
+                  <Image src={c.img} alt="" fill sizes="(min-width:1024px) 25vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                </span>
+                <span className="flex flex-1 flex-col gap-2 p-6">
+                  <span className="flex items-center gap-2 text-xl font-medium text-cream group-hover:text-accent"><Icon name={c.icon} size={20} className="text-accent" />{c.t}</span>
+                  <span className="text-sm text-muted">{c.d}</span>
+                  <span className="mt-auto flex items-center gap-1.5 pt-3 text-sm font-semibold text-cream group-hover:text-accent">Explore <Icon name="arrow" size={16} className="transition-transform group-hover:translate-x-1" /></span>
+                </span>
+              </Link>
+            ))}
+          </Container>
+        </section>
+      </div>
     </>
   );
 }
-
-// Re-evaluate upcoming/past daily
-export const revalidate = 86400;

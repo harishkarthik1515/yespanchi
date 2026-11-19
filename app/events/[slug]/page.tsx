@@ -17,7 +17,7 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: Props): Metadata {
   const e = mockEvents.find((x) => x.slug === params.slug);
   if (!e) return {};
-  return { title: `${e.title} — ${e.city}`, description: e.summary, alternates: { canonical: `/events/${e.slug}` } };
+  return { title: `${e.title} | ${e.city}`, description: e.summary, alternates: { canonical: `/events/${e.slug}` } };
 }
 
 const kindStyle: Record<string, string> = {

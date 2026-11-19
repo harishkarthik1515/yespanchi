@@ -25,7 +25,7 @@ export function SiteEffects() {
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
 
-    // Reveal on scroll — re-scans on DOM changes so client-rendered
+    // Reveal on scroll: re-scans on DOM changes so client-rendered
     // sections (tabs, filters) animate too.
     const io = new IntersectionObserver(
       (entries) =>
@@ -104,12 +104,12 @@ export function CookieConsent() {
       className="fixed bottom-24 right-4 z-[65] w-[min(420px,calc(100vw-32px))] rounded-2xl border border-line2 bg-surface/95 p-5 shadow-2xl backdrop-blur-xl"
     >
       <p className="text-sm text-muted">
-        We use essential cookies to run this site and optional analytics to improve it. See our{' '}
+        We use cookies to improve your experience. See our{' '}
         <a href="/privacy" className="text-accent underline">privacy policy</a>.
       </p>
       <div className="mt-4 flex gap-2">
-        <button onClick={() => choose('all')} className="min-h-[44px] flex-1 rounded-full bg-accent px-4 text-sm font-semibold text-accent-contrast">Accept all</button>
-        <button onClick={() => choose('essential')} className="min-h-[44px] flex-1 rounded-full border border-line2 px-4 text-sm font-medium">Essential only</button>
+        <button onClick={() => choose('all')} className="min-h-[44px] flex-1 rounded-full bg-accent px-4 text-sm font-semibold text-accent-contrast">Accept</button>
+        <button onClick={() => choose('essential')} className="min-h-[44px] flex-1 rounded-full border border-line2 px-4 text-sm font-medium">Manage</button>
       </div>
     </div>
   );

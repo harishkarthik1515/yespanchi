@@ -2,7 +2,7 @@
 
 /* ------------------------------------------------------------------
  * Scroll-motion primitives, built on IntersectionObserver + sticky
- * positioning only — no animation library. These mirror the mechanics
+ * positioning only: no animation library. These mirror the mechanics
  * the reference sites use (Palo Alto builds its own too).
  * ------------------------------------------------------------------ */
 
@@ -17,7 +17,7 @@ export const prefersReducedMotion = () =>
   typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ==================================================================
- * useInView — fires once when an element enters the viewport.
+ * useInView: fires once when an element enters the viewport.
  * ================================================================== */
 export function useInView<T extends HTMLElement>(opts: IntersectionObserverInit = {}) {
   const ref = useRef<T>(null);
@@ -70,7 +70,7 @@ export function useScrollProgress<T extends HTMLElement>() {
       const r = el.getBoundingClientRect();
       const vh = window.innerHeight;
       const next = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
-      // Quantise so sub-pixel scrolling doesn't re-render the subtree every frame.
+      // Quantise so sub-pixel scrolling doesn’t re-render the subtree every frame.
       setP((prev) => (Math.abs(prev - next) > 0.002 ? next : prev));
     };
     const onScroll = () => { if (!raf && active) raf = requestAnimationFrame(measure); };
@@ -90,7 +90,7 @@ export function useScrollProgress<T extends HTMLElement>() {
 }
 
 /* ==================================================================
- * Parallax — drifts its children against the scroll.
+ * Parallax: drifts its children against the scroll.
  * ================================================================== */
 export function Parallax({
   children, speed = 40, className = '', style
@@ -108,7 +108,7 @@ export function Parallax({
 }
 
 /* ==================================================================
- * Ghost numeral — the oversized watermark figure Palo Alto parks
+ * Ghost numeral: the oversized watermark figure Palo Alto parks
  * behind its platform panels ("13x NETWORK SECURITY LEADER").
  * ================================================================== */
 export function GhostFigure({
@@ -137,7 +137,7 @@ export function GhostFigure({
 }
 
 /* ==================================================================
- * Counter — counts up when scrolled into view. Handles "250+", "99.9%",
+ * Counter: counts up when scrolled into view. Handles "250+", "99.9%",
  * "24/7" and other mixed strings by animating only the leading number.
  * ================================================================== */
 export function Counter({ value, className = '' }: { value: string; className?: string }) {
@@ -179,8 +179,8 @@ export function Counter({ value, className = '' }: { value: string; className?: 
 }
 
 /* ==================================================================
- * Meter — the animated gradient bar + counting percentage used in
- * Palo Alto's "attackers are supercharging" panel.
+ * Meter: the animated gradient bar + counting percentage used in
+ * Palo Alto’s "attackers are supercharging" panel.
  * ================================================================== */
 export function Meter({
   label, value, max = 100, delay = 0
@@ -208,10 +208,10 @@ export function Meter({
 }
 
 /* ==================================================================
- * ScrollTabs — a tall section whose panel
+ * ScrollTabs: a tall section whose panel
  * is sticky; as you scroll through it the active tab advances and
  * panels crossfade.
- * Clicking a tab scrolls to that tab's slice of the section.
+ * Clicking a tab scrolls to that tab’s slice of the section.
  * ================================================================== */
 type ScrollTabsCtx = { active: number };
 const TabsCtx = createContext<ScrollTabsCtx>({ active: 0 });
@@ -257,7 +257,7 @@ export function ScrollTabs({
 
   return (
     <div ref={wrap} className={`relative ${className}`}>
-      {/* Tab bar — pins below the header */}
+      {/* Tab bar: pins below the header */}
       <div className="sticky z-30 border-b border-line bg-ink/95 backdrop-blur-xl transition-colors duration-700" style={{ top: stickyTop }}>
         <div
           role="tablist"
@@ -309,7 +309,7 @@ export function ScrollTabs({
 }
 
 /* ==================================================================
- * Magnetic button — pulls gently toward the cursor.
+ * Magnetic button: pulls gently toward the cursor.
  * ================================================================== */
 export function Magnetic({ children, className = '', strength = 0.28 }: { children: ReactNode; className?: string; strength?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -332,7 +332,7 @@ export function Magnetic({ children, className = '', strength = 0.28 }: { childr
 }
 
 /* ==================================================================
- * Marquee row — infinite logo/word ticker.
+ * Marquee row: infinite logo/word ticker.
  * ================================================================== */
 export function Ticker({ items, className = '' }: { items: { name: string; logo: string }[]; className?: string }) {
   return (
@@ -353,7 +353,7 @@ export function Ticker({ items, className = '' }: { items: { name: string; logo:
 }
 
 /* ==================================================================
- * Arrow link — underline grows on hover, arrow slides.
+ * Arrow link: underline grows on hover, arrow slides.
  * ================================================================== */
 export function ArrowLink({
   href, children, className = '', external

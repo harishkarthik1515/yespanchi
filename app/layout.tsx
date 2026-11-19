@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-// Self-hosted fonts (no runtime request to Google — faster & privacy-friendly)
+// Self-hosted fonts (no runtime request to Google: faster & privacy-friendly)
 import '@fontsource-variable/outfit';
 import './globals.css';
 import AnnouncementBar from '@/components/AnnouncementBar';
@@ -10,12 +10,16 @@ import { CommandPaletteProvider } from '@/components/CommandPalette';
 import { CookieConsent, SiteEffects } from '@/components/effects';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import { SITE } from '@/lib/site';
+import { getSettings } from '@/lib/cms';
+
+// Content comes from the admin console; pages refresh at most every 60 s (or instantly on publish).
+export const revalidate = 60;
 
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: 'YesPanchi | Cybersecurity, Post-Quantum Security & Enterprise AI — Chennai',
+    default: 'YesPanchi | Quantum-Safe Security and AI Governance',
     template: '%s | YesPanchi'
   },
   description: SITE.description,
@@ -28,17 +32,18 @@ export const metadata: Metadata = {
     locale: 'en_IN',
     url: '/',
     siteName: SITE.name,
-    title: 'YesPanchi — Cybersecurity with a Conscience',
+    title: 'YesPanchi | Quantum-Safe Security and AI Governance',
     description: SITE.description
   },
-  twitter: { card: 'summary_large_image', site: '@YesPanchi', title: 'YesPanchi — Cybersecurity with a Conscience', description: SITE.description },
+  twitter: { card: 'summary_large_image', site: '@YesPanchi', title: 'YesPanchi | Quantum-Safe Security and AI Governance', description: SITE.description },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 } },
   formatDetection: { telephone: false }
 };
 
 export const viewport: Viewport = { themeColor: '#0F1F38', width: 'device-width', initialScale: 1 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const settings = await getSettings();
   return (
     <html lang="en-IN" suppressHydrationWarning>
       <head>
@@ -49,7 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-contrast">Skip to content</a>
         <CommandPaletteProvider>
           <SiteEffects />
-          <AnnouncementBar />
+          <AnnouncementBar s={settings} />
           <Header />
           <main id="main">{children}</main>
           <Footer />

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import { associates, collaborations, groupCompanies } from '@/lib/data';
+import { associates, groupCompanies } from '@/lib/data';
+import { getCollaborations } from '@/lib/cms';
 import { Container, CtaBand, PageHero, SectionHeading } from '@/components/ui';
 
 export const metadata: Metadata = {
@@ -9,7 +10,8 @@ export const metadata: Metadata = {
   alternates: { canonical: '/events/mous' }
 };
 
-export default function MousPage() {
+export default async function MousPage() {
+  const collaborations = await getCollaborations();
   return (
     <>
       <PageHero image="/gallery/yespanchi-and-cyberfit-join-hands-to-provide-secure-data-erasure-services.jpg" crumbs={[{ name: 'Events', href: '/events' }, { name: 'MoUs & Collaborations', href: '/events/mous' }]} eyebrow="Partnerships" title="MoUs &" accent="collaborations." lead="The group companies, technology associates and collaborations that extend what YesPanchi delivers.">

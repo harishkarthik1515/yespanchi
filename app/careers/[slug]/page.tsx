@@ -1,21 +1,24 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { benefits, hiringSteps, roles } from '@/lib/mock/careers';
+import { benefits, hiringSteps } from '@/lib/mock/careers';
+import { getRoles } from '@/lib/cms';
 import { absoluteUrl } from '@/lib/site';
 import { Button, Container, PageHero } from '@/components/ui';
 import { Icon } from '@/components/Icon';
 
 type Props = { params: { slug: string } };
 
-export function generateStaticParams() {
-  return roles.map((r) => ({ slug: r.slug }));
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+  return (await getRoles()).map((r) => ({ slug: r.slug }));
 }
 
-export function generateMetadata({ params }: Props): Metadata {
-  const r = roles.find((x) => x.slug === params.slug);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const r = (await getRoles()).find((x) => x.slug === params.slug);
   if (!r) return {};
-  return { title: `${r.title} — Careers`, description: r.about, alternates: { canonical: `/careers/${r.slug}` } };
+  return { title: `${r.title} | Careers`, description: r.about, alternates: { canonical: `/careers/${r.slug}` } };
 }
 
 function List({ title, items }: { title: string; items: string[] }) {
@@ -34,7 +37,8 @@ function List({ title, items }: { title: string; items: string[] }) {
   );
 }
 
-export default function RolePage({ params }: Props) {
+export default async function RolePage({ params }: Props) {
+  const roles = await getRoles();
   const r = roles.find((x) => x.slug === params.slug);
   if (!r) notFound();
   const others = roles.filter((x) => x.slug !== r.slug).slice(0, 3);

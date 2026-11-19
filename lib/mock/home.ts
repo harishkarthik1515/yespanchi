@@ -1,4 +1,4 @@
-// SAMPLE — fictional testimonials, case studies and articles for the home page.
+// SAMPLE: fictional testimonials, case studies and articles for the home page.
 
 // SAMPLE
 export const testimonials = [
@@ -32,7 +32,7 @@ export const caseStudies = [
 
 // SAMPLE
 export const insights = [
-  { slug: 'pqc-migration-checklist-2027', tag: 'Post-quantum', title: 'A practical PQC migration checklist for Indian banks in 2027', date: '2026-10-14', read: 8, excerpt: 'Inventory, prioritise, go hybrid — and the three mistakes we see most often in early pilots.' },
+  { slug: 'pqc-migration-checklist-2027', tag: 'Post-quantum', title: 'A practical PQC migration checklist for Indian banks in 2027', date: '2026-10-14', read: 8, excerpt: 'Inventory, prioritise, go hybrid, and the three mistakes we see most often in early pilots.' },
   { slug: 'dpdp-act-ai-agents', tag: 'AI governance', title: 'What the DPDP Act means for your AI agents', date: '2026-09-29', read: 6, excerpt: 'Consent, purpose limitation and logging, translated into controls your engineering team can build.' },
   { slug: 'vapt-reports-boards-read', tag: 'VAPT', title: 'Writing VAPT reports that boards actually read', date: '2026-09-08', read: 5, excerpt: 'Risk in rupees, not CVSS scores: how we restructured our reporting after 200+ engagements.' }
 ];

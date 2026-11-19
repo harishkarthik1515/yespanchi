@@ -17,7 +17,7 @@ const config: Config = {
         muted: 'rgb(var(--c-muted) / <alpha-value>)',
         dim: 'rgb(var(--c-dim) / <alpha-value>)',
         bronze: 'rgb(var(--c-bronze) / <alpha-value>)',
-        /* Section-scoped accent — follows whatever `.accent-*` class is
+        /* Section-scoped accent: follows whatever `.accent-*` class is
            in effect, so a section can retint itself as you scroll. */
         accent: {
           DEFAULT: 'rgb(var(--c-accent) / <alpha-value>)',

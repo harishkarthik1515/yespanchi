@@ -3,13 +3,13 @@
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
-import { roles } from '@/lib/mock/careers';
+import type { Role } from '@/lib/mock/careers';
 
 const field = 'w-full rounded-2xl border border-line2 bg-ink px-4 py-3.5 text-cream placeholder:text-dim transition-colors focus:border-accent focus:outline-none focus:ring-4 focus:ring-accent/15';
 const uniq = (xs: string[]) => Array.from(new Set(xs));
 
 /* ---------- Open roles, filterable by team, location and experience ---------- */
-export function RoleList() {
+export function RoleList({ roles }: { roles: Role[] }) {
   const [team, setTeam] = useState('');
   const [location, setLocation] = useState('');
   const [level, setLevel] = useState('');
@@ -47,7 +47,7 @@ export function RoleList() {
             </Link>
           </li>
         ))}
-        {list.length === 0 && <li className="rounded-2xl border border-line p-6 text-muted">No roles match these filters. Send us your profile below — we read every application.</li>}
+        {list.length === 0 && <li className="rounded-2xl border border-line p-6 text-muted">No roles match these filters. Send us your profile below, we read every application.</li>}
       </ul>
     </div>
   );
@@ -56,7 +56,7 @@ export function RoleList() {
 /* ---------- Application form (posts to the existing /api/contact endpoint) ---------- */
 type Errors = Partial<Record<'name' | 'email' | 'resume' | 'consent', string>>;
 
-export function ApplyForm() {
+export function ApplyForm({ roles }: { roles: Role[] }) {
   const preset = useSearchParams().get('role');
   const [form, setForm] = useState({
     name: '', email: '', phone: '',
@@ -129,14 +129,14 @@ export function ApplyForm() {
         <div className="flex flex-col gap-2">
           <label htmlFor="ap-role" className="text-sm font-semibold">Role</label>
           <select id="ap-role" value={form.role} onChange={set('role')} className={field}>
-            <option value="">Talent pool — no specific role</option>
+            <option value="">Talent pool, no specific role</option>
             {roles.map((r) => <option key={r.slug}>{r.title}</option>)}
           </select>
         </div>
         {input('location', 'Preferred location', { placeholder: 'Chennai, Bengaluru, hybrid…' })}
         {input('experience', 'Experience', { placeholder: 'e.g. 3 years, or final-year student' })}
         {input('profile', 'LinkedIn or GitHub', { type: 'url', placeholder: 'https://' })}
-        {/* shortcut: resume is a link, not a file upload — the endpoint only accepts JSON and nowhere to store files has been chosen. Switch to a PDF upload once storage is decided. */}
+        {/* shortcut: resume is a link, not a file upload: the endpoint only accepts JSON and nowhere to store files has been chosen. Switch to a PDF upload once storage is decided. */}
         {input('resume', 'Resume link (PDF) *', { type: 'url', placeholder: 'https://drive.google.com/…' })}
       </div>
       <div className="flex flex-col gap-2">

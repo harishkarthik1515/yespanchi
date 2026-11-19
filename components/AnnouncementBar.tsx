@@ -1,4 +1,9 @@
-export default function AnnouncementBar() {
+import type { SiteSettings } from '@/lib/cms-schema';
+
+/** Top announcement strip; text, link and visibility are edited in the admin console (Announcement bar). */
+export default function AnnouncementBar({ s }: { s: SiteSettings }) {
+  if (!s.announcementOn || !s.announcementText) return null;
+  const external = /^https?:\/\//.test(s.announcementLink);
   return (
     <div
       role="region"
@@ -17,14 +22,16 @@ export default function AnnouncementBar() {
         </span>
         New
       </span>
-      <span className="relative">YP-PRAKAAR is here — quantum-secure payment infrastructure for the enterprise.</span>
-      <a href="/products/yp-prakaar" className="group relative font-medium text-cream">
-        <span className="relative">
-          Explore YP-PRAKAAR
-          <span aria-hidden="true" className="absolute -bottom-0.5 left-0 h-px w-full origin-right scale-x-0 bg-accent transition-transform duration-300 group-hover:origin-left group-hover:scale-x-100" />
-        </span>
-        <span aria-hidden="true"> →</span>
-      </a>
+      <span className="relative">{s.announcementText}</span>
+      {s.announcementLink && s.announcementLabel && (
+        <a href={s.announcementLink} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined} className="group relative font-medium text-cream">
+          <span className="relative">
+            {s.announcementLabel}
+            <span aria-hidden="true" className="absolute -bottom-0.5 left-0 h-px w-full origin-right scale-x-0 bg-accent transition-transform duration-300 group-hover:origin-left group-hover:scale-x-100" />
+          </span>
+          <span aria-hidden="true"> →</span>
+        </a>
+      )}
     </div>
   );
 }

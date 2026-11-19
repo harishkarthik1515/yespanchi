@@ -100,7 +100,7 @@ function Palette({ onClose }: { onClose: () => void }) {
           <kbd className="rounded-md border border-line2 px-2 py-0.5 font-mono text-[11px] text-dim">ESC</kbd>
         </div>
         <ul id="cmdk-list" ref={listRef} role="listbox" className="max-h-[52vh] overflow-y-auto p-2">
-          {results.length === 0 && <li className="px-4 py-10 text-center text-muted">No results for “{q}”. Try “VAPT” or “quantum”.</li>}
+          {results.length === 0 && <li className="px-4 py-10 text-center text-muted">No results for "{q}". Try "VAPT" or "quantum".</li>}
           {results.map((r, idx) => {
             const header = r.group !== lastGroup ? (lastGroup = r.group) : null;
             return (

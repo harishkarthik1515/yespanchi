@@ -5,8 +5,8 @@ import { ProductExplorer } from '@/components/products/ProductExplorer';
 import { ProductBook } from '@/components/products/ProductBook';
 
 export const metadata: Metadata = {
-  title: 'Products — Post-Quantum Security, Enterprise AI & AI Governance',
-  description: 'YP-PRAKAAR, YP-RAKSHA and QSecura PQ-SSL — purpose-built enterprise platforms advancing quantum-safe security, unified enterprise AI and intelligent automation from YesPanchi.',
+  title: { absolute: 'Platforms | YesPanchi' },
+  description: 'YP-RAKSHA, YP-PRAKAAR and QSecura PQ-SSL: three platforms for continuous protection, enterprise AI governance and quantum-safe security from YesPanchi.',
   alternates: { canonical: '/products' }
 };
 
@@ -16,10 +16,10 @@ export default function ProductsPage() {
       <PageHero
         image="/media/viz-cube.jpg"
         crumbs={[{ name: 'Products', href: '/products' }]}
-        eyebrow="Our Next-Gen Products"
-        title="Intelligent security"
-        accent="solutions."
-        lead="Discover purpose-built enterprise platforms advancing quantum-safe security, AI-powered governance, intelligent automation, and secured AI experiences to strengthen digital trust and accelerate business innovation."
+        eyebrow="Our platforms"
+        title="Platforms built for"
+        accent="digital trust."
+        lead="Three platforms, one mission: secure, governed and future-ready technology."
       />
 
       <section aria-labelledby="catalogue" className="py-20 md:py-24">

@@ -1,14 +1,15 @@
 import type { MetadataRoute } from 'next';
-import { events, products } from '@/lib/data';
-import { roles } from '@/lib/mock/careers';
+import { products } from '@/lib/data';
 import { insightTypes } from '@/lib/mock/insights';
+import { getInsights, getRoles } from '@/lib/cms';
 import { SITE } from '@/lib/site';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
   const u = (path: string, priority = 0.7, changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency'] = 'monthly') => ({
     url: `${SITE.url}${path}`, lastModified: now, changeFrequency, priority
   });
+  const [roles, insights] = await Promise.all([getRoles(), getInsights()]);
   return [
     u('/', 1, 'weekly'),
     u('/about', 0.8), u('/products', 0.9),
@@ -16,8 +17,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     u('/careers', 0.6, 'weekly'), u('/insights', 0.7, 'weekly'),
     ...roles.map((r) => u(`/careers/${r.slug}`, 0.5)),
     ...insightTypes.map((t) => u(`/insights/${t.slug}`, 0.5)),
+    ...insights.map((i) => u(`/insights/${i.type}/${i.slug}`, 0.5)),
     u('/privacy', 0.2, 'yearly'), u('/terms', 0.2, 'yearly'),
-    ...products.map((p) => u(`/products/${p.slug}`, 0.8)),
-    ...events.map((e) => u(`/events/${e.slug}`, 0.5))
+    ...products.filter((p) => !p.externalUrl).map((p) => u(`/products/${p.slug}`, 0.8))
   ];
 }

@@ -2,7 +2,16 @@
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
-  images: { formats: ['image/avif', 'image/webp'] },
+  // Admin uploads are served from Cloudinary or Firebase Storage.
+  images: {
+    formats: ['image/avif', 'image/webp'],
+    remotePatterns: [
+      { protocol: 'https', hostname: 'res.cloudinary.com' },
+      { protocol: 'https', hostname: 'firebasestorage.googleapis.com' }
+    ]
+  },
+  // firebase-admin must stay a plain Node dependency, not bundled.
+  experimental: { serverComponentsExternalPackages: ['firebase-admin'] },
   async headers() {
     return [
       {

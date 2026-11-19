@@ -6,7 +6,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Icon } from '@/components/Icon';
 import { formatDate } from '@/components/ui';
 import {
-  architecture, architectureLinks, insightItems, quiz, radar, radarQuads, radarRings, story, topics, typeOf,
+  architecture, architectureLinks, radar, radarQuads, radarRings, story, topics, typeOf,
   type InsightItem, type InsightType, type Topic
 } from '@/lib/mock/insights';
 
@@ -52,13 +52,13 @@ export function InsightCard({ item, size = 'md' }: { item: InsightItem; size?: '
   const t = typeOf(item.type);
   return (
     <article className="group flex h-full flex-col gap-4">
-      <Link href={`/insights/${item.type}`} className={`relative block overflow-hidden rounded-lg bg-raised ${size === 'lg' ? 'aspect-[16/9]' : 'aspect-[3/2]'}`}>
+      <Link href={`/insights/${item.type}/${item.slug}`} className={`relative block overflow-hidden rounded-lg bg-raised ${size === 'lg' ? 'aspect-[16/9]' : 'aspect-[3/2]'}`}>
         <Image src={item.image} alt="" fill sizes={size === 'lg' ? '(min-width:1024px) 60vw, 100vw' : '(min-width:1024px) 30vw, 100vw'} className="object-cover transition-transform duration-700 group-hover:scale-105" />
       </Link>
       <div className="flex flex-1 flex-col gap-2.5">
         <p className="text-xs font-semibold uppercase tracking-[0.14em] text-accent">{t.title} · {item.topic}</p>
         <h3 className={`${size === 'lg' ? 'text-[clamp(1.6rem,2.4vw,2.2rem)]' : 'text-xl'} font-medium leading-snug`}>
-          <Link href={`/insights/${item.type}`} className="text-cream hover:text-accent">{item.title}</Link>
+          <Link href={`/insights/${item.type}/${item.slug}`} className="text-cream hover:text-accent">{item.title}</Link>
         </h3>
         <p className="text-[15px] text-muted">{item.excerpt}</p>
         <div className="mt-auto flex items-center justify-between gap-3 pt-2 text-xs uppercase tracking-[0.1em] text-dim">
@@ -71,11 +71,11 @@ export function InsightCard({ item, size = 'md' }: { item: InsightItem; size?: '
 }
 
 /* ---------------- Explore by topic + Research Library ---------------- */
-export function Library({ type }: { type?: InsightType['slug'] }) {
+export function Library({ type, items }: { type?: InsightType['slug']; items: InsightItem[] }) {
   const [q, setQ] = useState('');
   const [topic, setTopic] = useState<Topic | ''>('');
   const [year, setYear] = useState('');
-  const pool = type ? insightItems.filter((i) => i.type === type) : insightItems;
+  const pool = type ? items.filter((i) => i.type === type) : items;
   const years = Array.from(new Set(pool.map((i) => i.date.slice(0, 4))));
   const terms = q.toLowerCase().trim();
   const list = pool.filter((i) =>
@@ -88,7 +88,7 @@ export function Library({ type }: { type?: InsightType['slug'] }) {
         <label className="flex min-w-0 flex-1 basis-80 items-center gap-3 rounded-full border border-line2 bg-ink px-5 focus-within:border-accent">
           <Icon name="search" size={20} className="flex-none text-dim" />
           <span className="sr-only">Search the library</span>
-          <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search papers, issues, posts and case studies…" className="min-h-[50px] w-full bg-transparent text-cream placeholder:text-dim focus:outline-none" />
+          <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder={type ? `Search ${typeOf(type).title.toLowerCase()}…` : "Search papers, issues, posts and case studies…"} className="min-h-[50px] w-full bg-transparent text-cream placeholder:text-dim focus:outline-none" />
         </label>
         {years.length > 1 && (
           <label className="flex items-center gap-2 text-sm text-muted">
@@ -120,9 +120,9 @@ export function Library({ type }: { type?: InsightType['slug'] }) {
 }
 
 /* ---------------- Reading Desk ---------------- */
-export function ReadingDesk() {
+export function ReadingDesk({ items: all }: { items: InsightItem[] }) {
   const { saved, toggle } = useSaved();
-  const items = insightItems.filter((i) => saved.includes(i.slug));
+  const items = all.filter((i) => saved.includes(i.slug));
   return (
     <div className="flex h-full flex-col gap-4 rounded-xl border border-line bg-surface p-7">
       <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-accent"><Icon name="list" size={16} /> Reading Desk</p>
@@ -131,7 +131,7 @@ export function ReadingDesk() {
         <ul className="flex flex-col divide-y divide-line">
           {items.map((i) => (
             <li key={i.slug} className="flex items-center justify-between gap-4 py-3">
-              <Link href={`/insights/${i.type}`} className="min-w-0 text-[15px] text-cream hover:text-accent">
+              <Link href={`/insights/${i.type}/${i.slug}`} className="min-w-0 text-[15px] text-cream hover:text-accent">
                 <span className="block truncate">{i.title}</span>
                 <span className="text-xs text-dim">{typeOf(i.type).title} · {i.read} min</span>
               </Link>
@@ -148,17 +148,17 @@ export function ReadingDesk() {
 
 /* ---------------- Ask Insights: keyword search phrased as a question ---------------- */
 const SUGGESTIONS = ['How do I start a PQC migration?', 'What does DPDP mean for AI?', 'How should VAPT findings be reported?'];
-export function AskInsights() {
+export function AskInsights({ items }: { items: InsightItem[] }) {
   const [q, setQ] = useState('');
   const [asked, setAsked] = useState('');
   const results = useMemo(() => {
     // shortcut: keyword scoring, not an AI model; swap for a real retrieval endpoint when content is live
     const words = asked.toLowerCase().split(/\W+/).filter((w) => w.length > 2 && !['how', 'what', 'the', 'does', 'should', 'for', 'and', 'mean'].includes(w));
     if (!words.length) return [];
-    return insightItems
+    return items
       .map((i) => ({ i, score: words.filter((w) => `${i.title} ${i.excerpt} ${i.topic}`.toLowerCase().includes(w)).length }))
       .filter((r) => r.score > 0).sort((a, b) => b.score - a.score).slice(0, 3).map((r) => r.i);
-  }, [asked]);
+  }, [asked, items]);
   return (
     <div className="flex h-full flex-col gap-4 rounded-xl border border-line bg-surface p-7">
       <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-accent"><Icon name="search" size={16} /> Ask Insights</p>
@@ -175,10 +175,10 @@ export function AskInsights() {
         {asked && (results.length ? (
           <ul className="flex flex-col gap-2">
             {results.map((i) => (
-              <li key={i.slug}><Link href={`/insights/${i.type}`} className="flex items-center justify-between gap-3 rounded-lg border border-line p-3 text-[15px] hover:border-accent"><span>{i.title}</span><Icon name="arrow" size={16} className="flex-none text-accent" /></Link></li>
+              <li key={i.slug}><Link href={`/insights/${i.type}/${i.slug}`} className="flex items-center justify-between gap-3 rounded-lg border border-line p-3 text-[15px] hover:border-accent"><span>{i.title}</span><Icon name="arrow" size={16} className="flex-none text-accent" /></Link></li>
             ))}
           </ul>
-        ) : <p className="text-muted">No direct match yet — <Link href="/contact?topic=other" className="text-accent underline">ask our experts</Link>.</p>)}
+        ) : <p className="text-muted">No direct match yet, <Link href="/contact?topic=other" className="text-accent underline">ask our experts</Link>.</p>)}
       </div>
     </div>
   );
@@ -219,10 +219,10 @@ export function TechRadar() {
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">{radarQuads[cur.quad]} · {cur.ring}</p>
           <p className="mt-2 text-2xl font-medium">{cur.name}</p>
           <p className="mt-2 text-muted">
-            {cur.ring === 'Adopt' && 'Proven in our client work — we recommend it as the default today.'}
+            {cur.ring === 'Adopt' && 'Proven in our client work, we recommend it as the default today.'}
             {cur.ring === 'Trial' && 'Worth pursuing on a real project with clear success criteria.'}
             {cur.ring === 'Assess' && 'Promising; explore it to understand the impact on your organisation.'}
-            {cur.ring === 'Hold' && 'Proceed with caution — better options exist or the risk is too high.'}
+            {cur.ring === 'Hold' && 'Proceed with caution, better options exist or the risk is too high.'}
           </p>
         </div>
         <div className="grid gap-5 sm:grid-cols-2">
@@ -273,113 +273,28 @@ export function Storytelling() {
   );
 }
 
-/* ---------------- Quiz (newsletter) ---------------- */
-export function Quiz() {
-  const [n, setN] = useState(0);
-  const [picked, setPicked] = useState<number | null>(null);
-  const [score, setScore] = useState(0);
-  const done = n === quiz.length;
-  if (done) return (
-    <div className="flex flex-col items-start gap-4 rounded-xl border border-line bg-surface p-8">
-      <p className="text-6xl font-semibold text-accent">{score}/{quiz.length}</p>
-      <p className="text-xl">{score === quiz.length ? 'Perfect — you’re ready for the quantum era.' : score >= 3 ? 'Strong result. Next issue will fill the gaps.' : 'Good start — the Briefing Room covers the rest.'}</p>
-      <button type="button" onClick={() => { setN(0); setScore(0); setPicked(null); }} className="min-h-[46px] rounded-full border border-line2 px-5 font-semibold hover:border-accent hover:text-accent">Try again</button>
-    </div>
-  );
-  const item = quiz[n];
-  return (
-    <div className="flex flex-col gap-6 rounded-xl border border-line bg-surface p-8">
-      <div className="flex items-center justify-between text-sm text-dim">
-        <span>Question {n + 1} of {quiz.length}</span><span>Score {score}</span>
-      </div>
-      <div className="h-1 rounded-full bg-raised"><div className="h-full rounded-full bg-accent transition-all" style={{ width: `${(n / quiz.length) * 100}%` }} /></div>
-      <p className="text-2xl font-medium">{item.q}</p>
-      <ul className="flex flex-col gap-3">
-        {item.options.map((o, k) => {
-          const state = picked === null ? '' : k === item.answer ? 'border-green-600 bg-green-600/10' : k === picked ? 'border-red-600 bg-red-600/10' : 'opacity-60';
-          return (
-            <li key={o}>
-              <button type="button" disabled={picked !== null} onClick={() => { setPicked(k); if (k === item.answer) setScore(score + 1); }}
-                className={`w-full rounded-lg border border-line2 p-4 text-left transition-colors hover:border-accent ${state}`}>{o}</button>
-            </li>
-          );
-        })}
-      </ul>
-      <p aria-live="polite" className="min-h-[1.5em] text-sm">{picked !== null && (picked === item.answer ? 'Correct!' : `Not quite — the answer is “${item.options[item.answer]}”.`)}</p>
-      <button type="button" disabled={picked === null} onClick={() => { setN(n + 1); setPicked(null); }} className="min-h-[46px] self-start rounded-full bg-accent px-6 font-semibold text-accent-contrast disabled:opacity-40">
-        {n === quiz.length - 1 ? 'See my score' : 'Next question'}
-      </button>
-    </div>
-  );
-}
-
-/* ---------------- Knowledge Graph (blogs) ---------------- */
-export function KnowledgeGraph() {
-  const posts = insightItems.filter((i) => i.type === 'blogs');
-  const used = topics.filter((t) => posts.some((p) => p.topic === t));
-  const [sel, setSel] = useState<string>(used[0]);
-  const W = 720, H = 420, cx = W / 2, cy = H / 2;
-  const topicPos = used.map((t, k) => ({ t, x: rd(cx + 150 * Math.cos((k / used.length) * 2 * Math.PI)), y: rd(cy + 120 * Math.sin((k / used.length) * 2 * Math.PI)) }));
-  const postPos = posts.map((p, k) => {
-    const tp = topicPos.find((x) => x.t === p.topic)!;
-    const sib = posts.filter((x) => x.topic === p.topic);
-    const a = Math.atan2(tp.y - cy, tp.x - cx) + (sib.indexOf(p) - (sib.length - 1) / 2) * 0.6;
-    return { p, k, x: rd(tp.x + 110 * Math.cos(a)), y: rd(tp.y + 90 * Math.sin(a)) };
-  });
-  const related = posts.filter((p) => p.topic === sel || p.slug === sel);
-  return (
-    <div className="grid gap-8 lg:grid-cols-[1.6fr_1fr]">
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full rounded-xl border border-line bg-surface" role="img" aria-label="Knowledge graph of blog topics and posts">
-        {topicPos.map((t) => <line key={t.t} x1={cx} y1={cy} x2={t.x} y2={t.y} stroke="rgb(var(--c-line2))" />)}
-        {postPos.map((pp) => { const tp = topicPos.find((x) => x.t === pp.p.topic)!; return <line key={pp.p.slug} x1={tp.x} y1={tp.y} x2={pp.x} y2={pp.y} stroke={pp.p.topic === sel ? 'rgb(var(--c-accent))' : 'rgb(var(--c-line2))'} strokeWidth={pp.p.topic === sel ? 2 : 1} />; })}
-        <circle cx={cx} cy={cy} r={34} fill="rgb(var(--c-accent))" />
-        <text x={cx} y={cy + 4} textAnchor="middle" fontSize="11" fontWeight="600" fill="rgb(var(--c-accent-contrast))">Blogs</text>
-        {topicPos.map((t) => (
-          <g key={t.t} role="button" tabIndex={0} aria-label={`Topic ${t.t}`} onClick={() => setSel(t.t)} onKeyDown={(e) => e.key === 'Enter' && setSel(t.t)} className="cursor-pointer">
-            <circle cx={t.x} cy={t.y} r={26} fill={t.t === sel ? 'rgb(var(--c-accent))' : 'rgb(var(--c-raised))'} stroke="rgb(var(--c-accent))" />
-            <text x={t.x} y={t.y + 42} textAnchor="middle" fontSize="12" fontWeight="600" fill="rgb(var(--c-cream))">{t.t}</text>
-          </g>
-        ))}
-        {postPos.map((pp) => (
-          <g key={pp.p.slug} role="button" tabIndex={0} aria-label={pp.p.title} onClick={() => setSel(pp.p.topic)} onKeyDown={(e) => e.key === 'Enter' && setSel(pp.p.topic)} className="cursor-pointer">
-            <circle cx={pp.x} cy={pp.y} r={9} fill={pp.p.topic === sel ? 'rgb(var(--c-accent))' : 'rgb(var(--c-dim))'} />
-          </g>
-        ))}
-      </svg>
-      <div className="flex flex-col gap-4" aria-live="polite">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">Connected to · {sel}</p>
-        <ul className="flex flex-col gap-3">
-          {related.map((p) => (
-            <li key={p.slug} className="rounded-lg border border-line p-4">
-              <p className="font-medium">{p.title}</p>
-              <p className="mt-1 text-sm text-muted">{p.excerpt}</p>
-            </li>
-          ))}
-        </ul>
-        <p className="text-sm text-dim">Click a topic or a post in the graph to see what connects.</p>
-      </div>
-    </div>
-  );
-}
-
 /* ---------------- Topic Discovery (blogs) ---------------- */
-export function TopicDiscovery() {
-  const posts = insightItems.filter((i) => i.type === 'blogs');
+/* All blogs in one grid, filterable by topic (defaults to every post). */
+export function TopicDiscovery({ items }: { items: InsightItem[] }) {
+  const posts = items.filter((i) => i.type === 'blogs');
   const used = topics.filter((t) => posts.some((p) => p.topic === t));
-  const [t, setT] = useState<Topic>(used[0]);
+  const [t, setT] = useState<Topic | 'All'>('All');
+  const shown = t === 'All' ? posts : posts.filter((p) => p.topic === t);
   return (
-    <div className="flex flex-col gap-8">
-      <div role="group" aria-label="Topics" className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        {used.map((x) => (
+    <div className="flex flex-col gap-10">
+      <div role="group" aria-label="Filter blogs by topic" className="flex flex-wrap gap-2">
+        {(['All', ...used] as const).map((x) => (
           <button key={x} type="button" aria-pressed={t === x} onClick={() => setT(x)}
-            className={`flex flex-col items-start gap-1 rounded-xl border p-5 text-left transition-colors ${t === x ? 'border-accent bg-accent/10' : 'border-line hover:border-accent'}`}>
-            <span className="text-lg font-medium">{x}</span>
-            <span className="text-sm text-dim">{posts.filter((p) => p.topic === x).length} posts</span>
+            className={`inline-flex min-h-[44px] items-center gap-2 rounded-full border px-5 text-sm font-semibold transition-colors ${t === x ? 'border-accent bg-accent text-accent-contrast' : 'border-line2 text-cream hover:border-accent hover:text-accent'}`}>
+            {x === 'All' ? 'All topics' : x}
+            <span className={`rounded-full px-2 py-0.5 text-xs ${t === x ? 'bg-white/20' : 'bg-raised text-muted'}`}>
+              {x === 'All' ? posts.length : posts.filter((p) => p.topic === x).length}
+            </span>
           </button>
         ))}
       </div>
-      <ul className="grid gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
-        {posts.filter((p) => p.topic === t).map((p) => <li key={p.slug}><InsightCard item={p} /></li>)}
+      <ul aria-live="polite" className="grid gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
+        {shown.map((p) => <li key={p.slug}><InsightCard item={p} /></li>)}
       </ul>
     </div>
   );

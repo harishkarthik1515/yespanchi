@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { prefersReducedMotion } from '@/components/motion';
+import { Icon } from '@/components/Icon';
 
 /* ------------------------------------------------------------------
  * Home-page sections modelled on large enterprise sites: a sticky pill
@@ -76,7 +77,7 @@ export function BrandFilm() {
   );
 }
 
-/* Industry recognition — one wide panel open, the rest as numbered strips. */
+/* Industry recognition: one wide panel open, the rest as numbered strips. */
 export function Recognition({ items }: { items: { title: string; by: string; year: string }[] }) {
   const [i, setI] = useState(0);
   const shades = ['#1F4E79', '#1a4369', '#143657', '#0e2a45'];
@@ -111,7 +112,7 @@ export function Recognition({ items }: { items: { title: string; by: string; yea
   );
 }
 
-/* Customer stories — full-width image slides with a Highlights overlay and progress bars. */
+/* Customer stories: full-width image slides with a Highlights overlay and progress bars. */
 type Story = { sector: string; title: string; summary: string; image: string; href: string; metrics: { v: string; l: string }[] };
 const STORY_MS = 8000;
 export function Stories({ items }: { items: Story[] }) {
@@ -158,7 +159,7 @@ export function Stories({ items }: { items: Story[] }) {
           )}
         </div>
       </div>
-      <div className="mx-auto flex w-full max-w-wide gap-3 px-6 md:px-16" role="group" aria-label="Choose a story">
+      <div className="mx-auto flex w-full max-w-wide items-center gap-3 px-6 md:px-16" role="group" aria-label="Choose a story">
         {items.map((x, n) => (
           <button key={x.title} type="button" onClick={() => { setI(n); setHl(false); }} aria-label={`Story ${n + 1}: ${x.title}`} aria-current={n === i} className="group flex h-8 w-24 items-center">
             <span className="relative h-[3px] w-full overflow-hidden bg-line2">
@@ -169,12 +170,29 @@ export function Stories({ items }: { items: Story[] }) {
             </span>
           </button>
         ))}
+        <span className="ml-auto font-mono text-sm text-muted" aria-live="polite">
+          {String(i + 1).padStart(2, '0')} / {String(items.length).padStart(2, '0')}
+        </span>
+        {[
+          { d: -1, label: 'Previous story', icon: 'rotate-180' },
+          { d: 1, label: 'Next story', icon: '' }
+        ].map((b) => (
+          <button
+            key={b.d}
+            type="button"
+            onClick={() => { setI((i + b.d + items.length) % items.length); setHl(false); }}
+            aria-label={b.label}
+            className="flex h-12 w-12 items-center justify-center rounded-full border border-line2 text-cream transition-colors hover:border-accent hover:bg-accent hover:text-accent-contrast"
+          >
+            <Icon name="arrow" size={18} className={b.icon} />
+          </button>
+        ))}
       </div>
     </div>
   );
 }
 
-/* Expert voices — big portrait on the left, article on the right. */
+/* Expert voices: big portrait on the left, article on the right. */
 type Voice = { title: string; text: string; by: string; role: string; image: string; href: string };
 export function Voices({ items }: { items: Voice[] }) {
   const [i, setI] = useState(0);

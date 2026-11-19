@@ -1,7 +1,7 @@
 import { SITE } from '@/lib/site';
 
 export default function WhatsAppButton() {
-  const text = encodeURIComponent('Hi YesPanchi, I’d like to know more about your security services.');
+  const text = encodeURIComponent('Hi YesPanchi, I would like to know more about your security services.');
   return (
     <a
       href={`https://wa.me/${SITE.whatsapp}?text=${text}`}

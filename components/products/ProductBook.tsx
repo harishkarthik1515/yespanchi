@@ -6,9 +6,9 @@ import { products, type Product } from '@/lib/data';
 import { Icon, IconTile } from '@/components/Icon';
 
 /* ------------------------------------------------------------------
- * ProductBook — an open book that explains one product per spread.
- * Each leaf is a sheet hinged on the spine: its front is a product's
- * right-hand page, its back is the NEXT product's left-hand page, so
+ * ProductBook: an open book that explains one product per spread.
+ * Each leaf is a sheet hinged on the spine: its front is a product’s
+ * right-hand page, its back is the NEXT product’s left-hand page, so
  * turning a leaf reveals the next spread. Pure CSS 3D (see .book-*
  * in globals.css). Shown on wide screens only; the card grid covers
  * small screens.

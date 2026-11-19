@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: 'Terms of Use', description: 'Terms g
 export default function TermsPage() {
   return (
     <>
-      <PageHero crumbs={[{ name: 'Terms', href: '/terms' }]} eyebrow="Legal" title="Terms of use" lead="Sample terms — have your legal team review and replace before launch." />
+      <PageHero crumbs={[{ name: 'Terms', href: '/terms' }]} eyebrow="Legal" title="Terms of use" lead="Sample terms, have your legal team review and replace before launch." />
       <Container className="py-16">
         <div className="flex max-w-3xl flex-col gap-6 text-muted [&_h2]:mt-4 [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-cream">
           <h2>Use of this site</h2>

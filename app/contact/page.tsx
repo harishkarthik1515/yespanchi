@@ -9,7 +9,7 @@ import { SITE } from '@/lib/site';
 import { contactFaqs, contactInfo, nextSteps } from '@/lib/mock/contact';
 
 export const metadata: Metadata = {
-  title: 'Contact Us — Book a Free Security Assessment',
+  title: { absolute: 'Contact Us | YesPanchi' },
   description: 'Talk to YesPanchi about a free security assessment, product demo, audit or training programme. IIT Madras Research Park, Chennai.',
   alternates: { canonical: '/contact' }
 };
@@ -23,7 +23,7 @@ const quick = [
 export default function ContactPage() {
   return (
     <>
-      <PageHero image="/media/contact.jpg" crumbs={[{ name: 'Contact', href: '/contact' }]} eyebrow="Get started" title="Let's secure" accent="what matters." lead="Tell us what you need. A senior consultant replies within one business day.">
+      <PageHero image="/media/contact.jpg" crumbs={[{ name: 'Contact', href: '/contact' }]} eyebrow="Get started" title="Let’s secure" accent="what matters." lead="Tell us what you need. A senior consultant replies within one business day.">
         <div className="mt-2 grid gap-3 sm:grid-cols-3">
           {quick.map((q) => (
             <a
@@ -113,7 +113,7 @@ export default function ContactPage() {
             <SectionHeading id="visit" eyebrow="Visit us" title="Come say" accent="hello." />
             <p className="flex items-start gap-3 text-lg"><Icon name="pin" size={20} className="mt-1 flex-none text-accent" />{SITE.address}</p>
             <ul className="flex flex-col gap-3 text-sm text-muted">
-              <li className="flex gap-3"><Icon name="rail" size={16} className="mt-0.5 flex-none text-accent" />Taramani MRTS station — 6 min walk</li>
+              <li className="flex gap-3"><Icon name="rail" size={16} className="mt-0.5 flex-none text-accent" />Taramani MRTS station, 6 min walk</li>
               <li className="flex gap-3"><Icon name="pin" size={16} className="mt-0.5 flex-none text-accent" />Visitor parking at Gate 2; collect a pass at reception</li>
               <li className="flex gap-3"><Icon name="clock" size={16} className="mt-0.5 flex-none text-accent" />Visits by appointment, Mon–Fri</li>
             </ul>

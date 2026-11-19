@@ -1,4 +1,4 @@
-// SAMPLE — placeholder roles and copy for the Careers page. Confirm the real open roles before launch.
+// SAMPLE: placeholder roles and copy for the Careers page. Confirm the real open roles before launch.
 
 export type Role = {
   slug: string;
@@ -16,15 +16,15 @@ export type Role = {
 
 export const roles: Role[] = [
   {
-    slug: 'post-quantum-cryptography-engineer', title: 'Post-Quantum Cryptography Engineer (C++/Rust)', team: 'YP-PRAKAAR', location: 'Chennai', type: 'Full-time', experience: '3–6 years', level: 'Experienced',
-    about: 'Build the cryptographic core of YP-PRAKAAR, our post-quantum security layer for payment infrastructure.',
+    slug: 'post-quantum-cryptography-engineer', title: 'Post-Quantum Cryptography Engineer (C++/Rust)', team: 'QSecura', location: 'Chennai', type: 'Full-time', experience: '3–6 years', level: 'Experienced',
+    about: 'Build the cryptographic core of QSecura PQ-SSL, our quantum-safe security platform.',
     doing: ['Implement and harden ML-KEM and ML-DSA code paths in C++ and Rust', 'Design key lifecycle, signing and verification services for payment gateways', 'Benchmark, test and review cryptographic code for side-channel safety'],
     lookingFor: ['Strong systems programming in C++ or Rust', 'Working knowledge of public-key cryptography and TLS', 'A habit of writing tests before trusting code'],
     niceToHave: ['Exposure to lattice-based cryptography or NIST PQC standards', 'Experience with payment or banking integrations']
   },
   {
-    slug: 'ai-platform-engineer', title: 'AI Platform Engineer', team: 'YP-RAKSHA', location: 'Chennai / Bengaluru', type: 'Full-time', experience: '2–5 years', level: 'Experienced',
-    about: 'Work on YP-RAKSHA, the control plane that routes, governs and recovers enterprise AI workloads.',
+    slug: 'ai-platform-engineer', title: 'AI Platform Engineer', team: 'YP-PRAKAAR', location: 'Chennai / Bengaluru', type: 'Full-time', experience: '2–5 years', level: 'Experienced',
+    about: 'Work on YP-PRAKAAR, the enterprise AI governance platform that brings AI agents, models and decisions under one auditable layer.',
     doing: ['Build gateway, routing and failover features across LLM providers', 'Add observability with OpenTelemetry and partner integrations', 'Ship agent-recovery workflows and policy controls'],
     lookingFor: ['Backend engineering experience with distributed services', 'Familiarity with LLM APIs and agent frameworks', 'Comfort owning a feature from design to production'],
     niceToHave: ['Experience with Model Context Protocol (MCP)', 'Background in platform or SRE teams']
@@ -51,7 +51,7 @@ export const roles: Role[] = [
     niceToHave: ['Experience with data-heavy dashboards', 'Interest in security tooling']
   },
   {
-    slug: 'business-development-manager', title: 'Business Development Manager — Enterprise', team: 'Sales', location: 'Chennai', type: 'Full-time', experience: '4–8 years', level: 'Experienced',
+    slug: 'business-development-manager', title: 'Business Development Manager, Enterprise', team: 'Sales', location: 'Chennai', type: 'Full-time', experience: '4–8 years', level: 'Experienced',
     about: 'Grow our enterprise relationships across BFSI, government and regulated industries.',
     doing: ['Own the pipeline for products and audit services', 'Run discovery calls and shape proposals with consultants', 'Build long-term relationships with security and technology leaders'],
     lookingFor: ['Enterprise B2B sales experience in technology or security', 'Ability to explain technical value simply', 'A track record of closing complex deals'],

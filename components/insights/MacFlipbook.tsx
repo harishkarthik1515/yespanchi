@@ -73,7 +73,7 @@ function PageFace({ n, side }: { n: number; side: 'l' | 'r' }) {
       <div className="columns-2 gap-5 text-[10.5px] leading-[1.6] text-[#2c3846]">
         {p.body.map((t) => <p key={t.slice(0, 16)} className="mb-2">{t}</p>)}
       </div>
-      {p.pull && <p className="mt-auto border-l-4 border-[#7DB8E8] pl-3 text-[14px] font-bold leading-snug text-[#1F4E79]">“{p.pull}”</p>}
+      {p.pull && <p className="mt-auto border-l-4 border-[#7DB8E8] pl-3 text-[14px] font-bold leading-snug text-[#1F4E79]">"{p.pull}"</p>}
       {folio}
     </div>
   );

@@ -7,11 +7,11 @@ export const metadata: Metadata = { title: 'Privacy Policy', description: 'How Y
 export default function PrivacyPage() {
   return (
     <>
-      <PageHero crumbs={[{ name: 'Privacy policy', href: '/privacy' }]} eyebrow="Legal" title="Privacy policy" lead="Sample policy text — have your legal team review and replace before launch." />
+      <PageHero crumbs={[{ name: 'Privacy policy', href: '/privacy' }]} eyebrow="Legal" title="Privacy policy" lead="Sample policy text, have your legal team review and replace before launch." />
       <Container className="py-16">
         <div className="flex max-w-3xl flex-col gap-6 text-muted [&_h2]:mt-4 [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-cream">
           <h2>What we collect</h2>
-          <p>Details you share through our forms — name, email, phone, organisation and your message — and basic, anonymised analytics about site usage.</p>
+          <p>Details you share through our forms, name, email, phone, organisation and your message, and basic, anonymised analytics about site usage.</p>
           <h2>How we use it</h2>
           <p>To respond to enquiries, deliver services and training you request, and send briefings you subscribe to. We do not sell personal data.</p>
           <h2>Your rights</h2>

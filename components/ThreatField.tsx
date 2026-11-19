@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import { prefersReducedMotion } from './motion';
 
 /* ------------------------------------------------------------------
- * ThreatField — the hero backdrop. A slow horizontal weave of light
+ * ThreatField: the hero backdrop. A slow horizontal weave of light
  * filaments over a drifting
  * particle field, with the accent colour pulled from the live CSS
  * custom property so it retints with the section.

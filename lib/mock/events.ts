@@ -1,4 +1,4 @@
-// SAMPLE — fictional event, speaker, partner and gallery data for layout/demo purposes only.
+// SAMPLE: fictional event, speaker, partner and gallery data for layout/demo purposes only.
 
 export type EventType = 'Summit' | 'Conference' | 'Workshop' | 'Webinar' | 'Bootcamp';
 
@@ -38,9 +38,9 @@ export const mockEvents: MockEvent[] = [
     start: '09:30',
     end: '17:30',
     city: 'Chennai',
-    venue: 'IITM Research Park — Auditorium',
+    venue: 'IITM Research Park, Auditorium',
     address: 'Kanagam Road, Taramani, Chennai 600113',
-    summary: 'Banking, government and technology leaders on preparing India’s critical systems for post-quantum cryptography.',
+    summary: 'Banking, government and technology leaders on preparing India critical systems for post-quantum cryptography.',
     description:
       'A full day of keynotes, panels and live demos on the migration to post-quantum cryptography. Expect practical guidance on crypto-inventory, hybrid TLS, HSM roadmaps and what regulators are likely to ask for in 2027–28.',
     tags: ['Post-quantum', 'BFSI', 'Policy'],
@@ -75,9 +75,9 @@ export const mockEvents: MockEvent[] = [
     city: 'Online',
     venue: 'Live on Zoom',
     address: 'Joining link sent after registration',
-    summary: 'A practical walkthrough of a real-world penetration test — scoping, exploitation and writing a report people actually read.',
+    summary: 'A practical walkthrough of a real-world penetration test, scoping, exploitation and writing a report people actually read.',
     description:
-      'Our red team replays an anonymised engagement end to end. Bring questions — the last 30 minutes are open Q&A. Recording available to registrants for 14 days.',
+      'Our red team replays an anonymised engagement end to end. Bring questions, the last 30 minutes are open Q&A. Recording available to registrants for 14 days.',
     tags: ['VAPT', 'Red team'],
     price: 0,
     seats: 500,
@@ -103,7 +103,7 @@ export const mockEvents: MockEvent[] = [
     city: 'Bengaluru',
     venue: 'The Lalbagh Room, Residency Road',
     address: 'Residency Road, Bengaluru 560025',
-    summary: 'Board members and CXOs on governing generative and agentic AI responsibly — invite-only, 40 seats.',
+    summary: 'Board members and CXOs on governing generative and agentic AI responsibly, invite-only, 40 seats.',
     description:
       'A closed-door, Chatham House roundtable for directors and CXOs. We cover AI risk registers, the DPDP Act, model accountability and how BoardMind supports board-level oversight.',
     tags: ['AI governance', 'Boards', 'DPDP'],
@@ -132,7 +132,7 @@ export const mockEvents: MockEvent[] = [
     start: '09:00',
     end: '18:00',
     city: 'Chennai',
-    venue: 'IITM Research Park — Lab 3',
+    venue: 'IITM Research Park, Lab 3',
     address: 'Kanagam Road, Taramani, Chennai 600113',
     summary: 'Two days of hands-on capture-the-flag training for engineering students, ending in a live team competition.',
     description:
@@ -146,10 +146,10 @@ export const mockEvents: MockEvent[] = [
       { name: 'Mohammed Irfan', role: 'Security Researcher', org: 'YesPanchi' }
     ],
     agenda: [
-      { time: '09:00', title: 'Day 1 — Web & crypto fundamentals', speaker: 'Divya Shankar', kind: 'workshop' },
+      { time: '09:00', title: 'Day 1: Web & crypto fundamentals', speaker: 'Divya Shankar', kind: 'workshop' },
       { time: '13:00', title: 'Lunch', kind: 'break' },
       { time: '14:00', title: 'Forensics & reversing labs', speaker: 'Mohammed Irfan', kind: 'workshop' },
-      { time: '09:00', title: 'Day 2 — Team CTF (6 hours)', kind: 'workshop' },
+      { time: '09:00', title: 'Day 2: Team CTF (6 hours)', kind: 'workshop' },
       { time: '16:30', title: 'Results & awards', kind: 'talk' }
     ]
   },
@@ -164,7 +164,7 @@ export const mockEvents: MockEvent[] = [
     venue: 'Hotel Savera, Mylapore',
     address: 'Dr. Radhakrishnan Salai, Chennai 600004',
     summary: 'Incident response, cyber insurance and resilience for growing enterprises.',
-    description: 'A conference for IT heads and founders on surviving — and recovering from — the incident you hope never comes.',
+    description: 'A conference for IT heads and founders on surviving, and recovering from, the incident you hope never comes.',
     tags: ['Incident response', 'Insurance'],
     price: 1499,
     seats: 250,
@@ -189,7 +189,7 @@ export const mockEvents: MockEvent[] = [
     start: '10:00',
     end: '14:00',
     city: 'Chennai',
-    venue: 'IITM Research Park — Atrium',
+    venue: 'IITM Research Park, Atrium',
     address: 'Kanagam Road, Taramani, Chennai 600113',
     summary: 'Mentoring and career conversations for women in security.',
     description: 'Fireside chats, mentoring circles and an open job board for women entering or growing in cybersecurity.',
@@ -218,8 +218,8 @@ export const mockEvents: MockEvent[] = [
     city: 'Online',
     venue: 'Live on YouTube',
     address: 'Recording available on request',
-    summary: 'ML-KEM and ML-DSA explained for engineers — with code.',
-    description: 'A developer-focused session on NIST’s new post-quantum standards and how to prototype hybrid key exchange today.',
+    summary: 'ML-KEM and ML-DSA explained for engineers, with code.',
+    description: 'A developer-focused session on NIST post-quantum standards and how to prototype hybrid key exchange today.',
     tags: ['Post-quantum', 'Developers'],
     price: 0,
     seats: 1000,

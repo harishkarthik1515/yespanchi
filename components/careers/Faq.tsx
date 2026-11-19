@@ -1,6 +1,6 @@
 import { Icon } from '@/components/Icon';
 
-/** Accessible FAQ list built on native <details> — no client JS needed. */
+/** Accessible FAQ list built on native <details>: no client JS needed. */
 export function Faq({ items }: { items: { q: string; a: string }[] }) {
   return (
     <ul className="flex flex-col divide-y divide-line rounded-2xl border border-line bg-surface">

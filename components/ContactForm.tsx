@@ -23,7 +23,7 @@ export default function ContactForm() {
     name: '', email: '', phone: '', company: '',
     topic: TOPICS.some((t) => t.value === initialTopic) ? initialTopic : 'other',
     item: initialItem,
-    message: score ? `Our self-check readiness score is ${score}%. We'd like a full assessment.` : '',
+    message: score ? `Our self-check readiness score is ${score}%. We’d like a full assessment.` : '',
     consent: false
   });
   const [errors, setErrors] = useState<Errors>({});
@@ -68,7 +68,7 @@ export default function ContactForm() {
       <div role="status" className="flex flex-col gap-4 rounded-2xl border border-accent bg-surface p-8 md:p-10">
         <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">Message received</p>
         <h2 className="text-3xl">Thank you, {form.name.split(' ')[0]}.</h2>
-        <p className="text-muted">Our team will get back to you within one business day. Your reference is <strong className="text-cream">{ref}</strong>.</p>
+        <p className="text-muted">Thank you. We have received your message and will get back to you shortly. Your reference is <strong className="text-cream">{ref}</strong>.</p>
         <button onClick={() => { setStatus('idle'); setForm((f) => ({ ...f, message: '' })); }} className="mt-2 min-h-[44px] self-start rounded-full border border-line3 px-6 font-semibold">Send another message</button>
       </div>
     );
@@ -134,7 +134,7 @@ export default function ContactForm() {
         </label>
         {errors.consent && <p id="consent-err" className="mt-1 text-sm text-red-500">{errors.consent}</p>}
       </div>
-      {status === 'error' && <p role="alert" className="text-red-500">Couldn’t send your message. Please try again or email us directly.</p>}
+      {status === 'error' && <p role="alert" className="text-red-500">Something went wrong. Please check the highlighted fields and try again.</p>}
       <button type="submit" disabled={status === 'sending'} className="min-h-[52px] self-start rounded-full bg-accent px-8 font-semibold text-accent-contrast hover:bg-accent disabled:opacity-60">
         {status === 'sending' ? 'Sending…' : 'Send message'}
       </button>
