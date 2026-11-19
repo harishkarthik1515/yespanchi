@@ -27,7 +27,11 @@ const read = cache(async (name: CollectionId): Promise<Record<string, unknown>[]
 const byOrder = <T extends { order?: number }>(a: T, b: T) => (a.order ?? 999) - (b.order ?? 999);
 
 export const getInsights = cache(async (): Promise<Insight[]> => {
-  const rows = ((await read('insights')) as Insight[] | null) ?? seed.insights;
+  // Newsletters, blogs, white papers and case studies share one collection, so the built-in content
+  // is kept per type until that type has its own entries in Firestore.
+  const stored = ((await read('insights')) as Insight[] | null) ?? [];
+  const storedTypes = new Set(stored.map((i) => i.type));
+  const rows = [...stored, ...seed.insights.filter((i) => !storedTypes.has(i.type))];
   return rows
     .map((i) => ({ ...i, slug: i.slug || i.id || '', image: i.image || '/media/insights.jpg', read: Number(i.read) || 5, author: i.author || 'YesPanchi team' }))
     .sort((a, b) => b.date.localeCompare(a.date));
